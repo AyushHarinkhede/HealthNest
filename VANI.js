@@ -197,6 +197,7 @@ const keywordCategories = {
                 "It sounds like you're concerned about a symptom. While I can provide general information, I cannot diagnose health issues. Please speak with a doctor for a reliable assessment.",
                 "Thank you for sharing. For any health symptom, the best course of action is always to get advice from a qualified medical practitioner. They can give you the most accurate guidance."
             ]
+        
         },
         diagnosisAndTreatment: {
             keywords: [
