@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#017b9a">
+    <title>HealthNest - Your Health Treasury</title>
+    
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */
+        :root {
+            --primary: #017b9a; --on-primary: #FFFFFF; --primary-container: #BBE9FF; --on-primary-container: #001F29;
+            --secondary: #4C626A; --on-secondary: #FFFFFF; --secondary-container: #CFE6F0; --on-secondary-container: #071E25;
+            --tertiary: #5E5C7D; --on-tertiary: #FFFFFF; --tertiary-container: #E4DFFF; --on-tertiary-container: #1A1936;
+            --error: #BA1A1A; --on-error: #FFFFFF; --error-container: #FFDAD6; --on-error-container: #410002;
+            --background: #F8FDFF; --on-background: #191C1E; --surface: #FFFFFF; --on-surface: #191C1E;
+            --surface-variant: #DCE4E8; --on-surface-variant: #40484C; --outline: #C0C8CC; --shadow: #000000;
+            --surface-rgb: 248, 253, 255;
+            --border-radius-large: 1.75rem; /* 28px */ --border-radius-medium: 1rem; /* 16px */ --border-radius-small: 0.5rem; /* 8px */
+            --border-radius-extra-large: 2rem; /* 32px */ --border-radius-full: 6.25rem; /* 100px */
+            font-size: 16px; /* Base font size for scalable UI */
+        }
+
+        [data-theme="dark"] {
+            --primary: #60D2FF; --on-primary: #003545; --primary-container: #004D63; --on-primary-container: #BBE9FF;
+            --secondary: #B3CAD4; --on-secondary: #1E333B; --secondary-container: #344A52; --on-secondary-container: #CFE6F0;
+            --tertiary: #C7C3E6; --on-tertiary: #2F2E4C; --tertiary-container: #464464; --on-tertiary-container: #E4DFFF;
+            --error: #FFB4AB; --on-error: #690005; --error-container: #93000A; --on-error-container: #FFDAD6;
+            --background: #191C1E; --on-background: #E1E2E4; --surface: #24292d; --on-surface: #E1E2E4;
+            --surface-variant: #40484C; --on-surface-variant: #C0C8CC; --outline: #5a6468;
+            --surface-rgb: 36, 41, 45;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', 'Roboto', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--background); color: var(--on-background); opacity: 0; animation: fadeInPage 0.8s ease-in-out forwards; overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; font-size: 1rem; }
+        @keyframes fadeInPage { to { opacity: 1; } }
+
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--background); z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s ease; }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .logo-animated { width: 150px; height: 150px; }
+        .logo-animated .pulse { fill: var(--primary); transform-origin: center; animation: pulse 2s infinite ease-in-out; }
+        .logo-animated .cross { fill: var(--on-primary); transform-origin: center; animation: spin 10s infinite linear; }
+        @keyframes pulse { 0%, 100% { transform: scale(0.95); } 50% { transform: scale(1.05); } }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* --- 3D Glass Tube Navigation Bar --- */
+        nav {
+            background: rgba(var(--surface-rgb), 0.5); /* Semi-transparent base */
+            backdrop-filter: blur(25px) saturate(180%); /* Increased blur for glass effect */
+            padding: 15px 30px;
+            position: fixed;
+            width: calc(100% - 40px);
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+            border-radius: var(--border-radius-full);
+            align-items: center;
+            border: 1px solid rgba(var(--on-surface-rgb), 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+        }
+
+        nav:hover {
+            transform: translateX(-50%) scale(1.01);
+            box-shadow: 0 12px 40px -10px rgba(0,0,0,0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+        }
+        .logo { font-size: 1.5em; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; margin-right: 1.25rem; }
+        .logo .material-symbols-outlined { font-size: 1.5em; color: var(--tertiary); }
+        .nav-links { display: flex; gap: 0.6rem; align-items: center; }
+        .nav-links a { color: var(--on-surface); font-weight: 500; text-decoration: none; font-size: 1em; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: var(--border-radius-full); transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease; }
+        .nav-links a:hover { color: var(--on-primary-container); background-color: var(--primary-container); transform: translateY(-0.125rem); }
+        .search-container { flex-grow: 1; display: flex; justify-content: center; }
+        .search-bar { background-color: var(--surface-variant); border: none; border-radius: var(--border-radius-full); padding: 0.6rem 1.25rem; width: 100%; max-width: 25rem; color: var(--on-surface-variant); font-size: 0.9rem; transition: all 0.3s ease; }
+        .search-bar:focus { outline: 2px solid var(--primary); background-color: var(--surface); box-shadow: 0 0 1rem -0.125rem var(--primary); }
+        .nav-buttons { display: flex; gap: 0.6rem; margin-left: auto; }
+
+        /* --- User Profile Icon in Nav --- */
+        #user-profile-icon {
+            display: none; /* Hidden by default */
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-container);
+            color: var(--on-primary-container);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            overflow: hidden; /* To contain the image */
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes tap-effect { 0% { transform: scale(1); } 50% { transform: scale(0.92); } 100% { transform: scale(1); } }
+        .btn, .signup-btn, .login-btn, .cta-button, #settingsMenu button, .faq-question, .logout-btn { animation: none; }
+        .btn:active, .signup-btn:active, .login-btn:active, .cta-button:active, #settingsMenu button:active, .faq-question:active, .logout-btn:active { animation: tap-effect 0.3s ease-out; }
+
+        .btn, .signup-btn, .login-btn { padding: 0.6rem 1.5rem; border: none; cursor: pointer; font-weight: 600; transition: all 0.25s ease; border-radius: var(--border-radius-full); font-size: 0.9rem; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .signup-btn { background-color: var(--primary); color: var(--on-primary); }
+        .signup-btn:hover { box-shadow: 0 0.25rem 1.25rem -0.3rem var(--primary); transform: translateY(-0.2rem); }
+        .login-btn { background-color: var(--secondary-container); color: var(--on-secondary-container); }
+        .login-btn:hover { filter: brightness(1.05); transform: translateY(-0.125rem); }
+        .cta-button { background: var(--primary); color: var(--on-primary); padding: 1rem 2rem; border: none; border-radius: var(--border-radius-medium); font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; font-size: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .cta-button:hover { transform: translateY(-0.3rem); box-shadow: 0 0.6rem 1.6rem -0.5rem var(--primary); }
+        
+        #backButton, #scrollUpButton, #settingsButton, #aiAssistantButton { position: fixed; width: 3.5rem; height: 3.5rem; border-radius: var(--border-radius-medium); box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 999; font-size: 1.5rem; border: none; }
+        #backButton:hover, #scrollUpButton:hover, #settingsButton:hover, #aiAssistantButton:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.25); }
+        #backButton { left: 1.25rem; bottom: 1.25rem; background: var(--secondary-container); color: var(--on-secondary-container); }
+        #scrollUpButton { right: 5.6rem; bottom: 1.25rem; background: var(--secondary-container); color: var(--on-secondary-container); }
+        #settingsButton { right: 1.25rem; bottom: 1.25rem; background: var(--primary-container); color: var(--on-primary-container); }
+        #aiAssistantButton { right: 1.25rem; bottom: 5.6rem; background: var(--tertiary-container); color: var(--on-tertiary-container); }
+
+        #settingsMenu { display: none; position: fixed; right: 1.25rem; bottom: 5.6rem; width: 20rem; max-height: 70vh; background: var(--surface); color: var(--on-surface); padding: 1.25rem; border-radius: var(--border-radius-large); box-shadow: 0 0.6rem 2rem rgba(0, 0, 0, 0.2); z-index: 1000; flex-direction: column; overflow-y: auto; animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); border: 1px solid var(--outline); }
+        #settingsMenu h1 { color: var(--primary); text-align: center; margin-bottom: 1.25rem; }
+        #settingsMenu label { margin: 1rem 0 0.3rem 0; font-weight: 600; color: var(--on-surface-variant); font-size: 0.9em; }
+        #settingsMenu select, #settingsMenu input { width: 100%; padding: 0.75rem; border-radius: var(--border-radius-small); border: 1px solid var(--outline); background: var(--surface-variant); color: var(--on-surface-variant); font-size: 1rem; }
+        #settingsMenu button { width: 100%; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: var(--border-radius-full); background: var(--primary); color: var(--on-primary); font-weight: bold; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+        #settingsMenu button:hover { filter: brightness(1.15); }
+        
+        .hero { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 100vh; padding: 7.5rem 1.25rem 1.25rem 1.25rem; background-color: var(--primary-container); position: relative; overflow: hidden; transition: background-color 0.4s ease; }
+        .hero::before, .hero::after { content: ''; position: absolute; border-radius: 50%; z-index: 0; animation: float 20s infinite ease-in-out; filter: blur(20px); opacity: 0.4; }
+        .hero::before { width: 30vw; height: 30vw; background: var(--primary); top: 10%; left: -5%; }
+        .hero::after { width: 25vw; height: 25vw; background: var(--tertiary); bottom: 10%; right: -5%; animation-delay: 4s; }
+        .hero-content { max-width: 50rem; z-index: 1; }
+        /* --- Hero Title Font --- */
+        .hero h1 { font-size: clamp(2.8rem, 5vw, 4.5rem); color: var(--on-primary-container); animation: slideInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; font-weight: 700; opacity: 0; font-family: 'Playfair Display', serif;}
+        .hero p { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--on-surface-variant); margin: 1.25rem 0 2.5rem; animation: slideInUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) 0.2s forwards; opacity: 0; max-width: 37.5rem; margin-left: auto; margin-right: auto; }
+        
+        .section { padding: 6.25rem 10%; text-align: center; overflow: hidden; }
+        .section-title { font-size: 2.8rem; font-weight: 700; color: var(--on-background); margin-bottom: 3.75rem; position: relative; }
+        .section-title::after { content: ''; width: 5rem; height: 0.25rem; background: var(--primary); border-radius: 0.125rem; position: absolute; left: 50%; transform: translateX(-50%); bottom: -1rem; }
+        
+        /* --- Enhanced Features Section with Horizontal Scroll --- */
+        .features-container {
+            position: relative;
+        }
+        .features-grid {
+            display: flex;
+            gap: 1.875rem;
+            overflow-x: auto;
+            padding-bottom: 2rem; /* space for scrollbar */
+            scroll-behavior: smooth;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        .features-grid::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .feature-card {
+            background-color: var(--surface);
+            padding: 2.5rem 1.875rem;
+            border-radius: var(--border-radius-large);
+            box-shadow: 0 0.25rem 1.875rem rgba(var(--shadow), 0.07);
+            border: 1px solid var(--outline);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            flex: 0 0 22rem; /* Set a fixed base width for cards */
+            min-width: 18.75rem;
+        }
+
+        .feature-card:hover { transform: translateY(-0.75rem); box-shadow: 0 1.25rem 2.5rem -1rem var(--surface-variant); }
+        .feature-card .material-symbols-outlined { font-size: 2.5rem; color: var(--on-primary-container); background: var(--primary-container); padding: 1.25rem; border-radius: 50%; margin-bottom: 1.5rem; }
+        .feature-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--on-surface); }
+        .feature-card p { color: var(--on-surface-variant); line-height: 1.6; }
+        .scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--surface);
+            border: 1px solid var(--outline);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .scroll-arrow.left { left: -1.5rem; }
+        .scroll-arrow.right { right: -1.5rem; }
+
+        #user-profile { background-color: transparent; }
+        .profile-card { background-color: var(--surface); padding: 2.5rem; border-radius: var(--border-radius-large); box-shadow: 0 0.5rem 2rem rgba(var(--shadow), 0.1); border: 1px solid var(--outline); display: flex; flex-wrap: wrap; align-items: center; gap: 2.5rem; max-width: 62.5rem; margin: 0 auto; text-align: left; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+        .profile-card:hover { transform: scale(1.02); box-shadow: 0 1rem 2.5rem rgba(var(--shadow), 0.12); }
+        .profile-pic { width: 9.375rem; height: 9.375rem; border-radius: 50%; background-color: var(--secondary-container); color: var(--on-secondary-container); display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative; flex-shrink: 0; }
+        .profile-pic img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .profile-pic i { position: absolute; }
+        .profile-details { flex-grow: 1; }
+        .profile-details h3 { font-size: 2rem; font-weight: 600; color: var(--on-surface); }
+        .profile-details .user-email { color: var(--primary); margin-bottom: 1.25rem; font-weight: 500; }
+        .profile-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.375rem, 1fr)); gap: 1.25rem; }
+        .meta-item { background: var(--background); padding: 1rem; border-radius: var(--border-radius-medium); }
+        .meta-item span { display: block; font-size: 0.9em; color: var(--on-surface-variant); margin-bottom: 0.3rem; }
+        .meta-item strong { font-size: 1.1em; color: var(--on-surface); }
+        /* Wide address bar */
+        .meta-item.address { grid-column: 1 / -1; } /* Makes address span full width */
+        .profile-actions { width: 100%; margin-top: 1.875rem; display: flex; gap: 1rem; }
+
+        /* --- Document Upload Section (hidden by default) --- */
+        #document-upload-section {
+            display: none;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        #uploaded-documents-container {
+            display: none;
+            margin-top: 2rem;
+            background-color: var(--surface);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-large);
+        }
+
+        #dashboard { background-color: var(--background); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr)); gap: 1.875rem; margin-bottom: 1.875rem; }
+        .dashboard-card { background-color: var(--surface); padding: 1.5rem; border-radius: var(--border-radius-large); box-shadow: 0 0.5rem 1.875rem rgba(var(--shadow), 0.08); border: 1px solid var(--outline); text-align: left; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .dashboard-card:hover { transform: translateY(-0.5rem); box-shadow: 0 1rem 2.5rem rgba(var(--shadow), 0.1); }
+        .dashboard-card h4 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--on-surface); display: flex; align-items: center; gap: 0.6rem; }
+        .dashboard-card .value { font-size: 2rem; font-weight: 600; color: var(--primary); }
+        .dashboard-card .unit { font-size: 1rem; color: var(--on-surface-variant); margin-left: 0.5rem; }
+        .activity-list li, .appointments-list li { list-style: none; padding: 1rem 0; border-bottom: 1px solid var(--outline); color: var(--on-surface-variant); }
+        .activity-list li:last-child, .appointments-list li:last-child { border-bottom: none; }
+        .dashboard-container { background-color: var(--surface); padding: 1.875rem; border-radius: var(--border-radius-large); box-shadow: 0 0.5rem 2.5rem rgba(var(--shadow), 0.08); border: 1px solid var(--outline); }
+        
+        /* --- Water Level Indicator --- */
+        .water-level-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .human-body-icon {
+            width: 50px;
+            height: 100px;
+            background-color: var(--surface-variant);
+            border-radius: 25px 25px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-fill {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #3498db;
+            transition: height 0.5s ease;
+        }
+
+        .faq-accordion { max-width: 50rem; margin: 0 auto; text-align: left; }
+        .faq-item { background-color: var(--surface); margin-bottom: 1rem; border-radius: var(--border-radius-medium); border: 1px solid var(--outline); overflow: hidden; transition: all 0.4s ease; box-shadow: 0 0.25rem 1.25rem rgba(var(--shadow), 0.06); }
+        .faq-item:hover { box-shadow: 0 0.5rem 1.5rem -0.6rem var(--surface-variant); transform: translateY(-0.2rem); }
+        .faq-question { width: 100%; background: none; border: none; padding: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--on-surface); cursor: pointer; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question .material-symbols-outlined { transition: transform 0.4s ease, color 0.3s ease; }
+        .faq-item.active .faq-question .material-symbols-outlined { transform: rotate(180deg); color: var(--primary); }
+        .faq-answer { max-height: 0; overflow: hidden; padding: 0 1.5rem; transition: max-height 0.5s ease, padding 0.5s ease; color: var(--on-surface-variant); line-height: 1.7; }
+        .faq-answer p { margin-bottom: 1.5rem; }
+        .hidden-faq { display: none; }
+
+        .newsletter { padding: 5rem 1.25rem; text-align: center; background: var(--primary-container); color: var(--on-primary-container); border-radius: var(--border-radius-extra-large); margin: 3.125rem 5%; }
+        .newsletter h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .newsletter input { padding: 1rem 1.5rem; margin: 0.6rem; border: 1px solid var(--outline); border-radius: var(--border-radius-full); width: 18.75rem; max-width: 80%; background-color: var(--surface); color: var(--on-surface); font-size: 1rem; }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+        .modal-content { background: var(--surface); padding: 1.875rem; border-radius: var(--border-radius-large); width: 90%; max-width: 31.25rem; box-shadow: 0 0.6rem 2.5rem rgba(0,0,0,0.15); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        .modal-overlay.visible .modal-content { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .modal-header h2 { color: var(--primary); }
+        .modal-close-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--on-surface-variant); }
+        .modal-input, .modal-select { width: 100%; padding: 0.75rem; border-radius: var(--border-radius-small); border: 1px solid var(--outline); background: var(--surface-variant); color: var(--on-surface-variant); font-size: 1rem; margin-bottom: 1rem; transition: all 0.3s ease; }
+        .modal-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        
+        /* --- Enhanced Edit Profile Modal --- */
+        #editProfileModal .modal-content {
+            max-width: 50rem; /* Wider modal */
+            max-height: 80vh; /* Max height */
+            overflow-y: auto; /* Scrollable content */
+        }
+        
+        .password-wrapper { position: relative; display: flex; align-items: center; }
+        .password-wrapper .modal-input { padding-right: 2.8rem; }
+        .password-toggle { position: absolute; right: 1rem; top: 50%; transform: translateY(-60%); background: none; border: none; cursor: pointer; color: var(--on-surface-variant); font-size: 1.2rem; }
+        .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; font-size: 0.9rem; color: var(--on-surface-variant); }
+        .form-options label { display: flex; align-items: center; gap: 0.3rem; cursor: pointer; }
+        .or-divider { text-align: center; margin: 1.5rem 0; color: var(--on-surface-variant); position: relative; }
+        .or-divider::before, .or-divider::after { content: ''; position: absolute; width: 40%; height: 1px; background: var(--outline); top: 50%; }
+        .or-divider::before { left: 0; } .or-divider::after { right: 0; }
+        .social-logins { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .social-btn { padding: 0.6rem; border-radius: var(--border-radius-small); border: 1px solid var(--outline); background: var(--surface-variant); color: var(--on-surface-variant); font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.6rem; transition: all 0.3s ease; }
+        .social-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .social-btn i { font-size: 1.4rem; }
+        
+        /* --- Enhanced AI Chat --- */
+        #aiChatModal .modal-content { max-width: 30rem; display: flex; flex-direction: column; height: 80vh; max-height: 45rem; }
+        #ai-chat-box { flex-grow: 1; overflow-y: auto; border: 1px solid var(--outline); border-radius: var(--border-radius-medium); padding: 1rem; margin-bottom: 1rem; background: var(--background); display: flex; flex-direction: column; gap: 0.75rem; }
+        .ai-message { display: flex; max-width: 85%; animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes bounceIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        .ai-message div { padding: 0.6rem 1rem; border-radius: 1.1rem; line-height: 1.5; }
+        .ai-message.user { align-self: flex-end; }
+        .ai-message.user div { background-color: var(--primary); color: var(--on-primary); border-bottom-right-radius: 0.25rem; }
+        .ai-message.ai { align-self: flex-start; }
+        .ai-message.ai div { background-color: var(--secondary-container); color: var(--on-secondary-container)s; border-bottom-left-radius: 0.25rem; }
+        .typing-indicator span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background-color: var(--on-secondary-container); margin: 0 2px; animation: typing 1s infinite; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        #ai-chat-input-form { display: flex; gap: 0.6rem; align-items: center; }
+        #ai-chat-input { flex-grow: 1; margin: 0; }
+        #ai-voice-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--on-surface-variant); padding: 0.5rem; }
+        #ai-voice-btn.recording { color: var(--error); }
+        #ai-send-btn { border-radius: var(--border-radius-medium); transition: transform 0.2s ease; }
+        #ai-send-btn:hover { transform: scale(1.1); }
+        
+        #toast-container { position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%); z-index: 3000; display: flex; flex-direction: column-reverse; gap: 0.6rem; }
+        .toast { background-color: var(--on-surface); color: var(--surface); padding: 0.75rem 1.5rem; border-radius: var(--border-radius-full); box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.2); opacity: 0; transform: translateY(1.25rem); transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; gap: 0.6rem; }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        
+        /* --- Enhanced Footer --- */
+        footer { background: var(--surface-variant); padding: 2.5rem 1.25rem; color: var(--on-surface-variant); text-align: center; }
+        footer a { color: var(--primary); text-decoration: none; font-weight: 500;}
+        footer a:hover { text-decoration: underline; }
+        .logout-btn { background: var(--error-container); color: var(--on-error-container); border: none; padding: 0.75rem 1.5rem; margin-top: 1.25rem; border-radius: var(--border-radius-full); cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1rem; transition: all 0.3s ease; }
+        .logout-btn:hover { filter: brightness(1.1); transform: scale(1.05); box-shadow: 0 4px 15px -5px var(--error); }
+        .social-media-links { margin-top: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; }
+        .social-media-links a { font-size: 1.5rem; color: var(--on-surface-variant); transition: color 0.3s ease, transform 0.3s ease; }
+        .social-media-links a:hover { color: var(--primary); transform: translateY(-3px); }
+
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-1.875rem) rotate(10deg); } }
+        @keyframes slideInUp { from { transform: translateY(3.125rem); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        @media (max-width: 992px) { .nav-links, .search-container { display: none; } .profile-card { flex-direction: column; text-align: center; } }
+        @media (max-width: 768px) {
+            nav { padding: 0.6rem 1.25rem; width: calc(100% - 1.25rem); }
+            .hero h1 { font-size: 2.5rem; } .hero p { font-size: 1rem; }
+            .features-grid, .form-grid, .social-logins { grid-template-columns: 1fr; }
+            #settingsMenu { width: 90%; right: 5%; }
+            #scrollUpButton { right: 1.25rem; bottom: 5.6rem; }
+            #aiAssistantButton { bottom: 10rem; }
+            .scroll-arrow.left { left: 0.5rem; }
+            .scroll-arrow.right { right: 0.5rem; }
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <div id="preloader">
+        <svg class="logo-animated" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path class="pulse" d="M50,5 C74.85,5 95,25.15 95,50 C95,74.85 74.85,95 50,95 C25.15,95 5,74.85 5,50 C5,25.15 25.15,5 50,5 Z"/>
+            <path class="cross" d="M50 30 L50 70 M30 50 L70 50" stroke="white" stroke-width="8" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <span class="material-symbols-outlined">health_and_safety</span>
+            HealthNest
+        </div>
+        
+        <div class="nav-links">
+            <a href="HealthNest.html"><i class="fas fa-home"></i><span data-key="navHome">Home</span></a>
+            <a href="#features"><i class="fas fa-star"></i><span data-key="featuresTitle">Features</span></a>
+            <a href="#dashboard"><i class="fas fa-chart-line"></i><span data-key="navDashboard">Dashboard</span></a>
+            <a href="#faq"><i class="fas fa-question-circle"></i><span data-key="faqTitle">FAQ</span></a>
+        </div>
+        
+        <div class="search-container">
+            <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs...">
+        </div>
+      
+        <div class="nav-buttons">
+            <button class="login-btn" onclick="openModal('loginModal')" data-key="navLogIn" aria-haspopup="dialog">Log In</button>
+            <button class="signup-btn" onclick="openModal('signupModal')" data-key="navSignUp" aria-haspopup="dialog">Sign Up</button>
+        </div>
+        <div id="user-profile-icon">
+            <div class="profile-avatar">
+                <span id="user-initials"></span>
+                <img id="user-avatar-img" src="" alt="User Avatar" style="display:none;">
+            </div>
+        </div>
+    </nav>
+
+    <div id="backButton" onclick="history.back()" title="Go Back"><i class="fas fa-arrow-left"></i></div>
+    <div id="scrollUpButton" onclick="scrollToTop()" title="Scroll to Top"><i class="fas fa-angle-double-up"></i></div>
+    <div id="aiAssistantButton" onclick="openModal('aiChatModal')" title="AI Assistant" aria-haspopup="dialog"><i class="fas fa-robot"></i></div>
+    <div id="settingsButton" onclick="toggleSettings()" title="Settings"><i class="fas fa-sliders-h"></i></div>
+    
+    <div id="settingsMenu" role="dialog" aria-labelledby="settingsMenuTitle">
+        <h1 id="settingsMenuTitle"><b data-key="settingsTitle">Settings</b></h1>
+        <label for="theme" data-key="settingsTheme">Theme (Light/Dark)</label>
+        <select id="theme" onchange="changeTheme(this.value)"><option value="light">Light</option><option value="dark">Dark</option></select>
+        <label for="textSize" data-key="settingsTextSize">Website Size</label>
+        <select id="textSize" onchange="changeTextSize(this.value)"><option value="15px">Small</option><option value="16px" selected>Default</option><option value="17px">Large</option><option value="18px">Extra Large</option></select>
+        <label for="language" data-key="settingsLanguage">Language</label>
+        <select id="language" onchange="switchLanguage(this.value)"><option value="en">English</option><option value="hi">हिंदी</option></select>
+        <label for="account" data-key="settingsAccount">Account Settings</label>
+        <input type="text" id="account" placeholder="Update your details">
+        <button onclick="updateAccount()" data-key="settingsUpdate">Update</button>
+        <label for="notifications" data-key="settingsNotifications">Notifications</label>
+        <select id="notifications"><option value="on">On</option><option value="off">Off</option></select>
+        <label for="privacy" data-key="settingsPrivacy">Privacy</label>
+        <select id="privacy"><option value="public">Public</option><option value="private">Private</option></select>
+        <label for="security" data-key="settingsSecurity">Security</label>
+        <select id="security"><option value="2fa">Two-Factor Auth</option><option value="alerts">Login Alerts</option></select>
+        <label for="storage" data-key="settingsStorage">Data and Storage</label>
+        <button onclick="clearStorage()" data-key="settingsClear">Clear Storage</button>
+        <label for="support" data-key="settingsSupport">Help and Support</label>
+        <button onclick="window.location.href='#contact'" data-key="settingsContactSupport">Contact Support</button>
+    </div>
+    
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <div id="loginModal" class="modal-overlay" role="dialog" aria-labelledby="loginModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="loginModalTitle">Welcome Back!</h2>
+                <button class="modal-close-btn" onclick="closeModal('loginModal')" aria-label="Close Login Dialog">&times;</button>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                <input type="email" class="modal-input" placeholder="Enter your email" aria-label="Email Input" required>
+                <div class="password-wrapper">
+                    <input type="password" id="login-password" class="modal-input" placeholder="Enter your password" aria-label="Password Input" required>
+                    <button type="button" class="password-toggle" onclick="togglePasswordVisibility('login-password', this)" aria-label="Show password"><i class="fas fa-eye"></i></button>
+                </div>
+                <div class="form-options">
+                    <label for="remember-me"><input type="checkbox" id="remember-me"> Remember Me</label>
+                    <a href="#" style="color: var(--primary);">Forgot Password?</a>
+                </div>
+                <button type="submit" class="cta-button" style="width:100%;">Log In</button>
+            </form>
+            <div class="or-divider">OR</div>
+            <div class="social-logins">
+                <button class="social-btn" onclick="showToast('Logging in with Google...', 'info')"><i class="fab fa-google" style="color:#DB4437;"></i> Google</button>
+                <button class="social-btn" onclick="showToast('Logging in with Microsoft...', 'info')"><i class="fab fa-microsoft" style="color:#00A4EF;"></i> Microsoft</button>
+                <button class="social-btn" onclick="showToast('Logging in with Apple...', 'info')"><i class="fab fa-apple" style="color:#555;"></i> Apple</button>
+                <button class="social-btn" onclick="showToast('Logging in with Facebook...', 'info')"><i class="fab fa-facebook" style="color:#1877F2;"></i> Facebook</button>
+            </div>
+        </div>
+    </div>
+
+     <div id="signupModal" class="modal-overlay" role="dialog" aria-labelledby="signupModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="signupModalTitle">Create Your Account</h2>
+                <button class="modal-close-btn" onclick="closeModal('signupModal')" aria-label="Close Signup Dialog">&times;</button>
+            </div>
+            <form onsubmit="handleLogin(event)">
+                 <input type="text" class="modal-input" placeholder="Username" aria-label="Username Input" required>
+                 <input type="email" class="modal-input" placeholder="Your Email" aria-label="Email Input" required>
+                 <div class="password-wrapper">
+                    <input type="password" id="signup-password" class="modal-input" placeholder="Create Password" aria-label="Password Input" required>
+                    <button type="button" class="password-toggle" onclick="togglePasswordVisibility('signup-password', this)" aria-label="Show password"><i class="fas fa-eye"></i></button>
+                </div>
+                 <div class="password-wrapper">
+                    <input type="password" id="signup-confirm-password" class="modal-input" placeholder="Confirm Password" aria-label="Confirm Password Input" required>
+                    <button type="button" class="password-toggle" onclick="togglePasswordVisibility('signup-confirm-password', this)" aria-label="Show password"><i class="fas fa-eye"></i></button>
+                </div>
+                <button class="cta-button" type="submit" style="width:100%; margin-top: 1rem;">Sign Up</button>
+            </form>
+            <div class="or-divider">OR</div>
+            <div class="social-logins">
+                 <button class="social-btn" onclick="showToast('Signing up with Google...', 'info')"><i class="fab fa-google" style="color:#DB4437;"></i> Google</button>
+                <button class="social-btn" onclick="showToast('Signing up with Microsoft...', 'info')"><i class="fab fa-microsoft" style="color:#00A4EF;"></i> Microsoft</button>
+                <button class="social-btn" onclick="showToast('Signing up with Apple...', 'info')"><i class="fab fa-apple" style="color:#555;"></i> Apple</button>
+                <button class="social-btn" onclick="showToast('Signing up with Facebook...', 'info')"><i class="fab fa-facebook" style="color:#1877F2;"></i> Facebook</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="aiChatModal" class="modal-overlay" role="dialog" aria-labelledby="aiChatModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="aiChatModalTitle">HealthNest Assistant</h2>
+                <button class="modal-close-btn" onclick="closeModal('aiChatModal')" aria-label="Close AI Assistant Dialog">&times;</button>
+            </div>
+            <div id="ai-chat-box" aria-live="polite"></div>
+            <form id="ai-chat-input-form" onsubmit="handleAIChat(event)">
+                <input type="text" id="ai-chat-input" class="modal-input" placeholder="Type a command..." aria-label="AI Chat Input">
+                <button type="button" id="ai-voice-btn" title="Voice Command"><i class="fas fa-microphone"></i></button>
+                <button type="submit" id="ai-send-btn" class="btn signup-btn" aria-label="Send Command"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </div>
+
+    <div id="editProfileModal" class="modal-overlay" role="dialog" aria-labelledby="editProfileModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <div class="modal-header"><h2 id="editProfileModalTitle" data-key="editProfileTitle">Edit Your Profile</h2><button class="modal-close-btn" onclick="closeModal('editProfileModal')" aria-label="Close Edit Profile Dialog">&times;</button></div>
+            
+            <label for="editProfilePic">Profile Picture</label>
+            <input type="file" id="editProfilePic" class="modal-input" accept="image/*" onchange="previewProfilePic(event)">
+
+            <div class="form-grid">
+                <div>
+                    <label for="editName" data-key="editNameLabel">Full Name</label>
+                    <input type="text" id="editName" class="modal-input" placeholder="Your full name" value="Ayush Harinkhere">
+                </div>
+                <div>
+                    <label for="editEmail">Email Address</label>
+                    <input type="email" id="editEmail" class="modal-input" placeholder="your.email@example.com" value="ayushharinkhere2005@email.com">
+                </div>
+            </div>
+            
+            <label for="editAddress">Address</label>
+            <input type="text" id="editAddress" class="modal-input" placeholder="Your City, Country" value="Nagpur, India">
+            
+            <div class="form-grid">
+                <div><label for="editDob" data-key="editDobLabel">Date of Birth</label><input type="date" id="editDob" class="modal-input" value="2005-02-10"></div>
+                <div><label for="editGender">Gender</label><select id="editGender" class="modal-select"><option value="Male" selected>Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div>
+                <div><label for="editMobile">Mobile Number</label><input type="tel" id="editMobile" class="modal-input" placeholder="+91-XXXXX-XXXXX"></div>
+            </div>
+            
+            <div class="form-grid">
+                <div>
+                    <label for="editHeight" data-key="editHeightLabel">Height (cm)</label>
+                    <input type="number" id="editHeight" class="modal-input" value="175" oninput="convertHeight()">
+                </div>
+                <div>
+                    <label for="editHeightFt">Height (ft/in)</label>
+                    <input type="text" id="editHeightFt" class="modal-input" placeholder="e.g., 5'9&quot;" oninput="convertHeight(true)">
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div><label for="editWeight" data-key="editWeightLabel">Weight (kg)</label><input type="number" id="editWeight" class="modal-input" value="52"></div>
+                <div><label for="editBlood" data-key="editBloodLabel">Blood Group</label><select id="editBlood" class="modal-select"><option value="O+">O+</option><option value="A+" selected>A+</option><option value="B+">B+</option><option value="AB+">AB+</option><option value="A-">A-</option><option value="B-">B-</option><option value="AB-">AB-</option></select></div>            
+            </div>
+            <button class="cta-button" style="width:100%; margin-top: 1.25rem;" onclick="saveProfile()" data-key="editSaveButton">Save Changes</button> 
+        </div>
+    </div>
+
+    <div id="privacyPolicyModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Privacy Policy</h2>
+                <button class="modal-close-btn" onclick="closeModal('privacyPolicyModal')">&times;</button>
+            </div>
+            <p>Your privacy is important to us. It is HealthNest's policy to respect your privacy regarding any information we may collect from you across our website...</p>
+            </div>
+    </div>
+
+    <div id="termsOfServiceModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Terms of Service</h2>
+                <button class="modal-close-btn" onclick="closeModal('termsOfServiceModal')">&times;</button>
+            </div>
+            <p>By accessing the website at HealthNest, you are agreeing to be bound by these terms of service, all applicable laws and regulations...</p>
+            </div>
+    </div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 data-key="heroTitle">Your Health, In Your Hands.</h1>
+            <p data-key="heroSubtitle">With HealthNest, save your entire medical history in one secure place and access it anytime, anywhere.</p>
+            <a href="#" class="cta-button" data-key="heroCTA" onclick="openModal('signupModal')">Get Started Today</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="user-profile" class="section">
+            <h2 class="section-title" data-key="profileTitle">Your Profile</h2>
+            <div class="profile-card">
+                <div class="profile-pic">
+                    <img id="profilePicImg" src="" alt="Profile Picture" style="display: none;">
+                    <i id="profilePicIcon" class="fas fa-user"></i>
+                </div>
+                <div class="profile-details">
+                    <h3 data-key="profileName">Ayush Harinkhere</h3>
+                    <p id="profileEmail" class="user-email">ayushharinkhere2005@email.com</p>
+                    <div class="profile-meta">
+                        <div class="meta-item"><span data-key="profileAgeLabel">Age</span><strong id="profileAgeValue" data-key="profileAgeValue">20 Years</strong></div>
+                        <div class="meta-item"><span>Gender</span><strong id="profileGender">Male</strong></div>
+                        <div class="meta-item"><span data-key="profileHeightLabel">Height</span><strong id="profileHeightValue" data-key="profileHeightValue">175 cm / 5'9"</strong></div>
+                        <div class="meta-item"><span data-key="profileWeightLabel">Weight</span><strong id="profileWeightValue" data-key="profileWeightValue">52 kg</strong></div>
+                        <div class="meta-item"><span data-key="profileBloodLabel">Blood Group</span><strong id="profileBloodValue">A+</strong></div>
+                        <div class="meta-item address"><span>Address</span><strong id="profileAddress">Nagpur, India</strong></div>
+                    </div>
+                     <div class="profile-actions">
+                        <button class="cta-button" onclick="openModal('editProfileModal')"><i class="fas fa-edit"></i> <span data-key="profileEditButton">Edit Profile</span></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <h2 class="section-title" data-key="featuresTitle">Key Features</h2>
+            <div class="features-container">
+                <div class="scroll-arrow left" onclick="scrollFeatures(-1)">&lt;</div>
+                <div class="features-grid" id="features-grid">
+                    <div class="feature-card" data-searchable="health timeline"><span class="material-symbols-outlined">timeline</span><h3 data-key="feature1Title">Health Timeline</h3><p data-key="feature1Desc">View every health event from childhood to today in chronological order.</p></div>
+                    <div class="feature-card" data-searchable="document upload"><span class="material-symbols-outlined">upload_file</span><h3 data-key="feature2Title">Document Upload</h3><p data-key="feature2Desc">Securely upload all your medical reports, scans, and prescriptions.</p></div>
+                    <div class="feature-card" data-searchable="share with doctor"><span class="material-symbols-outlined">share</span><h3 data-key="feature3Title">Share with Doctor</h3><p data-key="feature3Desc">Give your doctor secure permission to view your health history with one click.</p></div>
+                    <div class="feature-card" data-searchable="health assistance chatbot ai"><span class="material-symbols-outlined">smart_toy</span><h3>AI Health Assistant</h3><p>Get instant answers to your health questions with our intelligent chatbot.</p></div>
+                    <div class="feature-card" data-searchable="lifesaver emergency"><span class="material-symbols-outlined">emergency</span><h3>Life Saver Info</h3><p>Store critical information like blood type and allergies for emergency situations.</p></div>
+                    <div class="feature-card" data-searchable="realtime health information"><span class="material-symbols-outlined">sensors</span><h3>Real-time Health Info</h3><p>Connect your smart devices to track your health metrics in real-time.</p></div>
+                    <div class="feature-card" data-searchable="manage appointment"><span class="material-symbols-outlined">event_available</span><h3>Manage Appointments</h3><p>Never miss an appointment with our integrated calendar and reminder system.</p></div>
+                    <div class="feature-card" data-searchable="safe and secure"><span class="material-symbols-outlined">security</span><h3>Safe and Secure</h3><p>Your data is protected with the highest standards of end-to-end encryption.</p></div>
+                </div>
+                <div class="scroll-arrow right" onclick="scrollFeatures(1)">&gt;</div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="section">
+            <h2 class="section-title" data-key="navDashboard">Your Health Dashboard</h2>
+             <div class="dashboard-card" style="margin-bottom: 2rem;">
+                <h4><i class="fas fa-mobile-alt"></i> Connect Your Devices</h4>
+                <p>Sync your smartwatch or health band to get real-time data.</p>
+                <button class="cta-button" onclick="showToast('Connecting to Strava...', 'info')"><i class="fab fa-strava"></i> Connect with Strava</button>
+            </div>
+            <div class="dashboard-grid">
+                <div id="bp-card" class="dashboard-card"><h4 data-key="dashboardBP"><i class="fas fa-heartbeat" style="color: #e74c3c;"></i> Blood Pressure</h4><p><span class="value">128/80</span><span class="unit">mmHg</span></p></div>
+                <div id="sugar-card" class="dashboard-card"><h4 data-key="dashboardSugar"><i class="fas fa-tint" style="color: #f1c40f;"></i> Sugar Level</h4><p><span class="value">95</span><span class="unit">mg/dL</span></p></div>
+                <div id="hr-card" class="dashboard-card"><h4 data-key="dashboardHR"><i class="fas fa-chart-line" style="color: #3498db;"></i> Heart Rate</h4><p><span class="value">80</span><span class="unit">BPM</span></p></div>
+                <div id="bmi-card" class="dashboard-card"><h4 data-key="dashboardBMI"><i class="fas fa-weight" style="color: #2ecc71;"></i> Body Mass Index</h4><p><span class="value">23.5</span><span class="unit">BMI</span></p></div>
+                <div class="dashboard-card">
+                    <h4><i class="fas fa-water" style="color: #3498db;"></i> Water Level</h4>
+                    <div class="water-level-container">
+                        <div class="human-body-icon">
+                            <div class="water-fill" id="water-fill-level" style="height: 65%;"></div>
+                        </div>
+                        <p><span class="value">65</span><span class="unit">%</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; gap: 1.875rem;">
+                 <div class="dashboard-card">
+                    <h4 data-key="dashboardActivity"><i class="fas fa-history"></i> Recent Activity</h4>
+                    <ul class="activity-list">
+                        <li data-key="activity1">Blood test report uploaded - 2 days ago</li>
+                        <li data-key="activity2">Appointment with Dr. Gupta - 1 week ago</li>
+                        <li data-key="activity3">Prescription added - 2 weeks ago</li>
+                    </ul>
+                </div>
+                <div class="dashboard-card">
+                    <h4 data-key="dashboardAppointments"><i class="fas fa-calendar-check"></i> Upcoming Appointments</h4>
+                     <ul class="appointments-list">
+                        <li data-key="appointment1">Checkup with Dentist - in 5 days</li>
+                        <li data-key="appointment2">Annual health check-up - in 2 weeks</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="dashboard-container" style="margin-top: 1.875rem;">
+                <canvas id="healthChart" aria-label="A line chart showing health metrics over the past 6 months" role="img"></canvas>
+            </div>
+        </section>
+
+        <section id="security-info" class="section">
+            <h2 class="section-title" data-key="securityTitle">Your Security, Our Priority</h2>
+            <div class="features-grid" style="max-width: 22rem; margin: auto;">
+                 <div class="feature-card">
+                     <span class="material-symbols-outlined">enhanced_encryption</span>
+                     <h3 data-key="securityCardTitle">End-to-End Encryption</h3>
+                     <p data-key="securityCardDesc">All your health data is end-to-end encrypted. This means only you and those you authorize can see it. Not even we can read your data.</p>
+                     <div id="encryption-info" class="faq-answer" style="text-align: left; padding: 1rem 0 0 0;">
+                        <p>End-to-end encryption is a secure communication method that prevents third-parties from accessing data while it's transferred from one end system or device to another. The data is encrypted on the sender's system or device and only the recipient is able to decrypt it.</p>
+                    </div>
+                     <button class="cta-button" style="margin-top: 1rem;" onclick="toggleEncryptionInfo()">Learn more</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section">
+            <h2 class="section-title" data-key="faqTitle">Frequently Asked Questions</h2>
+            <div class="faq-accordion">
+                <div class="faq-item" data-searchable="what is healthnest"><button class="faq-question" aria-expanded="false"><span data-key="faq1Question">What is HealthNest?</span><span class="material-symbols-outlined">expand_more</span></button><div class="faq-answer"><p data-key="faq1Answer">HealthNest is a digital platform where you can securely store all your medical information, such as old injuries, treatments, reports, and medications.</p></div></div>
+                <div class="faq-item" data-searchable="is data secure"><button class="faq-question" aria-expanded="false"><span data-key="faq2Question">Is my data secure?</span><span class="material-symbols-outlined">expand_more</span></button><div class="faq-answer"><p data-key="faq2Answer">Yes, we use the highest standards to protect your data. Your information is encrypted, and no one can see it except you.</p></div></div>
+                <div class="faq-item" data-searchable="how to use"><button class="faq-question" aria-expanded="false"><span data-key="faq3Question">How can I use it?</span><span class="material-symbols-outlined">expand_more</span></button><div class="faq-answer"><p data-key="faq3Answer">Just sign up and start adding your health information. You can access it whenever you want to show it to your doctor.</p></div></div>
+                <div class="faq-item hidden-faq" data-searchable="share data with doctor"><button class="faq-question" aria-expanded="false"><span>How do I share my data with my doctor?</span><span class="material-symbols-outlined">expand_more</span></button><div class="faq-answer"><p>You can generate a secure, temporary link from your dashboard to share with your healthcare provider. You have full control over what information is shared and for how long.</p></div></div>
+                <div class="faq-item hidden-faq" data-searchable="forgot password"><button class="faq-question" aria-expanded="false"><span>What if I forget my password?</span><span class="material-symbols-outlined">expand_more</span></button><div class="faq-answer"><p>You can easily reset your password by clicking the "Forgot Password?" link on the login screen and following the instructions sent to your registered email address.</p></div></div>
+                 <button class="cta-button" style="margin-top: 2rem;" id="show-more-faq" onclick="toggleMoreFAQs()">Show More</button>
+            </div>
+        </section>
+
+         <section class="newsletter">
+            <h2 data-key="newsletterTitle">Stay Updated!</h2>
+            <p data-key="newsletterSubtitle">Subscribe to our newsletter for the latest news and updates.</p>
+            <form onsubmit="handleSubscription(event)"><input type="email" placeholder="Your Email" required><button type="submit" class="btn signup-btn"><b data-key="newsletterButton">Subscribe</b></button></form>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <p>
+            <b data-key="footerRights">&copy; 2024-2025 HealthNest. All rights reserved.</b> | 
+            <a href="#" onclick="openModal('privacyPolicyModal')" data-key="footerPrivacy">Privacy Policy</a> | 
+            <a href="#" onclick="openModal('termsOfServiceModal')" data-key="footerTerms">Terms of Service</a>
+        </p>
+        <div class="social-media-links">
+            <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:youremail@example.com" title="Gmail"><i class="fas fa-envelope"></i></a>
+        </div>
+        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span><b data-key="footerLogout">Logout</b></span></button>
+    </footer>
+<script src="VANI.js"></script>
+<script>
+    // --- GLOBAL VARIABLES ---
+    let healthChartInstance = null;
+    let newProfilePicSrc = null; // To hold the new picture URL temporarily
+    
+    const languageData = {
+        hi: {
+            navHome: "होम", navDashboard: "डैशबोर्ड", featuresTitle: "विशेषताएँ", faqTitle: "FAQ", navSignUp: "साइन अप", navLogIn: "लॉग इन",
+            settingsTitle: "सेटिंग्स", settingsTheme: "थीम", settingsTextSize: "वेबसाइट साइज", settingsLanguage: "भाषा", settingsAccount: "अकाउंट", settingsUpdate: "अपडेट", settingsNotifications: "नोटिफिकेशन्स", settingsPrivacy: "प्राइवेसी", settingsSecurity: "सिक्योरिटी", settingsStorage: "डाटा और स्टोरेज", settingsClear: "स्टोरेज साफ़ करें", settingsSupport: "हेल्प और सपोर्ट", settingsContactSupport: "सपोर्ट से संपर्क करें",
+            heroTitle: "आपकी सेहत, आपके हाथ में।", heroSubtitle: "HealthNest के साथ अपनी पूरी मेडिकल हिस्ट्री को एक सुरक्षित जगह पर सहेजें और किसी भी समय, कहीं भी एक्सेस करें।", heroCTA: "आज ही शुरू करें",
+            feature1Title: "हेल्थ टाइमलाइन", feature1Desc: "बचपन से लेकर आज तक की हर स्वास्थ्य घटना को एक क्रम में देखें।", feature2Title: "दस्तावेज़ अपलोड", feature2Desc: "अपनी सभी मेडिकल रिपोर्ट्स, स्कैन और दवाइयों के पर्चे सुरक्षित रूप से अपलोड करें।", feature3Title: "डॉक्टर के साथ शेयर करें", feature3Desc: "एक क्लिक में अपने डॉक्टर को अपनी हेल्थ हिस्ट्री देखने की सुरक्षित अनुमति दें।",
+            securityTitle: "आपकी सुरक्षा, हमारी प्राथमिकता", securityCardTitle: "एंड-टू-एंड एन्क्रिप्शन", securityCardDesc: "आपका सारा स्वास्थ्य डेटा एंड-टू-एंड एन्क्रिप्टेड है। इसका मतलब है कि केवल आप और जिन्हें आप अनुमति देते हैं, वही इसे देख सकते हैं। हम भी आपका डेटा नहीं पढ़ सकते।",
+            faq1Question: "जीवनकोष क्या है?", faq1Answer: "जीवनकोष एक डिजिटल प्लेटफ़ॉर्म है जहाँ आप अपनी सभी मेडिकल जानकारी, जैसे कि पुरानी चोटें, इलाज, रिपोर्ट्स और दवाइयों को सुरक्षित रूप से स्टोर कर सकते हैं।", faq2Question: "क्या मेरा डेटा सुरक्षित है?", faq2Answer: "हाँ, हम आपके डेटा की सुरक्षा के लिए उच्चतम मानकों का उपयोग करते हैं। आपकी जानकारी एन्क्रिप्टेड होती है और आपके अलावा कोई इसे नहीं देख सकता।", faq3Question: "मैं इसका उपयोग कैसे कर सकता हूँ?", faq3Answer: "बस साइन अप करें, और अपनी स्वास्थ्य संबंधी जानकारी जोड़ना शुरू करें। आप जब चाहें, अपने डॉक्टर को दिखाने के लिए इसे एक्सेस कर सकते हैं।",
+            newsletterTitle: "अपडेट रहें!", newsletterSubtitle: "नवीनतम समाचारों और अपडेट के लिए हमारे न्यूज़लेटर की सदस्यता लें।", newsletterButton: "सब्सक्राइब करें",
+            footerRights: "&copy; 2024-2025 HealthNest. सर्वाधिकार सुरक्षित।", footerPrivacy: "प्राइवेसी पालिसी", footerTerms: "सेवा की शर्तें", footerLogout: "लॉगआउट",
+            profileTitle: "आपकी प्रोफाइल", profileName: "आयुष हरिनखेरे ", profileAgeLabel: "आयु", profileAgeValue: "20 वर्ष", profileBloodLabel: "ब्लड ग्रुप", profileBloodValue: "A+", profileHeightLabel: "ऊंचाई", profileHeightValue: "175 cm", profileWeightLabel: "वजन", profileWeightValue: "52 kg", profileEditButton: "प्रोफाइल एडिट करें",
+            dashboardBP: "ब्लड प्रेशर", dashboardSugar: "शुगर लेवल", dashboardHR: "हार्ट रेट", dashboardBMI: "बॉडी मास इंडेक्स", dashboardActivity: "हाल की गतिविधि", activity1: "ब्लड टेस्ट रिपोर्ट अपलोड की गई - 2 दिन पहले", activity2: "डॉ. गुप्ता के साथ अपॉइंटमेंट - 1 सप्ताह पहले", activity3: "दवाई का पर्चा जोड़ा गया - 2 सप्ताह पहले", dashboardAppointments: "आगामी अपॉइंटमेंट्स", appointment1: "डेंटिस्ट के साथ चेकअप - 5 दिन में", appointment2: "वार्षिक स्वास्थ्य जांच - 2 सप्ताह में",
+            editProfileTitle: "प्रोफ़ाइल संपादित करें", editNameLabel: "पूरा नाम", editDobLabel: "जन्म तिथि", editBloodLabel: "ब्लड ग्रुप", editHeightLabel: "ऊंचाई (cm)", editWeightLabel: "वजन (kg)", editSaveButton: "सेव करें",
+        },
+        en: {
+            navHome: "Home", navDashboard: "Dashboard", featuresTitle: "Key Features", faqTitle: "FAQ", navSignUp: "Sign Up", navLogIn: "Log In",
+            settingsTitle: "Settings", settingsTheme: "Theme (Light/Dark)", settingsTextSize: "Website Size", settingsLanguage: "Language", settingsAccount: "Account Settings", settingsUpdate: "Update", settingsNotifications: "Notifications", settingsPrivacy: "Privacy", settingsSecurity: "Security", settingsStorage: "Data & Storage", settingsClear: "Clear Storage", settingsSupport: "Help & Support", settingsContactSupport: "Contact Support",
+            heroTitle: "Your Health, In Your Hands.", heroSubtitle: "With HealthNest, save your entire medical history in one secure place and access it anytime, anywhere.", heroCTA: "Get Started Today",
+            feature1Title: "Health Timeline", feature1Desc: "View every health event from childhood to today in chronological order.", feature2Title: "Document Upload", feature2Desc: "Securely upload all your medical reports, scans, and prescriptions.", feature3Title: "Share with Doctor", feature3Desc: "Give your doctor secure permission to view your health history with one click.",
+            securityTi0tle: "Your Security, Our Priority", securityCardTitle: "End-to-End Encryption", securityCardDesc: "All your health data is end-to-end encrypted. This means only you and those you authorize can see it. Not even we can read your data.",
+            faq1Question: "What is HealthNest?", faq1Answer: "HealthNest is a digital platform where you can securely store all your medical information, such as old injuries, treatments, reports, and medications.", faq2Question: "Is my data secure?", faq2Answer: "Yes, we use the highest standards to protect your data. Your information is encrypted, and no one can see it except you.", faq3Question: "How can I use it?", faq3Answer: "Just sign up and start adding your health information. You can access it whenever you want to show it to your doctor.",
+            newsletterTitle: "Stay Updated!", newsletterSubtitle: "Subscribe to our newsletter for the latest news and updates.", newsletterButton: "Subscribe",
+            footerRights: "&copy; 2024-2025 HealthNest. All rights reserved.", footerPrivacy: "Privacy Policy", footerTerms: "Terms of Service", footerLogout: "Logout",
+            profileTitle: "Your Profile", profileName: "Ayush Harinkhere", profileAgeLabel: "Age", profileAgeValue: "20 years", profileBloodLabel: "Blood Group", profileBloodValue: "A+", profileHeightLabel: "Height", profileHeightValue: "175 cm", profileWeightLabel: "Weight", profileWeightValue: "52 kg", profileEditButton: "Edit Profile",
+            dashboardBP: "Blood Pressure", dashboardSugar: "Sugar Level", dashboardHR: "Heart Rate", dashboardBMI: "Body Mass Index", dashboardActivity: "Recent Activity", activity1: "Blood test report uploaded - 2 days ago", activity2: "Appointment with Dr. Gupta - 1 week ago", activity3: "Prescription added - 2 weeks ago", dashboardAppointments: "Upcoming Appointments", appointment1: "Checkup with Dentist - in 5 days", appointment2: "Annual health check-up - in 2 weeks",
+            editProfileTitle: "Edit Your Profile", editNameLabel: "Full Name", editDobLabel: "Date of Birth", editBloodLabel: "Blood Group", editHeightLabel: "Height (cm)", editWeightLabel: "Weight (kg)", editSaveButton: "Save Changes",
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Preloader Logic
+        const preloader = document.getElementById('preloader');
+        window.setTimeout(() => {
+            preloader.classList.add('hidden');
+        }, 2000); // Show preloader for 2 seconds
+
+        // Load saved settings or defaults (forcing default on load)
+        changeTheme('light');
+        document.getElementById('theme').value = 'light';
+        switchLanguage('en');
+        document.getElementById('language').value = 'en';
+        changeTextSize('16px');
+        document.getElementById('textSize').value = '16px';
+
+
+        // Initialize components
+        initializeFAQ();
+        initializeScrollAnimations();
+        renderHealthChart();
+
+        // Close settings menu and modals on outside click
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('settingsMenu');
+            const button = document.getElementById('settingsButton');
+            if (menu && button) {
+                if (menu.style.display === 'flex' && !menu.contains(event.target) && !button.contains(event.target)) {
+                    menu.style.display = 'none';
+                }
+            }
+            
+            // Close modals on overlay click
+            if (event.target.classList.contains('modal-overlay')) {
+                closeModal(event.target.id);
+            }
+        });
+
+        // Search Bar Functionality
+        document.getElementById('search-bar-input').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('[data-searchable]').forEach(item => {
+                const text = item.getAttribute('data-searchable').toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    function initializeFAQ() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.toggle('active');
+                question.setAttribute('aria-expanded', isActive);
+                answer.style.maxHeight = isActive ? answer.scrollHeight + "px" : null;
+                answer.style.paddingTop = isActive ? "1rem" : "0";
+                answer.style.paddingBottom = isActive ? "1rem" : "0";
+            });
+        });
+    }
+
+    function initializeScrollAnimations() {
+        const animatedElements = document.querySelectorAll('.feature-card, .section-title, .faq-item, .dashboard-container, .profile-card, .dashboard-card, .newsletter, .hero-content > *');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `slideInUp 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards`;
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        animatedElements.forEach(el => { el.style.opacity = '0'; observer.observe(el); });
+    }
+    
+    document.getElementById('logoutBtn').addEventListener('click', function() { showToast('Logging out...', 'info'); });
+    function toggleSettings() { const menu = document.getElementById('settingsMenu'); menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'; }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function changeTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('theme', theme); if (document.getElementById('healthChart')) { renderHealthChart(); } }
+    function switchLanguage(lang) { document.documentElement.lang = lang; localStorage.setItem('language', lang); document.querySelectorAll('[data-key]').forEach(el => { const key = el.getAttribute('data-key'); if (languageData[lang]?.[key]) el.innerHTML = languageData[lang][key]; }); }
+    
+    function changeTextSize(size) {
+        document.documentElement.style.fontSize = size;
+        localStorage.setItem('textSize', size);
+    }
+
+    function updateAccount() { showToast("Account updated successfully!", "success"); }
+    function clearStorage() { if(confirm("Are you sure you want to clear all local data?")){ localStorage.clear(); sessionStorage.clear(); showToast("Storage cleared!", "success"); location.reload(); } }
+    
+    function openModal(modalId) { 
+        const modal = document.getElementById(modalId); 
+        if(modal) modal.classList.add('visible'); 
+        if (modalId === 'aiChatModal') {
+            const chatBox = document.getElementById('ai-chat-box');
+            if (chatBox.children.length === 0) {
+                 const aiBubble = document.createElement('div');
+                 aiBubble.className = 'ai-message ai';
+                 aiBubble.innerHTML = `<div>Hello! How can I help you today? Type 'help' to see what I can do.</div>`;
+                 chatBox.appendChild(aiBubble);
+            }
+        }
+        if(modal) modal.querySelector('button, input, select, textarea')?.focus(); 
+    }
+    function closeModal(modalId) { 
+        const modal = document.getElementById(modalId);
+        if(modal) modal.classList.remove('visible'); 
+    }
+    
+    function previewProfilePic(event) {
+        const file = event.target.files[0];
+        if (file) {
+            newProfilePicSrc = URL.createObjectURL(file);
+            showToast("Profile picture previewed. Click 'Save Changes' to apply.", "info");
+        }
+    }
+
+    function saveProfile() {
+        // Update text fields
+        const newName = document.getElementById('editName').value;
+        document.querySelector('[data-key="profileName"]').textContent = newName;
+        document.getElementById('profileEmail').textContent = document.getElementById('editEmail').value;
+        document.getElementById('profileAddress').textContent = document.getElementById('editAddress').value;
+        document.getElementById('profileGender').textContent = document.getElementById('editGender').value;
+        
+        const heightCm = document.getElementById('editHeight').value;
+        const heightFt = document.getElementById('editHeightFt').value;
+        document.getElementById('profileHeightValue').textContent = `${heightCm} cm / ${heightFt}`;
+        
+        document.getElementById('profileWeightValue').textContent = `${document.getElementById('editWeight').value} kg`;
+        document.getElementById('profileBloodValue').textContent = document.getElementById('editBlood').value;
+
+
+        // Update profile picture if a new one was selected
+        if (newProfilePicSrc) {
+            document.getElementById('profilePicImg').src = newProfilePicSrc;
+            document.getElementById('profilePicImg').style.display = 'block';
+            document.getElementById('profilePicIcon').style.display = 'none';
+
+            // Update nav avatar
+            document.getElementById('user-avatar-img').src = newProfilePicSrc;
+            document.getElementById('user-avatar-img').style.display = 'block';
+            document.getElementById('user-initials').style.display = 'none';
+        } else {
+            // Update initials in nav
+            const nameParts = newName.split(' ');
+            const initials = nameParts[0].charAt(0) + (nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0) : '');
+            document.getElementById('user-initials').textContent = initials.toUpperCase();
+        }
+
+        // Calculate and update age
+        const newDob = document.getElementById('editDob').value;
+        if (newDob) {
+            const birthDate = new Date(newDob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            document.getElementById('profileAgeValue').textContent = `${age} Years`;
+        }
+        
+        showToast("Profile updated successfully!", "success");
+        closeModal('editProfileModal');
+    }
+
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        let iconClass = 'fas fa-info-circle';
+        if (type === 'success') iconClass = 'fas fa-check-circle';
+        if (type === 'error') iconClass = 'fas fa-times-circle';
+        toast.innerHTML = `<i class="${iconClass}"></i> ${message}`;
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 100);
+        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => container.removeChild(toast), 500); }, 3000);
+    }
+    
+    function handleSubscription(event) { event.preventDefault(); showToast('Thank you for subscribing!', 'success'); event.target.reset(); }
+    
+    function togglePasswordVisibility(fieldId, button) {
+        const passwordInput = document.getElementById(fieldId);
+        const icon = button.querySelector('i');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+    
+    // --- New Functions ---
+
+    function handleLogin(event) {
+        event.preventDefault();
+        showToast('Logged in successfully!', 'success');
+        
+        // Hide Login/Signup buttons and show profile icon
+        document.querySelector('.nav-buttons').style.display = 'none';
+        document.getElementById('user-profile-icon').style.display = 'flex';
+        
+        // Set user initials
+        const fullName = document.querySelector('[data-key="profileName"]').textContent;
+        const nameParts = fullName.split(' ');
+        const initials = nameParts[0].charAt(0) + (nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0) : '');
+        document.getElementById('user-initials').textContent = initials.toUpperCase();
+        
+        // Show document upload section
+        document.getElementById('document-upload-section').style.display = 'block';
+        
+        closeModal('loginModal');
+        closeModal('signupModal');
+    }
+
+    function handleFileUpload(event) {
+        const files = event.target.files;
+        if (files.length > 0) {
+            document.getElementById('uploaded-documents-container').style.display = 'block';
+            const list = document.getElementById('document-list');
+            list.innerHTML = ''; // Clear previous list
+            for(let i = 0; i < files.length; i++) {
+                const li = document.createElement('li');
+                li.textContent = files[i].name;
+                list.appendChild(li);
+            }
+        }
+    }
+
+    function analyzeReports() {
+        showToast('AI is analyzing your reports... This is a demo feature.', 'info');
+    }
+
+    function scrollFeatures(direction) {
+        const container = document.getElementById('features-grid');
+        const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of the container width
+        container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+    
+    function toggleEncryptionInfo() {
+        const info = document.getElementById('encryption-info');
+        const isActive = info.style.maxHeight;
+        info.style.maxHeight = isActive ? null : info.scrollHeight + "px";
+    }
+
+    function toggleMoreFAQs() {
+        const hiddenFaqs = document.querySelectorAll('.hidden-faq');
+        const button = document.getElementById('show-more-faq');
+        hiddenFaqs.forEach(faq => {
+            if (faq.style.display === 'block') {
+                faq.style.display = 'none';
+                button.textContent = 'Show More';
+            } else {
+                faq.style.display = 'block';
+                button.textContent = 'Show Less';
+            }
+        });
+    }
+
+    function convertHeight(fromFt = false) {
+        const cmInput = document.getElementById('editHeight');
+        const ftInput = document.getElementById('editHeightFt');
+
+        if (fromFt) {
+            const ftValue = ftInput.value;
+            const parts = ftValue.match(/(\d+)'(\d+)"?/);
+            if (parts) {
+                const feet = parseInt(parts[1], 10);
+                const inches = parseInt(parts[2], 10);
+                const totalInches = (feet * 12) + inches;
+                const cm = totalInches * 2.54;
+                cmInput.value = Math.round(cm);
+            }
+        } else {
+            const cm = parseFloat(cmInput.value);
+            if (!isNaN(cm)) {
+                const inches = cm / 2.54;
+                const feet = Math.floor(inches / 12);
+                const remainingInches = Math.round(inches % 12);
+                ftInput.value = `${feet}'${remainingInches}"`;
+            }
+        }
+    }
+
+    function handleAIChat(event) {
+        event.preventDefault();
+        const input = document.getElementById('ai-chat-input');
+        const chatBox = document.getElementById('ai-chat-box');
+        const userMessage = input.value.trim();
+
+        if (!userMessage) return;
+
+        // Add user's message
+        const userBubble = document.createElement('div');
+        userBubble.className = 'ai-message user';
+        userBubble.innerHTML = `<div></div>`;
+        userBubble.querySelector('div').textContent = userMessage;
+        chatBox.appendChild(userBubble);
+        input.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Show typing indicator
+        const thinkingBubble = document.createElement('div');
+        thinkingBubble.className = 'ai-message ai';
+        thinkingBubble.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
+        chatBox.appendChild(thinkingBubble);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        
+        // Generate AI response
+        setTimeout(() => {
+            const aiResponse = getAIResponse(userMessage);
+            thinkingBubble.innerHTML = `<div></div>`; // Clear typing indicator
+            
+            // Typewriter effect
+            let i = 0;
+            const speed = 30; // Milliseconds per character
+            function typeWriter() {
+                if (i < aiResponse.length) {
+                    thinkingBubble.querySelector('div').innerHTML += aiResponse.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }
+            }
+            typeWriter();
+
+        }, 1500); // Simulate thinking delay
+    }
+    
+    // this section is for aiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+    
+
+    // Voice Recognition for AI Chat
+    const voiceBtn = document.getElementById('ai-voice-btn');
+    const chatInput = document.getElementById('ai-chat-input');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+
+        voiceBtn.addEventListener('click', () => {
+            if (!voiceBtn.classList.contains('recording')) {
+                recognition.start();
+                voiceBtn.classList.add('recording');
+            } else {
+                recognition.stop();
+            }
+        });
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            chatInput.value = transcript;
+            // Automatically submit the form
+            document.getElementById('ai-chat-input-form').requestSubmit();
+        };
+
+        recognition.onend = () => {
+            voiceBtn.classList.remove('recording');
+        };
+
+        recognition.onerror = (event) => {
+            showToast('Voice recognition error: ' + event.error, 'error');
+            voiceBtn.classList.remove('recording');
+        };
+    } else {
+        voiceBtn.style.display = 'none'; // Hide if not supported
+    }
+
+
+
+/**
+ * NOTE: Ye renderHealthChart function aapke original code se hai.
+ * Isme koi badlav ki zaroorat nahi hai. Maine ise yahan context ke liye rakha hai.
+ */
+function renderHealthChart() {
+    if (healthChartInstance) {
+        healthChartInstance.destroy();
+    }
+    const ctx = document.getElementById('healthChart').getContext('2d');
+
+    const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--outline');
+    const textColor = getComputedStyle(document.documentElement).getPropertyValue('--on-surface');
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+    const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary');
+    const tertiaryColor = getComputedStyle(document.documentElement).getPropertyValue('--tertiary');
+
+    const labels = ['Mar 2025', 'Apr 2025', 'May 2025', 'Jun 2025', 'Jul 2025', 'Aug 2025'];
+
+    healthChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Systolic BP',
+                data: [120, 122, 118, 125, 123, 128],
+                borderColor: primaryColor,
+                backgroundColor: primaryColor + '33',
+                fill: true,
+                tension: 0.4,
+                yAxisID: 'y'
+            }, {
+                label: 'Heart Rate',
+                data: [72, 75, 70, 78, 76, 80],
+                borderColor: secondaryColor,
+                backgroundColor: secondaryColor + '33',
+                fill: true,
+                tension: 0.4,
+                yAxisID: 'y1'
+            }, {
+                label: 'Blood Sugar',
+                data: [95, 105, 98, 110, 102, 110],
+                borderColor: tertiaryColor,
+                backgroundColor: tertiaryColor + '33',
+                fill: true,
+                tension: 0.4,
+                yAxisID: 'y1'
+            }]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Health Metrics Overview',
+                    color: textColor,
+                    font: {
+                        size: 16
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Blood Pressure (mmHg)',
+                        color: textColor
+                    },
+                    ticks: {
+                        color: textColor
+                    },
+                    grid: {
+                        color: gridColor
+                    }
+                },
+                y1: {
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'BPM / mg/dL',
+                        color: textColor
+                    },
+                    ticks: {
+                        color: textColor
+                    },
+                    grid: {
+                        drawOnChartArea: false,
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: textColor
+                    },
+                    grid: {
+                        color: gridColor
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBh_Oe8jtUv4XUn2EjKNbAA9nSOIJ26xBo",
+    authDomain: "health-nest.firebaseapp.com",
+    projectId: "health-nest",
+    storageBucket: "health-nest.firebasestorage.app",
+    messagingSenderId: "828344669402",
+    appId: "1:828344669402:web:958080d8fc7bffc93541e3"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+</body>
+</html>
