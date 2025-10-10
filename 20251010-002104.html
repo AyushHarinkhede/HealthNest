@@ -982,43 +982,43 @@
 
         // ============= VANI.js INTEGRATION =============
         async function getBotResponse(userMessage) {
-            // // ============================================
-            // // YAHAN APNA VANI.js CODE INTEGRATE KAREIN
-            // // ============================================
+            // ============================================
+            // YAHAN APNA VANI.js CODE INTEGRATE KAREIN
+            // ============================================
             
-            // /* EXAMPLE INTEGRATION:
+            /* EXAMPLE INTEGRATION:
             
-            // // Method 1: Direct API Call
-            // try {
-            //     const response = await fetch('YOUR_VANI_API_ENDPOINT', {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json',
-            //         },
-            //         body: JSON.stringify({ message: userMessage })
-            //     });
-            //     const data = await response.json();
-            //     return data.reply;
-            // } catch (error) {
-            //     console.error('API Error:', error);
-            //     throw error;
-            // }
+            // Method 1: Direct API Call
+            try {
+                const response = await fetch('YOUR_VANI_API_ENDPOINT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage })
+                });
+                const data = await response.json();
+                return data.reply;
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
             
-            // // Method 2: If VANI.js is imported as module
-            // import { VANI } from './vani.js';
-            // const response = await VANI.getResponse(userMessage);
-            // return response;
+            // Method 2: If VANI.js is imported as module
+            import { VANI } from './vani.js';
+            const response = await VANI.getResponse(userMessage);
+            return response;
             
-            // // Method 3: If VANI is global object
-            // if (window.VANI) {
-            //     const response = await window.VANI.chat(userMessage);
-            //     return response;
-            // }
+            // Method 3: If VANI is global object
+            if (window.VANI) {
+                const response = await window.VANI.chat(userMessage);
+                return response;
+            }
             
-            // */
+            */
 
-            // // ============================================
-            // // DEMO RESPONSES (Replace with actual VANI.js)
+            // ============================================
+            // DEMO RESPONSES (Replace with actual VANI.js)
             // ============================================
             return new Promise((resolve) => {
                 setTimeout(() => {
