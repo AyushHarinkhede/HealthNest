@@ -686,8 +686,7 @@ const keywordCategories = {
                 "Seeking professional medical help is a very proactive step for your health. A doctor can provide you with personalized and accurate advice.",
                 "If you need to find a doctor or a hospital, you can use online map services or local directories. Consulting a professional is always the right decision.",
                 "Booking an appointment with a doctor is the best way to address any health concerns you may have. They can offer a proper examination and guidance."
-            ]
-        },
+            ]   },
         emergency: {
             keywords: [
                 'emergency', 'chest pain', 'breathing problem', 'can\'t breathe', 'suicide',
