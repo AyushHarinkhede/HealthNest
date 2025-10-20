@@ -690,14 +690,11 @@ const keywordCategories = {
         emergency: {
             keywords: [
                 'emergency', 'chest pain', 'breathing problem', 'can\'t breathe', 'suicide',
-                'accident', 'severe pain', 'unconscious', 'poison', 'heart attack', 'stroke'
-            ],
+                'accident', 'severe pain', 'unconscious', 'poison', 'heart attack', 'stroke'  ],
             responses: [
                 "This sounds like an emergency. Please contact your local emergency services immediately for assistance. Do not wait.",
                 "Based on what you've said, this could be a critical situation. Please seek immediate medical help by calling your local emergency number right away.",
-                "Your safety is the top priority. For any medical emergency, please stop chatting and call for an ambulance or go to the nearest emergency room now."
-            ]
-        },
+                "Your safety is the top priority. For any medical emergency, please stop chatting and call for an ambulance or go to the nearest emergency room now."    ]  },
 // new chat...
     conversation: {
         keywords:[ 'love'
