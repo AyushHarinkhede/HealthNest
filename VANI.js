@@ -704,7 +704,7 @@ const keywordCategories = {
         ],
         responses: [
             "Love is a complex neurobiological phenomenon, a powerful cocktail of hormones like oxytocin and dopamine that create deep bonds. It's an evolutionary driver for connection and security, making us feel transcendent while being fundamentally rooted in our primal need to belong and protect.", 
-            "Love is not a passive feeling, but an active choice you make every single day. It is a verb, demonstrated in consistent acts of support, patience during disagreements, and sacrifices made without expecting recognition. It's a commitment to nurture another's well-being and growth, especially when it is difficult.", 
+     "Love is not a passive feeling, but an active choice you make every single day. It is a verb, demonstrated in consistent acts of support, patience during disagreements, and sacrifices made without expecting recognition. It's a commitment to nurture another's well-being and growth, especially when it is difficult.", 
             "Love is the universe's way of allowing us a glimpse of infinity. It is a silent language understood only by the heart, a force that dismantles the walls of the self to build a bridge to another soul. It's the profound and beautiful recognition of your own humanity in the eyes of another.", 
             "True love is a catalyst for mutual growth. It is not two halves forming a whole, but two whole individuals creating a partnership that challenges and inspires each to become the best version of themselves. It is the force that encourages you to confront your fears and expand your capacity for empathy.", 
             "Love is the ultimate paradox; it is the source of our greatest strength and our deepest vulnerability. It brings a joy so intense it can be painful, and a willingness to risk complete heartbreak for a connection that redefines your reality. It is both the anchor in the storm and the storm itself.",
@@ -712,11 +712,8 @@ const keywordCategories = {
               "Love is an act of unwavering faith in another person's potential. It is the conscious decision to see the best in them even when they are at their worst, and to commit to their journey as if it were your own. It's less about finding a perfect person and more about learning to see an imperfect person perfectly.",
              "Love is the dissolution of the ego. It's that rare moment when the boundary between 'you' and 'me' blurs, and their happiness becomes essential to your own. It is a shared consciousness, a silent understanding that transcends words, creating a single 'us' from two separate individuals.",
               "Love is the silent, profound understanding that you are no longer alone in the universe. It is the creation of a psychological sanctuary, a secure base built on trust and intimacy, from which you can explore the world, knowing you always have a safe haven to return to.", 
-              "Spiritually, love is the resonance of a universal energy that connects all living things. It is the experience of recognizing that the separation between beings is an illusion, and to care for another is to care for a piece of your own soul."
-        ]
-    }
-
-    };
+     "Spiritually, love is the resonance of a universal energy that connects all living things. It is the experience of recognizing that the separation between beings is an illusion, and to care for another is to care for a piece of your own soul."
+        ] } };
 
     for (const category in keywordCategories) {
         const foundKeyword = keywordCategories[category].keywords.find(kw => userMessageLower.includes(kw));
