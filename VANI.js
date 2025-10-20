@@ -724,12 +724,8 @@ const keywordCategories = {
             const responses = keywordCategories[category].responses;
             const randomIndex = Math.floor(Math.random() * responses.length);
             aiResponse = responses[randomIndex];
-            return aiResponse;
-        }
-    }
-    
-    return aiResponse;
-}
+            return aiResponse;        }    }    
+    return aiResponse;}
 let userInput = "I have a severe headache and fever";
 let response = getAiResponse(userInput);
 console.log(response); // This will print one of the 'symptoms' responses.
