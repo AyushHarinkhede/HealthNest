@@ -42,7 +42,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: var(--body-font);
+        font-family: var(--body-font);
         }
 
         body {
