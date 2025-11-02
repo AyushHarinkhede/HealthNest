@@ -494,7 +494,7 @@
         }
         
         #scrollTopBtn { 
-            bottom: 140px; 
+         bottom: 140px; 
         }
 
         .settings-modal {
