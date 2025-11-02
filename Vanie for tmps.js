@@ -134,11 +134,11 @@
         }
 
         [data-theme="dark"] .header {
-            background: transparent;
+        background: transparent;
         }
 
         .header-left {
-            display: flex;
+         display: flex;
             align-items: center;
         }
 
