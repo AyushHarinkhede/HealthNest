@@ -187,7 +187,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 2px;
+          margin-bottom: 2px;
         }
 
         .bot-status {
