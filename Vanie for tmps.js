@@ -174,7 +174,7 @@
         }
 
         .bot-info {
-            padding-left: 15px;
+         padding-left: 15px;
             flex: 1;
         }
 
