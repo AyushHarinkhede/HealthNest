@@ -64,8 +64,8 @@
         }
         
         ::-webkit-scrollbar-thumb { 
-            background: var(--accent); 
-            border-radius: 10px; 
+         background: var(--accent); 
+         border-radius: 10px; 
         }
 
         .moving-bg-element {
