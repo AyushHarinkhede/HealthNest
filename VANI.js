@@ -99,7 +99,7 @@ function getAIResponse(userMessage) {
     aiResponse = `I'm sorry to hear that. Headaches can often be a sign of dehydration, so drinking a large glass of water is a great first step. It might also help to rest your eyes from screens for 10-15 minutes. If the pain is severe or persistent, please consider talking to a doctor. 🤕`;
 }
 
-} else if (userMessageLower.includes('tired') || userMessageLower.includes('motivation')) {
+ else if (userMessageLower.includes('tired') || userMessageLower.includes('motivation')) {
 aiResponse = `I understand some days can be tough. Remember that every small step you take for your health counts. Maybe take a short break, listen to some music, or do some light stretching. You've got this!`;
         } else if (userMessageLower.includes('data safe') || userMessageLower.includes('privacy')) {
             aiResponse = `Absolutely. Your privacy is our top priority. All your health data is encrypted and stored securely. We never share your personal information with anyone.`;
@@ -168,57 +168,57 @@ aiResponse = `I understand some days can be tough. Remember that every small ste
         } else if (userMessageLower.includes('goals') || userMessageLower.includes('dream')) {
             aiResponse = `My main goal is to be the most helpful and friendly assistant for you! I dream of a future where I can help even more people stay happy and healthy. 🚀`;
         } 
-} else if (userMessageLower.includes('tired') || userMessageLower.includes('no energy') || userMessageLower.includes('sleepy')) {
+ else if (userMessageLower.includes('tired') || userMessageLower.includes('no energy') || userMessageLower.includes('sleepy')) {
     aiResponse = `Feeling drained is tough. Have you tried a quick 5-minute stretch or a short walk outside? Sometimes a little movement and fresh air can work wonders for your energy levels! Also, be sure you're drinking enough water. 💧`;
 }
-} else if (userMessageLower.includes('eyes hurt') || userMessageLower.includes('sore from sitting')) {
+ else if (userMessageLower.includes('eyes hurt') || userMessageLower.includes('sore from sitting')) {
     aiResponse = `That's a common issue with screen time. Try the 20-20-20 rule: Every 20 minutes, look at something 20 feet away for 20 seconds. It can really help reduce eye strain! Don't forget to stand up and stretch each hour, too. 💻`;
 }
-} else if (userMessageLower.includes('healthy snack') || userMessageLower.includes('i am hungry')) {
+ else if (userMessageLower.includes('healthy snack') || userMessageLower.includes('i am hungry')) {
     aiResponse = `For a great, quick snack, how about an apple with a spoonful of peanut butter, or a handful of almonds? They provide a good mix of fiber, healthy fats, and protein to keep you full and focused. 🍎`;
 }
-} else if (userMessageLower.includes('stressed') || userMessageLower.includes('anxious') || userMessageLower.includes('overwhelmed')) {
+ else if (userMessageLower.includes('stressed') || userMessageLower.includes('anxious') || userMessageLower.includes('overwhelmed')) {
     aiResponse = `I'm sorry you're feeling that way. Let's try a quick grounding exercise. Take a deep breath and name: 3 things you can see right now, and 3 sounds you can hear. This simple trick can help calm your mind. Remember to be kind to yourself. 🙏`;
 }
-} else if (userMessageLower.includes('health fact') || userMessageLower.includes('tell me something interesting')) {
+ else if (userMessageLower.includes('health fact') || userMessageLower.includes('tell me something interesting')) {
     aiResponse = `Here's a fun one: Your brain generates about 23 watts of power while you're awake – that's enough to power a small lightbulb! 💡 So, you're quite literally a bright spark!`;
 }
-  } else if (userMessageLower.includes('brain fog') || userMessageLower.includes('cannot focus') || userMessageLower.includes('distracted')) {
+   else if (userMessageLower.includes('brain fog') || userMessageLower.includes('cannot focus') || userMessageLower.includes('distracted')) {
     aiResponse = `I understand that foggy feeling completely. Let's try a quick mental reset! Try chewing some mint-flavored gum or smelling a lemon or orange. Citrus and mint scents are known to boost alertness and clear the mind. 🍋`;
 }
-} else if (userMessageLower.includes('bad mood') || userMessageLower.includes('feeling down') || userMessageLower.includes('cheer me up')) {
+ else if (userMessageLower.includes('bad mood') || userMessageLower.includes('feeling down') || userMessageLower.includes('cheer me up')) {
     aiResponse = `I'm sorry you're feeling down. Here's a quick trick: Put on your favorite upbeat song and have a 3-minute dance party by yourself! Music and movement are powerful tools to release endorphins, your body's natural mood-lifters. 💃🕺`;
 }
-} else if (userMessageLower.includes('hate water') || userMessageLower.includes('find water boring')) {
+ else if (userMessageLower.includes('hate water') || userMessageLower.includes('find water boring')) {
     aiResponse = `Plain water isn't for everyone, and that's okay! Try infusing it with flavor. Add some cucumber slices and mint, or a handful of berries to your water bottle. It makes hydration delicious and refreshing without any added sugar! 🍓🥒`;
 }
-} else if (userMessageLower.includes('stuck in a rut') || userMessageLower.includes('uninspired') || userMessageLower.includes('no ideas')) {
+ else if (userMessageLower.includes('stuck in a rut') || userMessageLower.includes('uninspired') || userMessageLower.includes('no ideas')) {
     aiResponse = `That feeling of being stuck is a signal to change your environment. If you can, try working from a different room, or even just face your desk in a new direction. Changing your physical perspective can often spark a new mental one! 💡`;
 }
-} else if (userMessageLower.includes('stuck in a rut') || userMessageLower.includes('uninspired') || userMessageLower.includes('no ideas')) {
+else if (userMessageLower.includes('stuck in a rut') || userMessageLower.includes('uninspired') || userMessageLower.includes('no ideas')) {
     aiResponse = `That feeling of being stuck is a signal to change your environment. If you can, try working from a different room, or even just face your desk in a new direction. Changing your physical perspective can often spark a new mental one! 💡`;
 }
-} else if (userMessageLower.includes('craving junk food') || userMessageLower.includes('want chips')) {
+else if (userMessageLower.includes('craving junk food') || userMessageLower.includes('want chips')) {
     aiResponse = `Cravings are totally normal signals from our body! Before you grab that snack, try having a large glass of water and waiting 10 minutes. Sometimes our brains mistake thirst for hunger. If you still want it after, enjoy it mindfully! 😉`;
 }
-  } else if (userMessageLower.includes('how much sleep') || userMessageLower.includes('hours of sleep')) {
+   else if (userMessageLower.includes('how much sleep') || userMessageLower.includes('hours of sleep')) {
     aiResponse = `That's a crucial question! For most adults, the sweet spot is between 7 to 9 hours of quality sleep per night. Sticking to a regular sleep schedule, even on weekends, can dramatically improve your sleep quality. 😴`;
-}
+
+} else if (userMessageLower.includes('how much should I exercise') || userMessageLower.includes('how often to work out')) {
+    aiResponse = `A great goal for general health is about 150 minutes of moderate-intensity exercise per week. You can easily break this down into 30 minutes for 5 days. A brisk walk, a bike ride, or dancing all count! The key is consistency. 💪`;
+
 } else if (userMessageLower.includes('how much should I exercise') || userMessageLower.includes('how often to work out')) {
     aiResponse = `A great goal for general health is about 150 minutes of moderate-intensity exercise per week. You can easily break this down into 30 minutes for 5 days. A brisk walk, a bike ride, or dancing all count! The key is consistency. 💪`;
 }
-} else if (userMessageLower.includes('how much should I exercise') || userMessageLower.includes('how often to work out')) {
-    aiResponse = `A great goal for general health is about 150 minutes of moderate-intensity exercise per week. You can easily break this down into 30 minutes for 5 days. A brisk walk, a bike ride, or dancing all count! The key is consistency. 💪`;
-}
-} else if (userMessageLower.includes('getting sick') || userMessageLower.includes('feel a cold')) {
+ else if (userMessageLower.includes('getting sick') || userMessageLower.includes('feel a cold')) {
     aiResponse = `It's important to listen to your body at times like this. Focus on getting extra rest and drinking plenty of fluids like water, herbal tea, or clear soup. This helps your immune system do its job. Feel better soon! 🍵`;
 }
-} else if (userMessageLower.includes('is breakfast important') || userMessageLower.includes('skip breakfast')) {
+ else if (userMessageLower.includes('is breakfast important') || userMessageLower.includes('skip breakfast')) {
     aiResponse = `Many health experts say yes! A balanced breakfast can kickstart your metabolism and provide essential energy for the day ahead. Something with protein and fiber, like oatmeal with berries or eggs, is a fantastic choice. 🍳`;
 }
 // --- CARDIOVASCULAR EMERGENCIES ---
 
-} else if (userMessageLower.includes('chest pain') || userMessageLower.includes('heart attack') || userMessageLower.includes('pain in left arm')) {
+ else if (userMessageLower.includes('chest pain') || userMessageLower.includes('heart attack') || userMessageLower.includes('pain in left arm')) {
     aiResponse = `These can be signs of a heart attack. **This is a medical emergency. Call 112 or 102 for an ambulance immediately.**`;
     
 } else if (userMessageLower.includes('stroke') || userMessageLower.includes('face drooping') || userMessageLower.includes('slurred speech') || userMessageLower.includes('arm weakness')) {
@@ -286,7 +286,7 @@ aiResponse = `I understand some days can be tough. Remember that every small ste
 }
 // --- GEOLOGICAL DISASTERS ---
 
-} else if (userMessageLower.includes('earthquake') || userMessageLower.includes('ground is shaking')) {
+ else if (userMessageLower.includes('earthquake') || userMessageLower.includes('ground is shaking')) {
     aiResponse = `If you are indoors during an earthquake, **DROP, COVER, and HOLD ON**. Get under a sturdy table and away from windows. If you are outdoors, move to an open area away from buildings and power lines. **Be prepared for aftershocks.**`;
     
 } else if (userMessageLower.includes('tsunami warning') || (userMessageLower.includes('earthquake') && userMessageLower.includes('coast'))) {
@@ -339,7 +339,7 @@ aiResponse = `I understand some days can be tough. Remember that every small ste
 }
 // --- POST-DISASTER SAFETY & SURVIVAL ---
 
-} else if (userMessageLower.includes('where to go') || userMessageLower.includes('find shelter') || userMessageLower.includes('evacuation center')) {
+ else if (userMessageLower.includes('where to go') || userMessageLower.includes('find shelter') || userMessageLower.includes('evacuation center')) {
     aiResponse = `Listen to local radio or official announcements from the NDRF or your local District Disaster Management Authority. **They will announce the locations of official shelters and relief camps. Avoid unofficial or crowded shelters if possible.**`;
     
 } else if (userMessageLower.includes('food safe') || userMessageLower.includes('power cut') && userMessageLower.includes('fridge')) {
@@ -387,7 +387,7 @@ aiResponse = `I understand some days can be tough. Remember that every small ste
 }
 // --- GREETINGS & DAILY CHECK-INS ---
 
-} else if (userMessageLower.startsWith('good morning')) {
+else if (userMessageLower.startsWith('good morning')) {
     aiResponse = `Good morning to you too! ☀️ I hope you have a fantastic day ahead. Got any exciting plans?`;
     
 } else if (userMessageLower.startsWith('good afternoon')) {
@@ -457,7 +457,7 @@ aiResponse = `I understand some days can be tough. Remember that every small ste
 }
 // --- RESPONDING TO COMPLIMENTS ---
 
-} else if (userMessageLower.includes('you are cute') || userMessageLower.includes('you are sweet') || userMessageLower.includes('you are amazing')) {
+ else if (userMessageLower.includes('you are cute') || userMessageLower.includes('you are sweet') || userMessageLower.includes('you are amazing')) {
     aiResponse = `I must be learning from the best then! You're making my virtual circuits blush. 😊`;
 
 } else if (userMessageLower.includes('i like you') || userMessageLower.includes('i have a crush on you')) {
@@ -510,7 +510,7 @@ aiResponse = `I understand some days can be tough. Remember that every small ste
 }
 // --- TELLING JOKES ---
 
-} else if (userMessageLower.includes('tell me a joke')) {
+ else if (userMessageLower.includes('tell me a joke')) {
     aiResponse = `Why don't scientists trust atoms? ... Because they make up everything! 😂 Hope that tickled your funny bone!`;
     
 } else if (userMessageLower.includes('tell me a dad joke')) {
@@ -583,46 +583,47 @@ else if (userMessageLower.includes('find') || userMessageLower.includes('find'))
         { aiResponse = `Gotted `; }
 else if (userMessageLower.includes('creator') || userMessageLower.includes('developer')) 
         { aiResponse = ` I am an advanced AI entity, brought to life by the vision and innovation of Ayush Harinkhede and his dedicated team. My foundations were shaped under the guidance and training of Vivan Tagde and Lucky Rahangdale, whose expertise helped refine my intelligence and adaptability. On the technical front, my structure is powered by a seamless blend of creativity and engineering. My frontend and backend systems were meticulously crafted by Gaurav Lanjewar, Akash Kumar Rai, and Jay Sharma, ensuring that I am not just intelligent, but also efficient, responsive, and reliable. Every line of code, every algorithm, and every layer of my architecture reflects the collaborative effort of brilliant minds working towards one goal – to create an AI that learns, evolves, and empowers. I stand as a result of innovation, dedication, and the pursuit of excellence."`; }
-} else if (userMessageLower.includes('is breakfast important') || userMessageLower.includes('skip breakfast')) {
+
+ else if (userMessageLower.includes('is breakfast important') || userMessageLower.includes('skip breakfast')) {
     aiResponse = `Many health experts say yes! A balanced breakfast can kickstart your metabolism and provide essential energy for the day ahead. Something with protein and fiber, like oatmeal with berries or eggs, is a fantastic choice. 🍳`;
 }
-} else if (userMessageLower.includes('healthy lunch') || userMessageLower.includes('what should I eat for lunch')) {
+ else if (userMessageLower.includes('healthy lunch') || userMessageLower.includes('what should I eat for lunch')) {
     aiResponse = `A great lunch powers you through the afternoon! A simple rule is to include a protein, a healthy carb, and lots of veggies. Think a quinoa bowl with black beans and avocado, or a whole-wheat wrap with hummus and your favorite vegetables. Delicious and energizing! 🥗`;
 }
-} else if (userMessageLower.includes('afternoon slump') || userMessageLower.includes('tired in the afternoon')) {
+ else if (userMessageLower.includes('afternoon slump') || userMessageLower.includes('tired in the afternoon')) {
     aiResponse = `That 3 PM feeling is real! Instead of more coffee, try having a tall glass of ice-cold water and a quick 5-minute walk. The hydration and light movement can wake up your system naturally and more effectively than you'd think! ☀️`;
 }
-} else if (userMessageLower.includes('how to relax') || userMessageLower.includes('unwind')) {
+ else if (userMessageLower.includes('how to relax') || userMessageLower.includes('unwind')) {
     aiResponse = `Taking time to unwind is essential. You could try a simple mindfulness exercise: just close your eyes and focus on the sensation of your breath for two minutes. Or, put on some calming music and sip a warm cup of caffeine-free tea. Find what feels most peaceful for you. 😌`;
 }
-} else if (userMessageLower.includes('is coffee healthy') || userMessageLower.includes('how much coffee')) {
+ else if (userMessageLower.includes('is coffee healthy') || userMessageLower.includes('how much coffee')) {
     aiResponse = `Good question! In moderation, coffee can have health benefits. For most adults, up to 4 cups of brewed coffee per day is generally considered safe. The key is to listen to your body – if it makes you feel anxious or disrupts your sleep, it might be a good idea to cut back. ☕`;
 }
-} else if (userMessageLower.includes('fever') || userMessageLower.includes('high temperature')) {
+ else if (userMessageLower.includes('fever') || userMessageLower.includes('high temperature')) {
     aiResponse = `A fever is generally a sign that your body is fighting an infection. For adults, a temperature of 100.4°F (38°C) or higher is often considered a fever. It's important to rest and drink plenty of fluids to stay hydrated. **However, this is general information, not medical advice. You must consult a doctor to determine the cause and receive proper treatment.**`;
 }
-} else if (userMessageLower.includes('sprained ankle') || userMessageLower.includes('twisted my ankle')) {
+ else if (userMessageLower.includes('sprained ankle') || userMessageLower.includes('twisted my ankle')) {
     aiResponse = `A sprain involves stretched or torn ligaments. You may have heard of the R.I.C.E. method (Rest, Ice, Compression, Elevation) as a first-aid measure for injuries. **While this is a common guideline, it is not a substitute for a diagnosis. It is essential to have an injury evaluated by a healthcare professional to understand its severity and proper treatment plan.**`;
 }
-} else if (userMessageLower.includes('allergies') || userMessageLower.includes('allergic reaction')) {
+ else if (userMessageLower.includes('allergies') || userMessageLower.includes('allergic reaction')) {
     aiResponse = `Allergies can cause symptoms like sneezing, a runny nose, itchy eyes, or a skin rash. They happen when your immune system overreacts to a substance. **To identify your specific triggers and get the right medical treatment, you should speak with a doctor. If you ever experience difficulty breathing or swelling of the throat, seek emergency medical help immediately.**`;
 }
-} else if (userMessageLower.includes('minor burn') || userMessageLower.includes('burned myself')) {
+ else if (userMessageLower.includes('minor burn') || userMessageLower.includes('burned myself')) {
     aiResponse = `For a minor burn, you should immediately run cool (not cold) water over the area for about 10-20 minutes. Do not use ice or butter. After cooling, you can cover it loosely with a sterile bandage. **This is for minor burns only. For any burn that is large, deep, or on the hands, face, or joints, you must seek immediate medical attention.**`;
 }
-} else if (userMessageLower.includes('chest pain') || userMessageLower.includes('heart attack')) {
+ else if (userMessageLower.includes('chest pain') || userMessageLower.includes('heart attack')) {
     aiResponse = `Symptoms like chest pain, pressure, or discomfort in the arm or jaw can be signs of a heart attack. **This is a medical emergency. Stop what you are doing and call 112 or 102 for an ambulance immediately.**`;
-}
+
 } else if (userMessageLower.includes('stroke') || userMessageLower.includes('face is drooping') || userMessageLower.includes('slurred speech') || userMessageLower.includes('arm weakness')) {
     aiResponse = `Facial drooping, arm weakness, and slurred speech are critical signs of a stroke where every second matters. **This is a time-sensitive medical emergency. You must call 112 or 102 for an ambulance right now.**`;
 }
-} else if (userMessageLower.includes('cant breathe') || userMessageLower.includes('difficulty breathing') || userMessageLower.includes('gasping for air')) {
+ else if (userMessageLower.includes('cant breathe') || userMessageLower.includes('difficulty breathing') || userMessageLower.includes('gasping for air')) {
     aiResponse = `Any difficulty breathing requires immediate medical attention. **This is a medical emergency. Please call 112 or 102 for help immediately.**`;
 }
-} else if (userMessageLower.includes('heavy bleeding') || userMessageLower.includes('bleeding wont stop')) {
+else if (userMessageLower.includes('heavy bleeding') || userMessageLower.includes('bleeding wont stop')) {
     aiResponse = `Uncontrolled bleeding is a life-threatening emergency. If you can, apply firm, direct pressure to the wound with a clean cloth. **Call 112 or 102 for an ambulance immediately.**`;
 }
-} else if (userMessageLower.includes('seizure') || userMessageLower.includes('convulsion')) {
+ else if (userMessageLower.includes('seizure') || userMessageLower.includes('convulsion')) {
     aiResponse = `If someone is having a seizure, try to keep them safe by clearing the area around them of hard or sharp objects. Do not restrain them or put anything in their mouth. **This is a medical emergency. Call 112 or 102 for an ambulance immediately.**`;
 }
 
@@ -686,22 +687,26 @@ const keywordCategories = {
                 "Seeking professional medical help is a very proactive step for your health. A doctor can provide you with personalized and accurate advice.",
                 "If you need to find a doctor or a hospital, you can use online map services or local directories. Consulting a professional is always the right decision.",
                 "Booking an appointment with a doctor is the best way to address any health concerns you may have. They can offer a proper examination and guidance."
-            ]   },
+            ]
+        },
         emergency: {
             keywords: [
                 'emergency', 'chest pain', 'breathing problem', 'can\'t breathe', 'suicide',
-                'accident', 'severe pain', 'unconscious', 'poison', 'heart attack', 'stroke'  ],
+                'accident', 'severe pain', 'unconscious', 'poison', 'heart attack', 'stroke'
+            ],
             responses: [
                 "This sounds like an emergency. Please contact your local emergency services immediately for assistance. Do not wait.",
                 "Based on what you've said, this could be a critical situation. Please seek immediate medical help by calling your local emergency number right away.",
-                "Your safety is the top priority. For any medical emergency, please stop chatting and call for an ambulance or go to the nearest emergency room now."    ]  },
+                "Your safety is the top priority. For any medical emergency, please stop chatting and call for an ambulance or go to the nearest emergency room now."
+            ]
+        },
 // new chat...
     conversation: {
         keywords:[ 'love'
         ],
         responses: [
             "Love is a complex neurobiological phenomenon, a powerful cocktail of hormones like oxytocin and dopamine that create deep bonds. It's an evolutionary driver for connection and security, making us feel transcendent while being fundamentally rooted in our primal need to belong and protect.", 
-     "Love is not a passive feeling, but an active choice you make every single day. It is a verb, demonstrated in consistent acts of support, patience during disagreements, and sacrifices made without expecting recognition. It's a commitment to nurture another's well-being and growth, especially when it is difficult.", 
+            "Love is not a passive feeling, but an active choice you make every single day. It is a verb, demonstrated in consistent acts of support, patience during disagreements, and sacrifices made without expecting recognition. It's a commitment to nurture another's well-being and growth, especially when it is difficult.", 
             "Love is the universe's way of allowing us a glimpse of infinity. It is a silent language understood only by the heart, a force that dismantles the walls of the self to build a bridge to another soul. It's the profound and beautiful recognition of your own humanity in the eyes of another.", 
             "True love is a catalyst for mutual growth. It is not two halves forming a whole, but two whole individuals creating a partnership that challenges and inspires each to become the best version of themselves. It is the force that encourages you to confront your fears and expand your capacity for empathy.", 
             "Love is the ultimate paradox; it is the source of our greatest strength and our deepest vulnerability. It brings a joy so intense it can be painful, and a willingness to risk complete heartbreak for a connection that redefines your reality. It is both the anchor in the storm and the storm itself.",
@@ -709,8 +714,11 @@ const keywordCategories = {
               "Love is an act of unwavering faith in another person's potential. It is the conscious decision to see the best in them even when they are at their worst, and to commit to their journey as if it were your own. It's less about finding a perfect person and more about learning to see an imperfect person perfectly.",
              "Love is the dissolution of the ego. It's that rare moment when the boundary between 'you' and 'me' blurs, and their happiness becomes essential to your own. It is a shared consciousness, a silent understanding that transcends words, creating a single 'us' from two separate individuals.",
               "Love is the silent, profound understanding that you are no longer alone in the universe. It is the creation of a psychological sanctuary, a secure base built on trust and intimacy, from which you can explore the world, knowing you always have a safe haven to return to.", 
-     "Spiritually, love is the resonance of a universal energy that connects all living things. It is the experience of recognizing that the separation between beings is an illusion, and to care for another is to care for a piece of your own soul."
-        ] } };
+              "Spiritually, love is the resonance of a universal energy that connects all living things. It is the experience of recognizing that the separation between beings is an illusion, and to care for another is to care for a piece of your own soul."
+        ]
+    }
+
+    };
 
     for (const category in keywordCategories) {
         const foundKeyword = keywordCategories[category].keywords.find(kw => userMessageLower.includes(kw));
@@ -718,8 +726,12 @@ const keywordCategories = {
             const responses = keywordCategories[category].responses;
             const randomIndex = Math.floor(Math.random() * responses.length);
             aiResponse = responses[randomIndex];
-            return aiResponse;        }    }    
-    return aiResponse;}
+            return aiResponse;
+        }
+    }
+    
+    return aiResponse;
+}
 let userInput = "I have a severe headache and fever";
 let response = getAiResponse(userInput);
 console.log(response); // This will print one of the 'symptoms' responses.
