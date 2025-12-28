@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#017b9a">
-    <link rel="icon" type="image/png" href="Shinchan.png"> <!-- for tab  image -->
+    <link rel="icon" type="image/png" href="Shinchan.png"> <!-- for tab  image --> 
 
     <title>HealthNest - Your Health Treasury</title>
     <link rel="manifest" href="manifest.json">
-
+ 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,10 +19,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 
-    <style> 
-        /* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */
+    <style>    
+        /* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */ 
         :root {
             --primary: #017b9a; --on-primary: #FFFFFF; --primary-container: #BBE9FF; --on-primary-container: #001F29;
             --secondary: #4C626A; --on-secondary: #FFFFFF; --secondary-container: #CFE6F0; --on-secondary-container: #071E25;
@@ -59,28 +59,28 @@
         @keyframes pulse { 0%, 100% { transform: scale(0.95); } 50% { transform: scale(1.05); } }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* --- 3D Glass Tube Navigation Bar --- */
+        /* --- 3D Glass Tube Navigation Bar --- */ 
         nav {
             background: rgba(var(--surface-rgb), 0.5); /* Semi-transparent base */
             backdrop-filter: blur(25px) saturate(180%); /* Increased blur for glass effect */
             padding: 15px 30px;
             position: fixed;
-            width: calc(100% - 40px);
+            width: calc(100% - 40px); 
             top: 20px;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%); 
             z-index: 1000;
             display: flex;
             gap: 15px;
             border-radius: var(--border-radius-full);
             align-items: center;
-            border: 1px solid rgba(var(--on-surface-rgb), 0.1);
+            border: 1px solid rgba(var(--on-surface-rgb), 0.1); 
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
             transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
         }
 
         nav:hover {
-            transform: translateX(-50%) scale(1.01);
+            transform: translateX(-50%) scale(1.01); 
             box-shadow: 0 12px 40px -10px rgba(0,0,0,0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
         }
         .logo { font-size: 1.5em; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; margin-right: 1.25rem; }
@@ -252,30 +252,30 @@
         .activity-list li:last-child, .appointments-list li:last-child { border-bottom: none; }
         .dashboard-container { background-color: var(--surface); padding: 1.875rem; border-radius: var(--border-radius-large); box-shadow: 0 0.5rem 2.5rem rgba(var(--shadow), 0.08); border: 1px solid var(--outline); }
         
-        /* --- Water Level Indicator --- */
-        .water-level-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        /* --- Water Level Indicator --- */ 
+        .water-level-container { 
+            display: flex; 
+            align-items: center;  
+            gap: 1rem; 
         }
 
-        .human-body-icon {
-            width: 50px;
-            height: 100px;
-            background-color: var(--surface-variant);
-            border-radius: 25px 25px 0 0;
-            position: relative;
-            overflow: hidden;
-        }
-
+        .human-body-icon { 
+            width: 50px; 
+            height: 100px; 
+            background-color: var(--surface-variant); 
+            border-radius: 25px 25px 0 0;  
+            position: relative;   
+            overflow: hidden;  
+        } 
+ 
         .water-fill {
-            position: absolute;
-            bottom: 0;
+            position: absolute; 
+            bottom: 0; 
             width: 100%;
             background-color: #3498db;
             transition: height 0.5s ease;
         }
-
+ 
         .faq-accordion { max-width: 50rem; margin: 0 auto; text-align: left; }
         .faq-item { background-color: var(--surface); margin-bottom: 1rem; border-radius: var(--border-radius-medium); border: 1px solid var(--outline); overflow: hidden; transition: all 0.4s ease; box-shadow: 0 0.25rem 1.25rem rgba(var(--shadow), 0.06); }
         .faq-item:hover { box-shadow: 0 0.5rem 1.5rem -0.6rem var(--surface-variant); transform: translateY(-0.2rem); }
@@ -301,12 +301,12 @@
         .modal-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent); }
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         
-        /* --- Enhanced Edit Profile Modal --- */
-        #editProfileModal .modal-content {
+        /* --- Enhanced Edit Profile Modal --- */ 
+        #editProfileModal .modal-content { 
             max-width: 50rem; /* Wider modal */
             max-height: 80vh; /* Max height */
-            overflow-y: auto; /* Scrollable content */
-        }
+            overflow-y: auto; /* Scrollable content */  
+        }   
         
         .password-wrapper { position: relative; display: flex; align-items: center; }
         .password-wrapper .modal-input { padding-right: 2.8rem; }
@@ -381,9 +381,9 @@
             <path class="pulse" d="M50,5 C74.85,5 95,25.15 95,50 C95,74.85 74.85,95 50,95 C25.15,95 5,74.85 5,50 C5,25.15 25.15,5 50,5 Z"/>
             <path class="cross" d="M50 30 L50 70 M30 50 L70 50" stroke="white" stroke-width="8" stroke-linecap="round"/>
         </svg>
-    </div>
+    </div> 
 
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar"> 
         <div class="logo">
             <span class="material-symbols-outlined">health_and_safety</span>
             HealthNest
