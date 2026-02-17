@@ -182,7 +182,7 @@
         document.getElementById('profileHeightValue').textContent = heightFt ? `${heightCm} cm / ${heightFt}` : `${heightCm} cm`;
         
         document.getElementById('profileWeightValue').textContent = `${document.getElementById('editWeight').value} kg`;
-        const bloodEl = document.getElementById('editBlood');
+        const bloodEl = document.getElementById('editBlood') || document.getElementById('editBloodGroup');
         if (bloodEl) document.getElementById('profileBloodValue').textContent = bloodEl.value;
 
         // Update profile picture if a new one was selected
