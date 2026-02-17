@@ -32,15 +32,19 @@
       HealthNest
     </div>
     
-    <div class="search-container">
-      <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs...">
-    </div>
-  
     <div class="nav-buttons">
       <button class="signup-btn auth-btn" onclick="openModal('authModal'); switchAuthTab('login')" data-key="navAuth" aria-haspopup="dialog">
         <i class="fas fa-user-lock" style="margin-right:0.5rem"></i> Log In / Sign Up
       </button>
+      <button class="profile-nav-btn" id="profileNavBtn" onclick="openModal('userProfileModal')" style="display:none;" title="View Profile">
+        <i class="fas fa-user-circle"></i>
+      </button>
     </div>
+
+    <div class="search-container" style="margin-left:0.75rem;">
+      <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs...">
+    </div>
+
     <div id="user-profile-icon" style="display:none;">
       <div class="profile-avatar">
         <span id="user-initials"></span>
@@ -58,6 +62,8 @@
     <div class="hero-bg bg-e"></div>
     <div class="hero-bg bg-f"></div>
     <div class="hero-bg bg-g"></div>
+    <div class="hero-bg bg-h"></div>
+    <div class="hero-bg bg-i"></div>
     <div class="hero-content">
       <h1 data-key="heroTitle">Your Health, In Your Hands.</h1>
       <p data-key="heroSubtitle">Save your entire medical history in one secure place and access it anytime, anywhere.</p>
@@ -66,8 +72,8 @@
   </header>
 
   <main>
-    <!-- PROFILE SECTION -->
-    <section id="user-profile" class="section">
+    <!-- PROFILE SECTION (moved to navbar modal) -->
+    <section id="user-profile" class="section" style="display:none;">
       <h2 class="section-title" data-key="profileTitle">Your Profile</h2>
       <div class="profile-card">
         <div class="profile-pic">
@@ -432,7 +438,7 @@
 
   <!-- AUTH (Login / Sign up) MODAL -->
   <div id="authModal" class="modal-overlay" role="dialog" aria-labelledby="authModalTitle" aria-modal="true">
-    <div class="modal-content" style="max-width:28rem;">
+    <div class="modal-content auth-modal-content" style="max-width:38rem; max-height:90vh; overflow-y:auto;">
       <div class="modal-header">
         <h2 id="authModalTitle">Welcome Back!</h2>
         <button class="modal-close-btn" onclick="closeModal('authModal')">&times;</button>
@@ -443,50 +449,53 @@
         <button id="authTabSignup" class="auth-tab-btn" onclick="switchAuthTab('signup')" role="tab" aria-selected="false">Sign Up</button>
       </div>
 
-      <div class="auth-forms">
-        <form id="authLoginForm" class="auth-tab auth-login" onsubmit="handleLogin(event)">
-          <input type="email" class="modal-input" placeholder="Enter your email" required>
-          <div class="password-wrapper">
-            <input type="password" id="auth-login-password" class="modal-input" placeholder="Enter your password" required>
-            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-login-password', this)"><i class="fas fa-eye"></i></button>
-          </div>
-          <div class="form-options">
-            <label><input type="checkbox"> Remember Me</label>
-            <a href="#" style="color: var(--primary);">Forgot Password?</a>
-          </div>
-          <button type="submit" class="cta-button" style="width:100%;">Log In</button>
-        </form>
+      <div class="auth-forms-container">
+        <div class="auth-tab-section auth-login active-panel" style="display:block; min-height:auto;">
+          <form id="authLoginForm" class="auth-form" onsubmit="handleLogin(event)">
+            <input type="email" class="modal-input" placeholder="Enter your email" required>
+            <div class="password-wrapper">
+              <input type="password" id="auth-login-password" class="modal-input" placeholder="Enter your password" required>
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-login-password', this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="form-options">
+              <label><input type="checkbox"> Remember Me</label>
+              <a href="#" style="color: var(--primary);">Forgot Password?</a>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%;">Log In</button>
+          </form>
+        </div>
 
-        <form id="authSignupForm" class="auth-tab auth-signup" style="display:none;" onsubmit="handleLogin(event)">
-          <input type="text" class="modal-input" placeholder="Username" required>
-          <input type="email" class="modal-input" placeholder="Your Email" required>
-          <div class="password-wrapper">
-            <input type="password" id="auth-signup-password" class="modal-input" placeholder="Create Password" required>
-            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-password', this)"><i class="fas fa-eye"></i></button>
-          </div>
-          <div class="password-wrapper">
-            <input type="password" id="auth-signup-confirm-password" class="modal-input" placeholder="Confirm Password" required>
-            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-confirm-password', this)"><i class="fas fa-eye"></i></button>
-          </div>
-          <button type="submit" class="cta-button" style="width:100%; margin-top: 1rem;">Sign Up</button>
-        </form>
+        <div class="auth-tab-section auth-signup" style="display:none; min-height:auto;">
+          <form id="authSignupForm" class="auth-form" onsubmit="handleLogin(event)">
+            <input type="text" class="modal-input" placeholder="Username" required>
+            <input type="email" class="modal-input" placeholder="Your Email" required>
+            <div class="password-wrapper">
+              <input type="password" id="auth-signup-password" class="modal-input" placeholder="Create Password" required>
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-password', this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="password-wrapper">
+              <input type="password" id="auth-signup-confirm-password" class="modal-input" placeholder="Confirm Password" required>
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-confirm-password', this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%; margin-top: 1rem;">Sign Up</button>
+          </form>
+        </div>
       </div>
 
+      <div class="social-login-divider">or continue with</div>
       <div class="social-login-row">
-        <button class="social-btn google" onclick="socialSign('Google')" aria-label="Continue with Google">
-          <!-- Google multi-color G (SVG) -->
+        <button type="button" class="social-btn google" onclick="socialSign('Google')" aria-label="Continue with Google">
           <svg viewBox="0 0 533.5 544.3" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M533.5 278.4c0-17.7-1.5-35-4.6-51.8H272.1v98.1h147.4c-6.4 34.4-25.7 63.6-54.6 83.1v68.8h88.1c51.6-47.5 81-117.8 81-198.2z"/><path fill="#34A853" d="M272.1 544.3c73.6 0 135.5-24.4 180.7-66.6l-88.1-68.8c-24.7 16.7-56.2 26.6-92.6 26.6-71 0-131.1-47.9-152.6-112.2H31.4v70.6C76.2 487.6 168 544.3 272.1 544.3z"/><path fill="#FBBC05" d="M119.5 318.3c-5.6-16.7-8.8-34.5-8.8-52.7s3.2-36 8.8-52.7V142.2H31.4C11.2 181.4 0 224.4 0 267.6s11.2 86 31.4 125.4l88.1-74.7z"/><path fill="#EA4335" d="M272.1 107.7c39.9 0 75.7 13.7 104 40.6L445 72.2C388.7 24.6 332.6 0 272.1 0 168 0 76.2 56.7 31.4 142.2l88.1 70.6c21.5-64.3 81.6-112.2 152.6-112.2z"/></svg>
-          Continue with Google
+          Google
         </button>
 
-        <button class="social-btn facebook" onclick="socialSign('Facebook')" aria-label="Continue with Facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+        <button type="button" class="social-btn facebook" onclick="socialSign('Facebook')" aria-label="Continue with Facebook"><i class="fab fa-facebook-f"></i> Facebook</button>
 
-        <button class="social-btn apple" onclick="socialSign('Apple')" aria-label="Continue with Apple"><i class="fab fa-apple"></i> Continue with Apple</button>
+        <button type="button" class="social-btn apple" onclick="socialSign('Apple')" aria-label="Continue with Apple"><i class="fab fa-apple"></i> Apple</button>
 
-        <button class="social-btn microsoft" onclick="socialSign('Microsoft')" aria-label="Continue with Microsoft">
-          <!-- Microsoft 4-color squares -->
+        <button type="button" class="social-btn microsoft" onclick="socialSign('Microsoft')" aria-label="Continue with Microsoft">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="0" y="0" width="11" height="11" fill="#F35325"/><rect x="13" y="0" width="11" height="11" fill="#81BC06"/><rect x="0" y="13" width="11" height="11" fill="#05A6F0"/><rect x="13" y="13" width="11" height="11" fill="#FFB900"/></svg>
-          Continue with Microsoft
+          Microsoft
         </button>
       </div>
     </div>
@@ -499,8 +508,22 @@
         <h2 id="editProfileModalTitle" data-key="editProfileTitle">Edit Your Profile</h2>
         <button class="modal-close-btn" onclick="closeModal('editProfileModal')">&times;</button>
       </div>
-      <label for="editProfilePic">Profile Picture</label>
-      <input type="file" id="editProfilePic" class="modal-input" accept="image/*" onchange="previewProfilePic(event)">
+
+      <div class="profile-photo-section" style="margin-bottom:1rem; display:flex; gap:1rem; align-items:center;">
+        <div class="profile-photo-container" style="width:72px; height:72px; border-radius:50%; overflow:hidden; background:var(--primary-container); display:flex; align-items:center; justify-content:center;">
+          <img id="editProfilePreviewImg" src="" alt="Profile Preview" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;">
+          <i id="editProfilePreviewIcon" class="fas fa-user" style="font-size:2rem; color:var(--on-primary-container);"></i>
+        </div>
+        <div>
+          <label for="editProfilePic" class="upload-photo-label" style="cursor:pointer; display:inline-flex; flex-direction:column; gap:0.25rem; align-items:flex-start;">
+            <i class="fas fa-camera"></i>
+            <span>Tap to upload photo</span>
+            <small>Click to add your profile picture</small>
+          </label>
+          <input type="file" id="editProfilePic" class="modal-input" accept="image/*" style="display:none;" onchange="previewProfilePic(event)">
+        </div>
+      </div>
+
       <div class="form-grid">
         <div>
           <label for="editName">Full Name</label>
@@ -530,6 +553,75 @@
         </div>
       </div>
       <button class="cta-button" style="width:100%; margin-top: 1rem;" onclick="saveProfile()">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- USER PROFILE MODAL -->
+  <div id="userProfileModal" class="modal-overlay" role="dialog" aria-labelledby="userProfileModalTitle" aria-modal="true">
+    <div class="modal-content" style="max-width:42rem; max-height:85vh; overflow-y:auto;">
+      <div class="modal-header">
+        <h2 id="userProfileModalTitle">Your Profile</h2>
+        <button class="modal-close-btn" onclick="closeModal('userProfileModal')">&times;</button>
+      </div>
+      
+      <div class="user-profile-modal-content">
+        <div class="profile-photo-section">
+          <div class="profile-photo-container">
+            <img id="modalProfilePhoto" src="" alt="Profile Photo" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;">
+            <i id="modalProfileIcon" class="fas fa-user" style="font-size:4rem;"></i>
+          </div>
+          <label for="modalProfilePhotoInput" class="upload-photo-label">
+            <i class="fas fa-camera"></i>
+            <span>Tap to upload photo</span>
+            <small>Click here to add your profile picture</small>
+          </label>
+          <input type="file" id="modalProfilePhotoInput" class="modal-input" accept="image/*" style="display:none;" onchange="previewModalProfilePhoto(event)">
+        </div>
+
+        <div class="profile-info-section">
+          <div class="info-item">
+            <label>Full Name</label>
+            <p id="modalUserName">-</p>
+          </div>
+          <div class="info-item">
+            <label>Email</label>
+            <p id="modalUserEmail">-</p>
+          </div>
+          <div class="info-item">
+            <label>Age</label>
+            <p id="modalUserAge">-</p>
+          </div>
+          <div class="info-item">
+            <label>Gender</label>
+            <p id="modalUserGender">-</p>
+          </div>
+          <div class="info-item">
+            <label>Height</label>
+            <p id="modalUserHeight">-</p>
+          </div>
+          <div class="info-item">
+            <label>Weight</label>
+            <p id="modalUserWeight">-</p>
+          </div>
+          <div class="info-item">
+            <label>Blood Group</label>
+            <p id="modalUserBlood">-</p>
+          </div>
+          <div class="info-item full-width">
+            <label>Address</label>
+            <p id="modalUserAddress">-</p>
+          </div>
+        </div>
+
+        <div class="profile-actions-modal">
+          <button class="cta-button" onclick="openModal('editProfileModal'); closeModal('userProfileModal');">
+            <i class="fas fa-edit"></i> Edit Profile
+          </button>
+          <button class="cta-button secondary" onclick="closeModal('userProfileModal');">
+            <i class="fas fa-times"></i> Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -807,6 +899,7 @@
       <option value="light">Light</option>
       <option value="dark">Dark</option>
     </select>
+
     <label for="textSize">Website Size</label>
     <select id="textSize" onchange="changeTextSize(this.value)">
       <option value="15px">Small</option>
@@ -814,13 +907,37 @@
       <option value="17px">Large</option>
       <option value="18px">Extra Large</option>
     </select>
+
     <label for="language">Language</label>
     <select id="language" onchange="switchLanguage(this.value)">
       <option value="en">English</option>
       <option value="hi">हिंदी</option>
     </select>
-    <button onclick="updateAccount()">Update Account</button>
-    <button onclick="clearStorage()">Clear Storage</button>
+
+    <div style="display:flex;flex-direction:column;gap:0.5rem;margin-top:0.75rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="margin:0;">Notifications</label>
+        <label class="switch"><input id="notificationsToggle" type="checkbox"><span class="slider"></span></label>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="margin:0;">Privacy Mode (Incognito)</label>
+        <label class="switch black-switch"><input id="privacyMode" type="checkbox"><span class="slider"></span></label>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="margin:0;">Two-factor Auth</label>
+        <label class="switch"><input id="twoFactorAuth" type="checkbox"><span class="slider"></span></label>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="margin:0;">Reduced Motion</label>
+        <label class="switch"><input id="reducedMotion" type="checkbox"><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;">
+      <button onclick="updateAccount()">Save Settings</button>
+      <button onclick="clearStorage()">Clear Storage</button>
+      <button onclick="openSupport()">Contact Support</button>
+    </div>
   </div>
 
 </body>

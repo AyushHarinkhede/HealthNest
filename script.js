@@ -128,7 +128,15 @@
     }
     
     const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) logoutBtn.addEventListener('click', function() { showToast('Logging out...', 'info'); });
+    if (logoutBtn) logoutBtn.addEventListener('click', function() {
+        showToast('Logging out...', 'info');
+        // revert UI to signed-out state
+        const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = '';
+        const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'none';
+        document.getElementById('user-profile-icon').style.display = 'none';
+        document.getElementById('adminLink').style.display = 'none';
+        document.getElementById('document-upload-section').style.display = 'none';
+    });
     function toggleSettings() { const menu = document.getElementById('settingsMenu'); menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'; }
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     function changeTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('theme', theme); if (document.getElementById('healthChart')) { renderHealthChart(); } }
@@ -139,7 +147,46 @@
         localStorage.setItem('textSize', size);
     }
 
-    function updateAccount() { showToast("Account updated successfully!", "success"); }
+    function updateAccount() {
+        const notifications = !!document.getElementById('notificationsToggle')?.checked;
+        const privacyMode = !!document.getElementById('privacyMode')?.checked;
+        const twoFactor = !!document.getElementById('twoFactorAuth')?.checked;
+        const reducedMotion = !!document.getElementById('reducedMotion')?.checked;
+
+        localStorage.setItem('settings', JSON.stringify({ notifications, privacyMode, twoFactor, reducedMotion }));
+
+        // Apply reduced motion immediately
+        if (reducedMotion) document.documentElement.setAttribute('data-reduced-motion', 'true');
+        else document.documentElement.removeAttribute('data-reduced-motion');
+
+        showToast('Settings saved', 'success');
+    }
+
+    function exportUserData() {
+        const data = {
+            name: document.querySelector('[data-key="profileName"]')?.textContent || '',
+            email: document.getElementById('profileEmail')?.textContent || '',
+            age: document.getElementById('profileAgeValue')?.textContent || '',
+            height: document.getElementById('profileHeightValue')?.textContent || '',
+            weight: document.getElementById('profileWeightValue')?.textContent || '',
+            blood: document.getElementById('profileBloodValue')?.textContent || ''
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'healthnest-profile.json';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showToast('Profile exported (demo)', 'info');
+    }
+
+    function openSupport() {
+        showToast('Opening support (demo) — contact@healthnest.example', 'info');
+        window.open('mailto:support@healthnest.example', '_blank');
+    }
     function clearStorage() { if(confirm("Are you sure you want to clear all local data?")){ localStorage.clear(); sessionStorage.clear(); showToast("Storage cleared!", "success"); location.reload(); } }
     
     function openModal(modalId) { 
@@ -153,6 +200,9 @@
                  aiBubble.innerHTML = `<div>Hello! How can I help you today? Type 'help' to see what I can do.</div>`;
                  chatBox.appendChild(aiBubble);
             }
+        }
+        if (modalId === 'userProfileModal') {
+            updateProfileModalData();
         }
         if(modal) modal.querySelector('button, input, select, textarea')?.focus(); 
     }
@@ -171,6 +221,8 @@
         if (tab === 'login') {
             loginSection.style.display = 'block';
             signupSection.style.display = 'none';
+            loginSection.classList.add('active-panel');
+            signupSection.classList.remove('active-panel');
             loginBtn.classList.add('active');
             signupBtn.classList.remove('active');
             document.getElementById('authModalTitle').textContent = 'Welcome Back!';
@@ -178,6 +230,8 @@
         } else {
             loginSection.style.display = 'none';
             signupSection.style.display = 'block';
+            loginSection.classList.remove('active-panel');
+            signupSection.classList.add('active-panel');
             loginBtn.classList.remove('active');
             signupBtn.classList.add('active');
             document.getElementById('authModalTitle').textContent = 'Create Your Account';
@@ -189,7 +243,9 @@
         showToast(`Signing in with ${provider} (demo)`, 'info');
         // Demo: simulate successful sign-in and apply same UI changes as handleLogin
         setTimeout(() => {
-            document.querySelector('.nav-buttons').style.display = 'none';
+            // hide only the auth button, show profile button
+            const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = 'none';
+            const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'flex';
             document.getElementById('user-profile-icon').style.display = 'flex';
             document.getElementById('adminLink').style.display = 'block';
             const fullName = document.querySelector('[data-key="profileName"]').textContent;

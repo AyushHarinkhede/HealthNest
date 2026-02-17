@@ -36,10 +36,6 @@
       <a href="#admin" id="adminLink" style="display:none;"><i class="fas fa-cog"></i><span>Admin</span></a>
     </div>
     
-    <div class="search-container">
-      <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs...">
-    </div>
-  
     <div class="nav-buttons">
       <button class="signup-btn auth-btn" onclick="openModal('authModal'); switchAuthTab('login')" data-key="navAuth" aria-haspopup="dialog">
         <i class="fas fa-user-lock" style="margin-right:.5rem"></i> Log In / Sign Up
@@ -48,6 +44,11 @@
         <i class="fas fa-user-circle"></i>
       </button>
     </div>
+
+    <div class="search-container" style="margin-left:0.75rem;">
+      <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs...">
+    </div>
+
     <div id="user-profile-icon" style="display:none;">
       <div class="profile-avatar">
         <span id="user-initials"></span>
@@ -900,11 +901,13 @@
   <!-- SETTINGS MENU -->
   <div id="settingsMenu" role="dialog" aria-labelledby="settingsMenuTitle">
     <h1 id="settingsMenuTitle"><b>Settings</b></h1>
+
     <label for="theme">Theme (Light/Dark)</label>
     <select id="theme" onchange="changeTheme(this.value)">
       <option value="light">Light</option>
       <option value="dark">Dark</option>
     </select>
+
     <label for="textSize">Website Size</label>
     <select id="textSize" onchange="changeTextSize(this.value)">
       <option value="15px">Small</option>
@@ -912,13 +915,64 @@
       <option value="17px">Large</option>
       <option value="18px">Extra Large</option>
     </select>
+
     <label for="language">Language</label>
     <select id="language" onchange="switchLanguage(this.value)">
       <option value="en">English</option>
       <option value="hi">हिंदी</option>
     </select>
-    <button onclick="updateAccount()">Update Account</button>
-    <button onclick="clearStorage()">Clear Storage</button>
+
+    <label for="notificationsToggle">Notifications</label>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <label class="switch black-switch" style="margin:0;">
+        <input type="checkbox" id="notificationsToggle">
+        <span class="slider"></span>
+      </label>
+      <small style="color:var(--on-surface-variant);">Enable push notifications</small>
+    </div>
+
+    <label for="privacyMode">Privacy Mode</label>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <label class="switch" style="margin:0;">
+        <input type="checkbox" id="privacyMode">
+        <span class="slider"></span>
+      </label>
+      <small style="color:var(--on-surface-variant);">Keep profile private from others</small>
+    </div>
+
+    <label for="twoFactorAuth">Two-factor Authentication</label>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <label class="switch black-switch" style="margin:0;">
+        <input type="checkbox" id="twoFactorAuth">
+        <span class="slider"></span>
+      </label>
+      <small style="color:var(--on-surface-variant);">Add extra account security</small>
+    </div>
+
+    <label for="reducedMotion">Accessibility</label>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <label class="switch" style="margin:0;">
+        <input type="checkbox" id="reducedMotion">
+        <span class="slider"></span>
+      </label>
+      <small style="color:var(--on-surface-variant);">Reduce motion & animations</small>
+    </div>
+
+    <label for="dataExport">Data & Storage</label>
+    <div style="display:flex;gap:0.5rem;align-items:center;flex-direction:column;">
+      <div style="width:100%;display:flex;gap:0.5rem;">
+        <button class="btn" onclick="exportUserData()">Export Data</button>
+        <button class="btn" onclick="clearStorage()">Clear Storage</button>
+      </div>
+      <small style="color:var(--on-surface-variant);">Export your profile and medical records (demo)</small>
+    </div>
+
+    <label for="supportContact">Support</label>
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <button class="btn" onclick="openSupport()">Contact Support</button>
+    </div>
+
+    <button onclick="updateAccount()">Save Settings</button>
   </div>
 
 </body>
