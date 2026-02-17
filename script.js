@@ -133,7 +133,6 @@
         // revert UI to signed-out state
         const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = '';
         const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'none';
-        document.getElementById('user-profile-icon').style.display = 'none';
         document.getElementById('adminLink').style.display = 'none';
         document.getElementById('document-upload-section').style.display = 'none';
     });
@@ -246,7 +245,7 @@
             // hide only the auth button, show profile button
             const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = 'none';
             const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'flex';
-            document.getElementById('user-profile-icon').style.display = 'flex';
+            const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'inline-flex';
             document.getElementById('adminLink').style.display = 'block';
             const fullName = document.querySelector('[data-key="profileName"]').textContent;
             const nameParts = fullName.split(' ');
@@ -369,8 +368,8 @@
             profileBtn.style.display = 'inline-flex';
         }
         
-        // Also show the old profile icon for compatibility
-        document.getElementById('user-profile-icon').style.display = 'flex';
+        // Show profile button in navbar
+        const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'inline-flex';
         
         // Show admin link for demo purposes (in real app, check user role)
         document.getElementById('adminLink').style.display = 'block';
@@ -734,14 +733,28 @@ function scrollFeatures(direction) {
         chatBox.appendChild(thinkingBubble);
         chatBox.scrollTop = chatBox.scrollHeight;
         
-        // Generate AI response
+        // Generate AI response (robust: catch errors from getAIResponse)
         setTimeout(() => {
-            const aiResponse = getAIResponse(userMessage);
+            let aiResponse = "Sorry, I couldn't process that. Please try again.";
+            try {
+                const result = getAIResponse(userMessage);
+                aiResponse = typeof result === 'string' ? result : String(result ?? aiResponse);
+            } catch (err) {
+                console.error('getAIResponse error', err);
+                // Ensure all user-visible replies come from VANIE.js — use its 'help' response as a safe fallback
+                try {
+                    aiResponse = getAIResponse('help');
+                } catch (err2) {
+                    console.error('getAIResponse fallback error', err2);
+                    aiResponse = "I'm temporarily unable to respond. Please try again in a moment.";
+                }
+            }
+
             thinkingBubble.innerHTML = `<div></div>`; // Clear typing indicator
-            
+
             // Typewriter effect
             let i = 0;
-            const speed = 30; // Milliseconds per character
+            const speed = 30; // ms per character
             function typeWriter() {
                 if (i < aiResponse.length) {
                     thinkingBubble.querySelector('div').innerHTML += aiResponse.charAt(i);

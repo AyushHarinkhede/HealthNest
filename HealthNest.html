@@ -31,26 +31,25 @@
       <span class="material-symbols-outlined">health_and_safety</span>
       HealthNest
     </div>
-    
+
+    <div class="search-container" style="margin-left:0.75rem; position:relative;">
+      <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs..." aria-label="Site search">
+      <div id="searchResults" class="search-results" role="listbox" hidden></div>
+    </div>
+
     <div class="nav-buttons">
       <button class="signup-btn auth-btn" onclick="openModal('authModal'); switchAuthTab('login')" data-key="navAuth" aria-haspopup="dialog">
         <i class="fas fa-user-lock" style="margin-right:0.5rem"></i> Log In / Sign Up
       </button>
       <button class="profile-nav-btn" id="profileNavBtn" onclick="openModal('userProfileModal')" style="display:none;" title="View Profile">
-        <i class="fas fa-user-circle"></i>
+        <div class="profile-avatar">
+          <span id="user-initials"></span>
+          <img id="user-avatar-img" src="" alt="User Avatar" style="display:none;">
+        </div>
       </button>
     </div>
 
-    <div class="search-container" style="margin-left:0.75rem;">
-      <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs...">
-    </div>
 
-    <div id="user-profile-icon" style="display:none;">
-      <div class="profile-avatar">
-        <span id="user-initials"></span>
-        <img id="user-avatar-img" src="" alt="User Avatar" style="display:none;">
-      </div>
-    </div>
   </nav>
 
   <!-- HERO SECTION -->
@@ -115,31 +114,7 @@
       <ul id="document-list"></ul>
     </div>
 
-    <!-- FEATURES SECTION -->
-    <section id="features" class="section">
-      <h2 class="section-title" data-key="featuresTitle">Key Features</h2>
-      <div class="features-container">
-        <div class="scroll-arrow left" onclick="scrollFeatures(-1)">&lt;</div>
-        <div class="features-grid" id="features-grid">
-          <div class="feature-card" data-searchable="health timeline">
-            <span class="material-symbols-outlined">timeline</span>
-            <h3 data-key="feature1Title">Health Timeline</h3>
-            <p data-key="feature1Desc">View every health event in chronological order.</p>
-          </div>
-          <div class="feature-card" data-searchable="document upload">
-            <span class="material-symbols-outlined">upload_file</span>
-            <h3 data-key="feature2Title">Document Upload</h3>
-            <p data-key="feature2Desc">Securely upload all your medical reports and prescriptions.</p>
-          </div>
-          <div class="feature-card" data-searchable="share with doctor">
-            <span class="material-symbols-outlined">share</span>
-            <h3 data-key="feature3Title">Share with Doctor</h3>
-            <p data-key="feature3Desc">Give doctors secure permission to view your health history.</p>
-          </div>
-        </div>
-        <div class="scroll-arrow right" onclick="scrollFeatures(1)">&gt;</div>
-      </div>
-    </section>
+
 
     <!-- DASHBOARD SECTION -->
     <section id="dashboard" class="section">
@@ -198,7 +173,7 @@
             <div class="crowd-bar">
               <div class="crowd-fill" id="crowdLevel" style="width: 45%;"></div>
             </div>
-            <p>Current Occupancy: <span id="crowdPercentage">45</span>%</p>
+            <p>Current Occupancy: <span id="crowdPercentage">45%</span> — <span id="crowdStatus" class="crowd-status">Moderate</span></p>
           </div>
         </div>
       </div>
@@ -221,7 +196,11 @@
     <!-- DOCTOR AVAILABILITY SECTION -->
     <section id="doctors" class="section">
       <h2 class="section-title">Doctor Availability</h2>
-      <div class="doctors-grid" id="doctorsGrid"></div>
+      <div class="doctors-carousel" style="position:relative; display:flex; align-items:center; gap:0.75rem; justify-content:center;">
+        <button class="scroll-arrow left" onclick="scrollDoctors(-1)" aria-label="Previous doctors">&lt;</button>
+        <div class="doctors-grid" id="doctorsGrid" style="overflow-x:auto; display:flex; gap:1rem; scroll-behavior:smooth; padding:0.5rem 0;"></div>
+        <button class="scroll-arrow right" onclick="scrollDoctors(1)" aria-label="Next doctors">&gt;</button>
+      </div>
     </section>
 
     <!-- ADMIN & HOSPITAL AUTHORITY DASHBOARD -->
@@ -374,6 +353,47 @@
     </section>
 
     <!-- FAQ SECTION -->
+    <!-- FEATURES SECTION (moved below Doctor Availability) -->
+    <section id="features" class="section">
+      <h2 class="section-title" data-key="featuresTitle">Key Features</h2>
+      <div class="features-container">
+        <div class="scroll-arrow left" onclick="scrollFeatures(-1)">&lt;</div>
+        <div class="features-grid" id="features-grid">
+          <div class="feature-card" data-searchable="health timeline">
+            <span class="material-symbols-outlined">timeline</span>
+            <h3>Health Timeline</h3>
+            <p>See every health event in one chronological view.</p>
+          </div>
+          <div class="feature-card" data-searchable="document upload">
+            <span class="material-symbols-outlined">upload_file</span>
+            <h3>Secure Document Upload</h3>
+            <p>Store scans, lab reports and prescriptions securely.</p>
+          </div>
+          <div class="feature-card" data-searchable="vani ai assistant">
+            <span class="material-symbols-outlined">smart_toy</span>
+            <h3>VANIE — AI Assistant</h3>
+            <p>Ask health questions and get immediate guidance from the on‑page assistant.</p>
+          </div>
+          <div class="feature-card" data-searchable="appointments scheduling">
+            <span class="material-symbols-outlined">calendar_month</span>
+            <h3>Appointment Scheduling</h3>
+            <p>Book, reschedule and get tokens — all in one place.</p>
+          </div>
+          <div class="feature-card" data-searchable="share with doctor">
+            <span class="material-symbols-outlined">share</span>
+            <h3>Secure Share with Doctor</h3>
+            <p>Give your physician temporary access to selected documents.</p>
+          </div>
+          <div class="feature-card" data-searchable="goals reminders">
+            <span class="material-symbols-outlined">flag</span>
+            <h3>Goals & Reminders</h3>
+            <p>Set simple health goals and track them (demo).</p>
+          </div>
+        </div>
+        <div class="scroll-arrow right" onclick="scrollFeatures(1)">&gt;</div>
+      </div>
+    </section>
+
     <section id="faq" class="section">
       <h2 class="section-title" data-key="faqTitle">Frequently Asked Questions</h2>
       <div class="faq-accordion">
@@ -510,12 +530,12 @@
       </div>
 
       <div class="profile-photo-section" style="margin-bottom:1rem; display:flex; gap:1rem; align-items:center;">
-        <div class="profile-photo-container" style="width:72px; height:72px; border-radius:50%; overflow:hidden; background:var(--primary-container); display:flex; align-items:center; justify-content:center;">
+        <div class="profile-photo-container">
           <img id="editProfilePreviewImg" src="" alt="Profile Preview" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;">
           <i id="editProfilePreviewIcon" class="fas fa-user" style="font-size:2rem; color:var(--on-primary-container);"></i>
         </div>
         <div>
-          <label for="editProfilePic" class="upload-photo-label" style="cursor:pointer; display:inline-flex; flex-direction:column; gap:0.25rem; align-items:flex-start;">
+          <label for="editProfilePic" class="upload-photo-label">
             <i class="fas fa-camera"></i>
             <span>Tap to upload photo</span>
             <small>Click to add your profile picture</small>
