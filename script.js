@@ -427,8 +427,7 @@
         setTimeout(() => {
             // hide only the auth button, show profile button
             const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = 'none';
-            const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'flex';
-            const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'inline-flex';
+            const profileNavBtn = document.getElementById('profileNavBtn'); if (profileNavBtn) profileNavBtn.style.display = 'inline-flex';
             document.getElementById('adminLink').style.display = 'block';
             const fullName = document.querySelector('[data-key="profileName"]').textContent;
             const nameParts = fullName.split(' ');
@@ -557,13 +556,15 @@
         if (navButtons) {
             navButtons.querySelector('.signup-btn').style.display = 'none';
         }
-        const profileBtn = document.getElementById('profileNavBtn');
-        if (profileBtn) {
-            profileBtn.style.display = 'inline-flex';
+        const profileNavBtn = document.getElementById('profileNavBtn');
+        if (profileNavBtn) {
+            profileNavBtn.style.display = 'inline-flex';
         }
         
         // Show profile button in navbar
-        const profileBtn = document.getElementById('profileNavBtn'); if (profileBtn) profileBtn.style.display = 'inline-flex';
+        if (profileNavBtn) {
+            profileNavBtn.style.display = 'inline-flex';
+        }
         
         // Show admin link for demo purposes (in real app, check user role)
         document.getElementById('adminLink').style.display = 'block';
@@ -927,17 +928,27 @@ function scrollFeatures(direction) {
         chatBox.appendChild(thinkingBubble);
         chatBox.scrollTop = chatBox.scrollHeight;
         
-        // Generate AI response (robust: catch errors from getAIResponse)
+        // Generate AI response using VANIE.js
         setTimeout(() => {
             let aiResponse = "Sorry, I couldn't process that. Please try again.";
             try {
-                const result = getAIResponse(userMessage);
-                aiResponse = typeof result === 'string' ? result : String(result ?? aiResponse);
+                // Call getAIResponse from VANIE.js
+                if (typeof getAIResponse === 'function') {
+                    const result = getAIResponse(userMessage);
+                    aiResponse = typeof result === 'string' ? result : String(result ?? aiResponse);
+                } else {
+                    console.error('getAIResponse function not found in VANIE.js');
+                    aiResponse = "I'm having trouble accessing my knowledge base. Please try again.";
+                }
             } catch (err) {
                 console.error('getAIResponse error', err);
-                // Ensure all user-visible replies come from VANIE.js — use its 'help' response as a safe fallback
+                // Fallback to help response
                 try {
-                    aiResponse = getAIResponse('help');
+                    if (typeof getAIResponse === 'function') {
+                        aiResponse = getAIResponse('help');
+                    } else {
+                        aiResponse = "I'm temporarily unable to respond. Please try again in a moment.";
+                    }
                 } catch (err2) {
                     console.error('getAIResponse fallback error', err2);
                     aiResponse = "I'm temporarily unable to respond. Please try again in a moment.";
