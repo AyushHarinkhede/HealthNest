@@ -785,6 +785,19 @@
         .modal-overlay.visible { opacity: 1; visibility: visible; }
         .modal-content { background: var(--surface); padding: 1.875rem; border-radius: var(--border-radius-large); width: 90%; max-width: 31.25rem; box-shadow: 0 0.6rem 2.5rem rgba(0,0,0,0.15); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .modal-overlay.visible .modal-content { transform: scale(1); }
+
+        /* Auth modal tab styles */
+        .auth-modal-tabs { display:flex; gap:0.5rem; margin-bottom:1rem; }
+        .auth-tab-btn { flex:1; padding:0.5rem; border-radius: var(--border-radius-full); border:1px solid var(--outline); background: var(--surface-variant); color: var(--on-surface-variant); font-weight:600; cursor:pointer; }
+        .auth-tab-btn.active { background: var(--primary); color: var(--on-primary); box-shadow: 0 6px 18px rgba(0,0,0,0.08); border-color: transparent; }
+        .auth-tab { display:none; }
+        .auth-tab[style*="display: block"] { display:block; }
+        .social-login-row .social-btn { display:flex; gap:0.75rem; align-items:center; justify-content:center; padding:0.6rem; border-radius: var(--border-radius-small); border:1px solid var(--outline); background:var(--surface-variant); color:var(--on-surface-variant); font-weight:600; cursor:pointer; }
+        .social-btn.google { background:#fff; color:#111; border-color:#e6e6e6; }
+        .social-btn.facebook { background:#1877f2; color:#fff; border-color:#1877f2; }
+        .social-btn.apple { background:#000; color:#fff; border-color:#000; }
+        .social-btn.microsoft { background:#fff; color:#111; border-color:#e6e6e6; }
+        .social-btn i { margin-right:0.5rem; font-size:1.05rem; }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
         .modal-header h2 { color: var(--primary); }
         .modal-close-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--on-surface-variant); }

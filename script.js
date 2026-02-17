@@ -4,7 +4,7 @@
     
     const languageData = {
         hi: {
-            navHome: "होम", navDashboard: "डैशबोर्ड", featuresTitle: "विशेषताएँ", faqTitle: "FAQ", navSignUp: "साइन अप", navLogIn: "लॉग इन",
+            navHome: "होम", navDashboard: "डैशबोर्ड", featuresTitle: "विशेषताएँ", faqTitle: "FAQ", navSignUp: "साइन अप", navLogIn: "लॉग इन", navAuth: "लॉग इन / साइन अप",
             settingsTitle: "सेटिंग्स", settingsTheme: "थीम", settingsTextSize: "वेबसाइट साइज", settingsLanguage: "भाषा", settingsAccount: "अकाउंट", settingsUpdate: "अपडेट", settingsNotifications: "नोटिफिकेशन्स", settingsPrivacy: "प्राइवेसी", settingsSecurity: "सिक्योरिटी", settingsStorage: "डाटा और स्टोरेज", settingsClear: "स्टोरेज साफ़ करें", settingsSupport: "हेल्प और सपोर्ट", settingsContactSupport: "सपोर्ट से संपर्क करें",
             heroTitle: "आपकी सेहत, आपके हाथ में।", heroSubtitle: "HealthNest के साथ अपनी पूरी मेडिकल हिस्ट्री को एक सुरक्षित जगह पर सहेजें और किसी भी समय, कहीं भी एक्सेस करें।", heroCTA: "आज ही शुरू करें",
             feature1Title: "हेल्थ टाइमलाइन", feature1Desc: "बचपन से लेकर आज तक की हर स्वास्थ्य घटना को एक क्रम में देखें।", feature2Title: "दस्तावेज़ अपलोड", feature2Desc: "अपनी सभी मेडिकल रिपोर्ट्स, स्कैन और दवाइयों के पर्चे सुरक्षित रूप से अपलोड करें।", feature3Title: "डॉक्टर के साथ शेयर करें", feature3Desc: "एक क्लिक में अपने डॉक्टर को अपनी हेल्थ हिस्ट्री देखने की सुरक्षित अनुमति दें।",
@@ -17,7 +17,7 @@
             editProfileTitle: "प्रोफ़ाइल संपादित करें", editNameLabel: "पूरा नाम", editDobLabel: "जन्म तिथि", editBloodLabel: "ब्लड ग्रुप", editHeightLabel: "ऊंचाई (cm)", editWeightLabel: "वजन (kg)", editSaveButton: "सेव करें",
         },
         en: {
-            navHome: "Home", navDashboard: "Dashboard", featuresTitle: "Key Features", faqTitle: "FAQ", navSignUp: "Sign Up", navLogIn: "Log In",
+            navHome: "Home", navDashboard: "Dashboard", featuresTitle: "Key Features", faqTitle: "FAQ", navSignUp: "Sign Up", navLogIn: "Log In", navAuth: "Log In / Sign Up",
             settingsTitle: "Settings", settingsTheme: "Theme (Light/Dark)", settingsTextSize: "Website Size", settingsLanguage: "Language", settingsAccount: "Account Settings", settingsUpdate: "Update", settingsNotifications: "Notifications", settingsPrivacy: "Privacy", settingsSecurity: "Security", settingsStorage: "Data & Storage", settingsClear: "Clear Storage", settingsSupport: "Help & Support", settingsContactSupport: "Contact Support",
             heroTitle: "Your Health, In Your Hands.", heroSubtitle: "With HealthNest, save your entire medical history in one secure place and access it anytime, anywhere.", heroCTA: "Get Started Today",
             feature1Title: "Health Timeline", feature1Desc: "View every health event from childhood to today in chronological order.", feature2Title: "Document Upload", feature2Desc: "Securely upload all your medical reports, scans, and prescriptions.", feature3Title: "Share with Doctor", feature3Desc: "Give your doctor secure permission to view your health history with one click.",
@@ -160,6 +160,46 @@
         const modal = document.getElementById(modalId);
         if(modal) modal.classList.remove('visible'); 
     }
+
+    /* ----------------- Auth modal helpers ----------------- */
+    function switchAuthTab(tab) {
+        const loginForm = document.getElementById('authLoginForm');
+        const signupForm = document.getElementById('authSignupForm');
+        const loginBtn = document.getElementById('authTabLogin');
+        const signupBtn = document.getElementById('authTabSignup');
+        if (!loginForm || !signupForm || !loginBtn || !signupBtn) return;
+        if (tab === 'login') {
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            loginBtn.classList.add('active');
+            signupBtn.classList.remove('active');
+            document.getElementById('authModalTitle').textContent = 'Welcome Back!';
+            loginForm.querySelector('input')?.focus();
+        } else {
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            loginBtn.classList.remove('active');
+            signupBtn.classList.add('active');
+            document.getElementById('authModalTitle').textContent = 'Create Your Account';
+            signupForm.querySelector('input')?.focus();
+        }
+    }
+
+    function socialSign(provider) {
+        showToast(`Signing in with ${provider} (demo)`, 'info');
+        // Demo: simulate successful sign-in and apply same UI changes as handleLogin
+        setTimeout(() => {
+            document.querySelector('.nav-buttons').style.display = 'none';
+            document.getElementById('user-profile-icon').style.display = 'flex';
+            document.getElementById('adminLink').style.display = 'block';
+            const fullName = document.querySelector('[data-key="profileName"]').textContent;
+            const nameParts = fullName.split(' ');
+            const initials = nameParts[0].charAt(0) + (nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0) : '');
+            document.getElementById('user-initials').textContent = initials.toUpperCase();
+            document.getElementById('document-upload-section').style.display = 'block';
+            closeModal('authModal');
+        }, 700);
+    }
     
     function previewProfilePic(event) {
         const file = event.target.files[0];
@@ -279,6 +319,8 @@
         // Show document upload section
         document.getElementById('document-upload-section').style.display = 'block';
         
+        // Close any auth related modal (new unified modal)
+        closeModal('authModal');
         closeModal('loginModal');
         closeModal('signupModal');
     }
