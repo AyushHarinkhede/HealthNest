@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./Vani.js" defer></script>
+  <script src="./VANIE.js" defer></script>
   <script src="./script.js" defer></script>
 </head>
 <body data-theme="light">
@@ -33,13 +33,7 @@
     </div>
     
     <div class="nav-links">
-      <a href="#home"><i class="fas fa-home"></i><span data-key="navHome">Home</span></a>
-      <a href="#features"><i class="fas fa-star"></i><span data-key="featuresTitle">Features</span></a>
-      <a href="#dashboard"><i class="fas fa-chart-line"></i><span data-key="navDashboard">Dashboard</span></a>
-      <a href="#appointments"><i class="fas fa-calendar-alt"></i><span>Appointments</span></a>
-      <a href="#queue"><i class="fas fa-list"></i><span>Queue</span></a>
       <a href="#admin" id="adminLink" style="display:none;"><i class="fas fa-cog"></i><span>Admin</span></a>
-      <a href="#faq"><i class="fas fa-question-circle"></i><span data-key="faqTitle">FAQ</span></a>
     </div>
     
     <div class="search-container">
@@ -49,6 +43,9 @@
     <div class="nav-buttons">
       <button class="signup-btn auth-btn" onclick="openModal('authModal'); switchAuthTab('login')" data-key="navAuth" aria-haspopup="dialog">
         <i class="fas fa-user-lock" style="margin-right:.5rem"></i> Log In / Sign Up
+      </button>
+      <button class="profile-nav-btn" id="profileNavBtn" onclick="openModal('userProfileModal')" style="display:none;" title="View Profile">
+        <i class="fas fa-user-circle"></i>
       </button>
     </div>
     <div id="user-profile-icon" style="display:none;">
@@ -61,6 +58,15 @@
 
   <!-- HERO SECTION -->
   <header class="hero">
+    <div class="hero-bg bg-a"></div>
+    <div class="hero-bg bg-b"></div>
+    <div class="hero-bg bg-c"></div>
+    <div class="hero-bg bg-d"></div>
+    <div class="hero-bg bg-e"></div>
+    <div class="hero-bg bg-f"></div>
+    <div class="hero-bg bg-g"></div>
+    <div class="hero-bg bg-h"></div>
+    <div class="hero-bg bg-i"></div>
     <div class="hero-content">
       <h1 data-key="heroTitle">Your Health, In Your Hands.</h1>
       <p data-key="heroSubtitle">Save your entire medical history in one secure place and access it anytime, anywhere.</p>
@@ -70,7 +76,7 @@
 
   <main>
     <!-- PROFILE SECTION -->
-    <section id="user-profile" class="section">
+    <section id="user-profile" class="section" style="display:none;">
       <h2 class="section-title" data-key="profileTitle">Your Profile</h2>
       <div class="profile-card">
         <div class="profile-pic">
@@ -435,7 +441,7 @@
 
   <!-- AUTH (Login / Sign up) MODAL -->
   <div id="authModal" class="modal-overlay" role="dialog" aria-labelledby="authModalTitle" aria-modal="true">
-    <div class="modal-content" style="max-width:28rem;">
+    <div class="modal-content auth-modal-content" style="max-width:38rem; max-height:90vh; overflow-y:auto;">
       <div class="modal-header">
         <h2 id="authModalTitle">Welcome Back!</h2>
         <button class="modal-close-btn" onclick="closeModal('authModal')">&times;</button>
@@ -446,40 +452,123 @@
         <button id="authTabSignup" class="auth-tab-btn" onclick="switchAuthTab('signup')" role="tab" aria-selected="false">Sign Up</button>
       </div>
 
-      <div class="auth-forms">
-        <form id="authLoginForm" class="auth-tab auth-login" onsubmit="handleLogin(event)">
-          <input type="email" class="modal-input" placeholder="Enter your email" required>
-          <div class="password-wrapper">
-            <input type="password" id="auth-login-password" class="modal-input" placeholder="Enter your password" required>
-            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-login-password', this)"><i class="fas fa-eye"></i></button>
-          </div>
-          <div class="form-options">
-            <label><input type="checkbox"> Remember Me</label>
-            <a href="#" style="color: var(--primary);">Forgot Password?</a>
-          </div>
-          <button type="submit" class="cta-button" style="width:100%;">Log In</button>
-        </form>
+      <div class="auth-forms-container">
+        <div class="auth-tab-section auth-login" style="display:block; min-height:auto;">
+          <form id="authLoginForm" class="auth-form" onsubmit="handleLogin(event)">
+            <input type="email" class="modal-input" placeholder="Enter your email" required>
+            <div class="password-wrapper">
+              <input type="password" id="auth-login-password" class="modal-input" placeholder="Enter your password" required>
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-login-password', this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="form-options">
+              <label><input type="checkbox"> Remember Me</label>
+              <a href="#" style="color: var(--primary);">Forgot Password?</a>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%;">Log In</button>
+          </form>
+        </div>
 
-        <form id="authSignupForm" class="auth-tab auth-signup" style="display:none;" onsubmit="handleLogin(event)">
-          <input type="text" class="modal-input" placeholder="Username" required>
-          <input type="email" class="modal-input" placeholder="Your Email" required>
-          <div class="password-wrapper">
-            <input type="password" id="auth-signup-password" class="modal-input" placeholder="Create Password" required>
-            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-password', this)"><i class="fas fa-eye"></i></button>
-          </div>
-          <div class="password-wrapper">
-            <input type="password" id="auth-signup-confirm-password" class="modal-input" placeholder="Confirm Password" required>
-            <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-confirm-password', this)"><i class="fas fa-eye"></i></button>
-          </div>
-          <button type="submit" class="cta-button" style="width:100%; margin-top: 1rem;">Sign Up</button>
-        </form>
+        <div class="auth-tab-section auth-signup" style="display:none; min-height:auto;">
+          <form id="authSignupForm" class="auth-form" onsubmit="handleLogin(event)">
+            <input type="text" class="modal-input" placeholder="Username" required>
+            <input type="email" class="modal-input" placeholder="Your Email" required>
+            <div class="password-wrapper">
+              <input type="password" id="auth-signup-password" class="modal-input" placeholder="Create Password" required>
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-password', this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="password-wrapper">
+              <input type="password" id="auth-signup-confirm-password" class="modal-input" placeholder="Confirm Password" required>
+              <button type="button" class="password-toggle" onclick="togglePasswordVisibility('auth-signup-confirm-password', this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <button type="submit" class="cta-button" style="width:100%; margin-top: 1rem;">Sign Up</button>
+          </form>
+        </div>
       </div>
 
-      <div class="social-login-row" style="margin-top:1rem;">
-        <button class="social-btn google" onclick="socialSign('Google')" aria-label="Continue with Google"><i class="fab fa-google"></i> Continue with Google</button>
-        <button class="social-btn facebook" onclick="socialSign('Facebook')" aria-label="Continue with Facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
-        <button class="social-btn apple" onclick="socialSign('Apple')" aria-label="Continue with Apple"><i class="fab fa-apple"></i> Continue with Apple</button>
-        <button class="social-btn microsoft" onclick="socialSign('Microsoft')" aria-label="Continue with Microsoft"><i class="fab fa-microsoft"></i> Continue with Microsoft</button>
+      <div class="social-login-divider">or continue with</div>
+      <div class="social-login-row">
+        <button type="button" class="social-btn google" onclick="socialSign('Google')" aria-label="Continue with Google">
+          <svg viewBox="0 0 533.5 544.3" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M533.5 278.4c0-17.7-1.5-35-4.6-51.8H272.1v98.1h147.4c-6.4 34.4-25.7 63.6-54.6 83.1v68.8h88.1c51.6-47.5 81-117.8 81-198.2z"/><path fill="#34A853" d="M272.1 544.3c73.6 0 135.5-24.4 180.7-66.6l-88.1-68.8c-24.7 16.7-56.2 26.6-92.6 26.6-71 0-131.1-47.9-152.6-112.2H31.4v70.6C76.2 487.6 168 544.3 272.1 544.3z"/><path fill="#FBBC05" d="M119.5 318.3c-5.6-16.7-8.8-34.5-8.8-52.7s3.2-36 8.8-52.7V142.2H31.4C11.2 181.4 0 224.4 0 267.6s11.2 86 31.4 125.4l88.1-74.7z"/><path fill="#EA4335" d="M272.1 107.7c39.9 0 75.7 13.7 104 40.6L445 72.2C388.7 24.6 332.6 0 272.1 0 168 0 76.2 56.7 31.4 142.2l88.1 70.6c21.5-64.3 81.6-112.2 152.6-112.2z"/></svg>
+          Google
+        </button>
+
+        <button type="button" class="social-btn facebook" onclick="socialSign('Facebook')" aria-label="Continue with Facebook"><i class="fab fa-facebook-f"></i> Facebook</button>
+
+        <button type="button" class="social-btn apple" onclick="socialSign('Apple')" aria-label="Continue with Apple"><i class="fab fa-apple"></i> Apple</button>
+
+        <button type="button" class="social-btn microsoft" onclick="socialSign('Microsoft')" aria-label="Continue with Microsoft">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="0" y="0" width="11" height="11" fill="#F35325"/><rect x="13" y="0" width="11" height="11" fill="#81BC06"/><rect x="0" y="13" width="11" height="11" fill="#05A6F0"/><rect x="13" y="13" width="11" height="11" fill="#FFB900"/></svg>
+          Microsoft
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER PROFILE MODAL (from navbar button) -->
+  <div id="userProfileModal" class="modal-overlay" role="dialog" aria-labelledby="userProfileModalTitle" aria-modal="true">
+    <div class="modal-content" style="max-width:42rem; max-height:85vh; overflow-y:auto;">
+      <div class="modal-header">
+        <h2 id="userProfileModalTitle">Your Profile</h2>
+        <button class="modal-close-btn" onclick="closeModal('userProfileModal')">&times;</button>
+      </div>
+      
+      <div class="user-profile-modal-content">
+        <div class="profile-photo-section">
+          <div class="profile-photo-container">
+            <img id="modalProfilePhoto" src="" alt="Profile Photo" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;">
+            <i id="modalProfileIcon" class="fas fa-user" style="font-size:4rem;"></i>
+          </div>
+          <label for="modalProfilePhotoInput" class="upload-photo-label">
+            <i class="fas fa-camera"></i>
+            <span>Tap to upload photo</span>
+            <small>Click here to add your profile picture</small>
+          </label>
+          <input type="file" id="modalProfilePhotoInput" class="modal-input" accept="image/*" style="display:none;" onchange="previewModalProfilePhoto(event)">
+        </div>
+
+        <div class="profile-info-section">
+          <div class="info-item">
+            <label>Full Name</label>
+            <p id="modalUserName">-</p>
+          </div>
+          <div class="info-item">
+            <label>Email</label>
+            <p id="modalUserEmail">-</p>
+          </div>
+          <div class="info-item">
+            <label>Age</label>
+            <p id="modalUserAge">-</p>
+          </div>
+          <div class="info-item">
+            <label>Gender</label>
+            <p id="modalUserGender">-</p>
+          </div>
+          <div class="info-item">
+            <label>Height</label>
+            <p id="modalUserHeight">-</p>
+          </div>
+          <div class="info-item">
+            <label>Weight</label>
+            <p id="modalUserWeight">-</p>
+          </div>
+          <div class="info-item">
+            <label>Blood Group</label>
+            <p id="modalUserBlood">-</p>
+          </div>
+          <div class="info-item full-width">
+            <label>Address</label>
+            <p id="modalUserAddress">-</p>
+          </div>
+        </div>
+
+        <div class="profile-actions-modal">
+          <button class="cta-button" onclick="openModal('editProfileModal'); closeModal('userProfileModal');">
+            <i class="fas fa-edit"></i> Edit Profile
+          </button>
+          <button class="cta-button secondary" onclick="closeModal('userProfileModal');">
+            <i class="fas fa-times"></i> Close
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -754,7 +843,21 @@
     <div class="modal-content" style="max-width: 500px; height: 600px; display: flex; flex-direction: column;">
       <div class="modal-header">
         <h2 id="aiChatTitle">Vani - Health AI Assistant</h2>
-        <button class="modal-close-btn" onclick="closeModal('aiChatModal')">&times;</button>
+        <div class="ai-modal-actions">
+          <button id="ai-settings-btn" class="modal-settings-btn" title="Vani settings" onclick="toggleAiSettings()"><i class="fas fa-cog"></i></button>
+          <button class="modal-close-btn" onclick="closeModal('aiChatModal')">&times;</button>
+        </div>
+      </div>
+      <div id="ai-settings-panel" class="ai-settings-panel" style="display:none;">
+        <div class="ai-setting-row">
+          <label class="ai-setting-label">Incognito Mode</label>
+          <label class="switch black-switch"><input id="vaniIncognito" type="checkbox" onchange="toggleIncognito(this.checked)"><span class="slider"></span></label>
+        </div>
+        <div class="ai-setting-actions">
+          <button class="btn ai-btn" onclick="clearAiChat()">Clear chat</button>
+          <button class="btn ai-btn" onclick="exportAiChat()">Export chat</button>
+          <button class="btn ai-btn" onclick="openAiHistory()">View history</button>
+        </div>
       </div>
       <div id="ai-chat-box" style="flex: 1; overflow-y: auto; padding: 1rem; background: var(--surface-dim); border-radius: 8px; margin-bottom: 1rem; display: flex; flex-direction: column;">
         <!-- Chat messages appear here -->
@@ -775,7 +878,24 @@
   <div id="scrollUpButton" onclick="scrollToTop()" title="Scroll to Top"><i class="fas fa-angle-double-up"></i></div>
   <div id="settingsButton" onclick="toggleSettings()" title="Settings"><i class="fas fa-sliders-h"></i></div>
   <div id="aiAssistantButton" onclick="openModal('aiChatModal')" title="AI Assistant" aria-haspopup="dialog"><i class="fas fa-robot"></i></div>
-  <div id="aiChatButton" onclick="openModal('aiChatModal')" title="Chat with Vani AI" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); cursor: pointer;"><i class="fas fa-comments"></i></div>
+
+
+  <!-- AI CHAT HISTORY MODAL -->
+  <div id="aiHistoryModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 640px; height: 520px; display:flex; flex-direction:column;">
+      <div class="modal-header">
+        <h2>Vani — Chat History</h2>
+        <button class="modal-close-btn" onclick="closeModal('aiHistoryModal')">&times;</button>
+      </div>
+      <div id="ai-history-list" style="flex:1; overflow:auto; padding:1rem; background:var(--surface); border-radius:8px;">
+        <!-- history items inserted here -->
+      </div>
+      <div style="display:flex; gap:0.5rem; margin-top:0.75rem;">
+        <button class="cta-button" onclick="loadLatestHistory()">Load latest</button>
+        <button class="btn" onclick="clearSavedHistory()">Clear saved history</button>
+      </div>
+    </div>
+  </div>
 
   <!-- SETTINGS MENU -->
   <div id="settingsMenu" role="dialog" aria-labelledby="settingsMenuTitle">

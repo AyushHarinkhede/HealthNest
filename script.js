@@ -163,25 +163,25 @@
 
     /* ----------------- Auth modal helpers ----------------- */
     function switchAuthTab(tab) {
-        const loginForm = document.getElementById('authLoginForm');
-        const signupForm = document.getElementById('authSignupForm');
+        const loginSection = document.querySelector('.auth-tab-section.auth-login');
+        const signupSection = document.querySelector('.auth-tab-section.auth-signup');
         const loginBtn = document.getElementById('authTabLogin');
         const signupBtn = document.getElementById('authTabSignup');
-        if (!loginForm || !signupForm || !loginBtn || !signupBtn) return;
+        if (!loginSection || !signupSection || !loginBtn || !signupBtn) return;
         if (tab === 'login') {
-            loginForm.style.display = 'block';
-            signupForm.style.display = 'none';
+            loginSection.style.display = 'block';
+            signupSection.style.display = 'none';
             loginBtn.classList.add('active');
             signupBtn.classList.remove('active');
             document.getElementById('authModalTitle').textContent = 'Welcome Back!';
-            loginForm.querySelector('input')?.focus();
+            loginSection.querySelector('input')?.focus();
         } else {
-            loginForm.style.display = 'none';
-            signupForm.style.display = 'block';
+            loginSection.style.display = 'none';
+            signupSection.style.display = 'block';
             loginBtn.classList.remove('active');
             signupBtn.classList.add('active');
             document.getElementById('authModalTitle').textContent = 'Create Your Account';
-            signupForm.querySelector('input')?.focus();
+            signupSection.querySelector('input')?.focus();
         }
     }
 
@@ -303,8 +303,17 @@
         event.preventDefault();
         showToast('Logged in successfully!', 'success');
         
-        // Hide Login/Signup buttons and show profile icon
-        document.querySelector('.nav-buttons').style.display = 'none';
+        // Hide Login/Signup buttons and show profile button
+        const navButtons = document.querySelector('.nav-buttons');
+        if (navButtons) {
+            navButtons.querySelector('.signup-btn').style.display = 'none';
+        }
+        const profileBtn = document.getElementById('profileNavBtn');
+        if (profileBtn) {
+            profileBtn.style.display = 'inline-flex';
+        }
+        
+        // Also show the old profile icon for compatibility
         document.getElementById('user-profile-icon').style.display = 'flex';
         
         // Show admin link for demo purposes (in real app, check user role)
@@ -316,13 +325,53 @@
         const initials = nameParts[0].charAt(0) + (nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0) : '');
         document.getElementById('user-initials').textContent = initials.toUpperCase();
         
+        // Update profile modal with user data
+        updateProfileModalData();
+        
         // Show document upload section
         document.getElementById('document-upload-section').style.display = 'block';
         
-        // Close any auth related modal (new unified modal)
+        // Close any auth related modal
         closeModal('authModal');
         closeModal('loginModal');
         closeModal('signupModal');
+    }
+    
+    function updateProfileModalData() {
+        // Populate the user profile modal with user data
+        const profileName = document.querySelector('[data-key="profileName"]')?.textContent || 'User';
+        const profileEmail = document.getElementById('profileEmail')?.textContent || '-';
+        const profileAge = document.getElementById('profileAgeValue')?.textContent || '-';
+        const profileGender = document.getElementById('profileGender')?.textContent || '-';
+        const profileHeight = document.getElementById('profileHeightValue')?.textContent || '-';
+        const profileWeight = document.getElementById('profileWeightValue')?.textContent || '-';
+        const profileBlood = document.getElementById('profileBloodValue')?.textContent || '-';
+        const profileAddress = document.getElementById('profileAddress')?.textContent || '-';
+        
+        document.getElementById('modalUserName').textContent = profileName;
+        document.getElementById('modalUserEmail').textContent = profileEmail;
+        document.getElementById('modalUserAge').textContent = profileAge;
+        document.getElementById('modalUserGender').textContent = profileGender;
+        document.getElementById('modalUserHeight').textContent = profileHeight;
+        document.getElementById('modalUserWeight').textContent = profileWeight;
+        document.getElementById('modalUserBlood').textContent = profileBlood;
+        document.getElementById('modalUserAddress').textContent = profileAddress;
+    }
+    
+    function previewModalProfilePhoto(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const photoImg = document.getElementById('modalProfilePhoto');
+                const photoIcon = document.getElementById('modalProfileIcon');
+                photoImg.src = e.target.result;
+                photoImg.style.display = 'block';
+                photoIcon.style.display = 'none';
+                showToast('Profile photo updated!', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
 function handleAppointmentBooking(event) {
@@ -617,6 +666,8 @@ function scrollFeatures(direction) {
         userBubble.innerHTML = `<div></div>`;
         userBubble.querySelector('div').textContent = userMessage;
         chatBox.appendChild(userBubble);
+        // persist user's message (unless incognito)
+        saveVaniMessage('user', userMessage);
         input.value = '';
         chatBox.scrollTop = chatBox.scrollHeight;
 
@@ -645,11 +696,114 @@ function scrollFeatures(direction) {
             }
             typeWriter();
 
+            // persist AI message after typing completes
+            const saveAfterTyping = setInterval(() => {
+                if (i >= aiResponse.length) {
+                    clearInterval(saveAfterTyping);
+                    saveVaniMessage('ai', aiResponse);
+                }
+            }, 100);
+
         }, 1500); // Simulate thinking delay
     }
     
     // this section is for aiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
     
+
+    // ---- VANIE: settings, history, persistence ----
+    let vaniIncognito = false; // when true, do not save chat to history
+    function toggleAiSettings() { const panel = document.getElementById('ai-settings-panel'); panel.style.display = panel.style.display === 'flex' || panel.style.display === 'block' ? 'none' : 'flex'; }
+    function toggleIncognito(enabled) { vaniIncognito = !!enabled; localStorage.setItem('vani_incognito', vaniIncognito ? '1' : '0'); showToast(`Incognito ${vaniIncognito ? 'enabled' : 'disabled'}`, 'info'); }
+
+    function saveVaniMessage(role, text) {
+        try {
+            if (vaniIncognito) return; // don't persist when incognito
+            const key = 'vani_chat_history';
+            const all = JSON.parse(localStorage.getItem(key) || '[]');
+            const entry = { role, text, ts: Date.now() };
+            all.push(entry);
+            localStorage.setItem(key, JSON.stringify(all));
+        } catch (err) { console.error('saveVaniMessage err', err); }
+    }
+
+    function clearAiChat() {
+        const box = document.getElementById('ai-chat-box');
+        if (!box) return; 
+        if (!confirm('Clear current chat?')) return;
+        box.innerHTML = '';
+        // add greeting again
+        const aiBubble = document.createElement('div');
+        aiBubble.className = 'ai-message ai';
+        aiBubble.innerHTML = `<div>Hello! How can I help you today? Type 'help' to see what I can do.</div>`;
+        box.appendChild(aiBubble);
+        showToast('Chat cleared', 'success');
+    }
+
+    function exportAiChat() {
+        const box = document.getElementById('ai-chat-box');
+        if (!box) return; 
+        const nodes = Array.from(box.querySelectorAll('.ai-message'));
+        if (nodes.length === 0) { showToast('No messages to export', 'error'); return; }
+        const lines = nodes.map(n => {
+            const role = n.classList.contains('user') ? 'User' : 'Vani';
+            const txt = n.innerText.replace(/\n+/g, '\\n');
+            return `${new Date().toLocaleString()} - ${role}: ${txt}`;
+        });
+        const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `vani-chat-${Date.now()}.txt`; document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+        showToast('Chat exported', 'success');
+    }
+
+    function openAiHistory() {
+        const key = 'vani_chat_history';
+        const all = JSON.parse(localStorage.getItem(key) || '[]');
+        const listEl = document.getElementById('ai-history-list');
+        if (!listEl) return; 
+        listEl.innerHTML = '';
+        if (all.length === 0) {
+            listEl.innerHTML = '<div style="padding:1rem;color:var(--on-surface-variant)">No saved chat history.</div>';
+        } else {
+            all.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'history-row';
+                row.style.padding = '0.5rem';
+                row.style.borderBottom = '1px solid var(--outline)';
+                row.innerHTML = `<small style="color:var(--on-surface-variant)">${new Date(item.ts).toLocaleString()}</small><div style="margin-top:0.25rem;">${item.role === 'user' ? '<b>User:</b>' : '<b>Vani:</b>'} ${item.text}</div>`;
+                listEl.appendChild(row);
+            });
+        }
+        openModal('aiHistoryModal');
+    }
+
+    function loadLatestHistory() {
+        const key = 'vani_chat_history';
+        const all = JSON.parse(localStorage.getItem(key) || '[]');
+        if (all.length === 0) { showToast('No saved history', 'error'); return; }
+        const box = document.getElementById('ai-chat-box');
+        box.innerHTML = '';
+        all.slice(-50).forEach(item => {
+            const msg = document.createElement('div');
+            msg.className = `ai-message ${item.role === 'user' ? 'user' : 'ai'}`;
+            msg.innerHTML = `<div>${item.text}</div>`;
+            box.appendChild(msg);
+        });
+        box.scrollTop = box.scrollHeight;
+        closeModal('aiHistoryModal');
+        showToast('Loaded latest history', 'success');
+    }
+
+    function clearSavedHistory() {
+        if (!confirm('Clear all saved Vani history? This cannot be undone.')) return;
+        localStorage.removeItem('vani_chat_history');
+        const listEl = document.getElementById('ai-history-list'); if (listEl) listEl.innerHTML = '';
+        showToast('Saved history cleared', 'success');
+    }
+
+    // load incognito preference on start
+    if (localStorage.getItem('vani_incognito') === '1') { vaniIncognito = true; const el = document.getElementById('vaniIncognito'); if (el) el.checked = true; }
 
     // Voice Recognition for AI Chat (guarded)
     const voiceBtn = document.getElementById('ai-voice-btn');
