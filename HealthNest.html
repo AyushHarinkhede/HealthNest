@@ -32,7 +32,7 @@
       HealthNest
     </div>
 
-    <div class="search-container" style="margin-left:0.75rem; position:relative;">
+    <div class="search-container" style="margin-left:0.75rem; position:relative; flex:1; max-width:400px;">
       <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs..." aria-label="Site search">
       <div id="searchResults" class="search-results" role="listbox" hidden></div>
     </div>
@@ -174,6 +174,20 @@
               <div class="crowd-fill" id="crowdLevel" style="width: 45%;"></div>
             </div>
             <p>Current Occupancy: <span id="crowdPercentage">45%</span> — <span id="crowdStatus" class="crowd-status">Moderate</span></p>
+            <div class="crowd-details">
+              <div class="crowd-stat">
+                <span class="stat-label">Wait Time:</span>
+                <span class="stat-value">15-20 min</span>
+              </div>
+              <div class="crowd-stat">
+                <span class="stat-label">Available Beds:</span>
+                <span class="stat-value">12/25</span>
+              </div>
+              <div class="crowd-stat">
+                <span class="stat-label">Doctors Available:</span>
+                <span class="stat-value">8/10</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -352,8 +366,7 @@
       </div>
     </section>
 
-    <!-- FAQ SECTION -->
-    <!-- FEATURES SECTION (moved below Doctor Availability) -->
+    <!-- KEY FEATURES SECTION -->
     <section id="features" class="section">
       <h2 class="section-title" data-key="featuresTitle">Key Features</h2>
       <div class="features-container">
@@ -389,11 +402,32 @@
             <h3>Goals & Reminders</h3>
             <p>Set simple health goals and track them (demo).</p>
           </div>
+          <div class="feature-card" data-searchable="emergency services">
+            <span class="material-symbols-outlined">emergency</span>
+            <h3>Emergency Services</h3>
+            <p>Quick access to emergency contacts and nearby hospitals.</p>
+          </div>
+          <div class="feature-card" data-searchable="health analytics">
+            <span class="material-symbols-outlined">analytics</span>
+            <h3>Health Analytics</h3>
+            <p>Track your health trends with detailed charts and insights.</p>
+          </div>
+          <div class="feature-card" data-searchable="medication reminder">
+            <span class="material-symbols-outlined">medication</span>
+            <h3>Medication Reminders</h3>
+            <p>Never miss your medications with smart reminders.</p>
+          </div>
+          <div class="feature-card" data-searchable="video consultation">
+            <span class="material-symbols-outlined">video_call</span>
+            <h3>Video Consultation</h3>
+            <p>Consult with doctors remotely through secure video calls.</p>
+          </div>
         </div>
         <div class="scroll-arrow right" onclick="scrollFeatures(1)">&gt;</div>
       </div>
     </section>
 
+    <!-- FAQ SECTION -->
     <section id="faq" class="section">
       <h2 class="section-title" data-key="faqTitle">Frequently Asked Questions</h2>
       <div class="faq-accordion">
@@ -590,12 +624,6 @@
             <img id="modalProfilePhoto" src="" alt="Profile Photo" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:50%;">
             <i id="modalProfileIcon" class="fas fa-user" style="font-size:4rem;"></i>
           </div>
-          <label for="modalProfilePhotoInput" class="upload-photo-label">
-            <i class="fas fa-camera"></i>
-            <span>Tap to upload photo</span>
-            <small>Click here to add your profile picture</small>
-          </label>
-          <input type="file" id="modalProfilePhotoInput" class="modal-input" accept="image/*" style="display:none;" onchange="previewModalProfilePhoto(event)">
         </div>
 
         <div class="profile-info-section">
@@ -937,19 +965,31 @@
     <div style="display:flex;flex-direction:column;gap:0.5rem;margin-top:0.75rem;">
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <label style="margin:0;">Notifications</label>
-        <label class="switch"><input id="notificationsToggle" type="checkbox"><span class="slider"></span></label>
+        <label class="switch"><input id="notificationsToggle" type="checkbox" onchange="toggleSetting('notifications', this.checked)"><span class="slider"></span></label>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <label style="margin:0;">Privacy Mode (Incognito)</label>
-        <label class="switch black-switch"><input id="privacyMode" type="checkbox"><span class="slider"></span></label>
+        <label class="switch black-switch"><input id="privacyMode" type="checkbox" onchange="toggleSetting('privacy', this.checked)"><span class="slider"></span></label>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <label style="margin:0;">Two-factor Auth</label>
-        <label class="switch"><input id="twoFactorAuth" type="checkbox"><span class="slider"></span></label>
+        <label class="switch"><input id="twoFactorAuth" type="checkbox" onchange="toggleSetting('twoFactor', this.checked)"><span class="slider"></span></label>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <label style="margin:0;">Reduced Motion</label>
-        <label class="switch"><input id="reducedMotion" type="checkbox"><span class="slider"></span></label>
+        <label class="switch"><input id="reducedMotion" type="checkbox" onchange="toggleSetting('reducedMotion', this.checked)"><span class="slider"></span></label>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="margin:0;">Auto-save Data</label>
+        <label class="switch"><input id="autoSave" type="checkbox" checked onchange="toggleSetting('autoSave', this.checked)"><span class="slider"></span></label>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="margin:0;">Location Services</label>
+        <label class="switch"><input id="locationServices" type="checkbox" onchange="toggleSetting('location', this.checked)"><span class="slider"></span></label>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <label style="margin:0;">Data Analytics</label>
+        <label class="switch"><input id="dataAnalytics" type="checkbox" checked onchange="toggleSetting('analytics', this.checked)"><span class="slider"></span></label>
       </div>
     </div>
 

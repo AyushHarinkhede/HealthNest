@@ -32,10 +32,35 @@
     };
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Preloader Logic
+        // Preloader Logic - Hide after 2 seconds and show main content
         const preloader = document.getElementById('preloader');
+        const mainContent = document.querySelector('main');
+        const hero = document.querySelector('.hero');
+        
+        // Ensure main content is hidden initially
+        if (mainContent) mainContent.style.opacity = '0';
+        if (hero) hero.style.opacity = '0';
+        
         window.setTimeout(() => {
+            // Hide preloader
             preloader.classList.add('hidden');
+            
+            // Show main content with fade-in
+            setTimeout(() => {
+                if (mainContent) {
+                    mainContent.style.transition = 'opacity 1s ease-in-out';
+                    mainContent.style.opacity = '1';
+                }
+                if (hero) {
+                    hero.style.transition = 'opacity 1s ease-in-out';
+                    hero.style.opacity = '1';
+                }
+                
+                // Remove preloader from DOM after animation
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 800);
+            }, 200);
         }, 2000); // Show preloader for 2 seconds
 
         // Load saved settings or defaults (safe checks if controls missing)
@@ -51,6 +76,9 @@
         initializeFAQ();
         initializeScrollAnimations();
         renderHealthChart();
+        
+        // Load settings on startup
+        loadSettings();
         
         // Initialize NEW FEATURES
         queueSystem.init();
@@ -84,17 +112,94 @@
 
         // Search Bar Functionality (guarded)
         const searchInput = document.getElementById('search-bar-input');
-        if (searchInput) {
+        const searchResults = document.getElementById('searchResults');
+        if (searchInput && searchResults) {
+            // Expand search bar on focus
+            searchInput.addEventListener('focus', function() {
+                this.style.width = '350px';
+                this.style.transition = 'width 0.3s ease';
+            });
+            
+            searchInput.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.width = '250px';
+                }
+            });
+            
             searchInput.addEventListener('input', function(e) {
-                const query = e.target.value.toLowerCase();
+                const query = e.target.value.toLowerCase().trim();
+                
+                if (query.length > 0) {
+                    // Search through all searchable elements
+                    const searchableElements = document.querySelectorAll('[data-searchable]');
+                    const results = [];
+                    
+                    searchableElements.forEach(item => {
+                        const searchText = (item.getAttribute('data-searchable') || '').toLowerCase();
+                        const elementText = item.textContent.toLowerCase();
+                        
+                        if (searchText.includes(query) || elementText.includes(query)) {
+                            const title = item.querySelector('h3, h4, h2')?.textContent || item.textContent.substring(0, 50);
+                            const section = item.closest('section')?.id || 'unknown';
+                            results.push({
+                                title: title,
+                                section: section,
+                                element: item
+                            });
+                        }
+                    });
+                    
+                    // Display search results
+                    if (results.length > 0) {
+                        searchResults.innerHTML = '';
+                        searchResults.hidden = false;
+                        
+                        results.slice(0, 5).forEach(result => {
+                            const resultItem = document.createElement('div');
+                            resultItem.className = 'search-result-item';
+                            resultItem.innerHTML = `
+                                <div class="search-result-title">${result.title}</div>
+                                <div class="search-result-section">${result.section}</div>
+                            `;
+                            resultItem.addEventListener('click', () => {
+                                result.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                result.element.style.animation = 'pulse 1s ease-in-out';
+                                setTimeout(() => {
+                                    result.element.style.animation = '';
+                                }, 1000);
+                                searchResults.hidden = true;
+                                searchInput.value = '';
+                            });
+                            searchResults.appendChild(resultItem);
+                        });
+                    } else {
+                        searchResults.innerHTML = '<div class="search-result-item">No results found</div>';
+                        searchResults.hidden = false;
+                    }
+                } else {
+                    searchResults.hidden = true;
+                    searchResults.innerHTML = '';
+                }
+                
+                // Hide/show elements based on search
                 document.querySelectorAll('[data-searchable]').forEach(item => {
                     const text = (item.getAttribute('data-searchable') || '').toLowerCase();
-                    if (text.includes(query)) {
-                        item.style.display = '';
+                    const elementText = item.textContent.toLowerCase();
+                    if (query.length > 0 && !text.includes(query) && !elementText.includes(query)) {
+                        item.style.opacity = '0.3';
+                        item.style.pointerEvents = 'none';
                     } else {
-                        item.style.display = 'none';
+                        item.style.opacity = '1';
+                        item.style.pointerEvents = 'auto';
                     }
                 });
+            });
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.hidden = true;
+                }
             });
         }
     });
@@ -146,19 +251,97 @@
         localStorage.setItem('textSize', size);
     }
 
-    function updateAccount() {
-        const notifications = !!document.getElementById('notificationsToggle')?.checked;
-        const privacyMode = !!document.getElementById('privacyMode')?.checked;
-        const twoFactor = !!document.getElementById('twoFactorAuth')?.checked;
-        const reducedMotion = !!document.getElementById('reducedMotion')?.checked;
-
-        localStorage.setItem('settings', JSON.stringify({ notifications, privacyMode, twoFactor, reducedMotion }));
-
-        // Apply reduced motion immediately
-        if (reducedMotion) document.documentElement.setAttribute('data-reduced-motion', 'true');
-        else document.documentElement.removeAttribute('data-reduced-motion');
-
-        showToast('Settings saved', 'success');
+    function toggleSetting(setting, enabled) {
+        const settings = JSON.parse(localStorage.getItem('appSettings') || '{}');
+        settings[setting] = enabled;
+        localStorage.setItem('appSettings', JSON.stringify(settings));
+        
+        switch(setting) {
+            case 'notifications':
+                if (enabled) {
+                    notificationManager.requestPermission();
+                    showToast('Notifications enabled', 'success');
+                } else {
+                    showToast('Notifications disabled', 'info');
+                }
+                break;
+            case 'privacy':
+                if (enabled) {
+                    // Enable privacy mode
+                    document.body.classList.add('privacy-mode');
+                    showToast('Privacy mode enabled - data tracking disabled', 'info');
+                } else {
+                    document.body.classList.remove('privacy-mode');
+                    showToast('Privacy mode disabled', 'info');
+                }
+                break;
+            case 'twoFactor':
+                if (enabled) {
+                    showToast('Two-factor authentication enabled (demo)', 'success');
+                } else {
+                    showToast('Two-factor authentication disabled', 'info');
+                }
+                break;
+            case 'reducedMotion':
+                if (enabled) {
+                    document.documentElement.setAttribute('data-reduced-motion', 'true');
+                    showToast('Reduced motion enabled', 'success');
+                } else {
+                    document.documentElement.removeAttribute('data-reduced-motion');
+                    showToast('Reduced motion disabled', 'info');
+                }
+                break;
+            case 'autoSave':
+                if (enabled) {
+                    showToast('Auto-save enabled', 'success');
+                } else {
+                    showToast('Auto-save disabled - manual save required', 'info');
+                }
+                break;
+            case 'location':
+                if (enabled) {
+                    if ('geolocation' in navigator) {
+                        navigator.geolocation.getCurrentPosition(
+                            () => showToast('Location services enabled', 'success'),
+                            () => showToast('Location access denied', 'error')
+                        );
+                    } else {
+                        showToast('Location not supported by browser', 'error');
+                    }
+                } else {
+                    showToast('Location services disabled', 'info');
+                }
+                break;
+            case 'analytics':
+                if (enabled) {
+                    showToast('Data analytics enabled - helping us improve', 'success');
+                } else {
+                    showToast('Data analytics disabled', 'info');
+                }
+                break;
+        }
+    }
+    
+    function loadSettings() {
+        const settings = JSON.parse(localStorage.getItem('appSettings') || '{}');
+        
+        // Apply saved settings to UI
+        Object.keys(settings).forEach(setting => {
+            const checkbox = document.getElementById(setting === 'privacy' ? 'privacyMode' : 
+                                             setting === 'notifications' ? 'notificationsToggle' : 
+                                             setting + 'Toggle');
+            if (checkbox) {
+                checkbox.checked = settings[setting];
+            }
+        });
+        
+        // Apply settings that affect UI
+        if (settings.privacy) {
+            document.body.classList.add('privacy-mode');
+        }
+        if (settings.reducedMotion) {
+            document.documentElement.setAttribute('data-reduced-motion', 'true');
+        }
     }
 
     function exportUserData() {
@@ -260,6 +443,17 @@
         const file = event.target.files[0];
         if (file) {
             newProfilePicSrc = URL.createObjectURL(file);
+            
+            // Show preview in edit profile modal
+            const previewImg = document.getElementById('editProfilePreviewImg');
+            const previewIcon = document.getElementById('editProfilePreviewIcon');
+            
+            if (previewImg && previewIcon) {
+                previewImg.src = newProfilePicSrc;
+                previewImg.style.display = 'block';
+                previewIcon.style.display = 'none';
+            }
+            
             showToast("Profile picture previewed. Click 'Save Changes' to apply.", "info");
         }
     }
@@ -1496,6 +1690,61 @@ const doctors = [
         nextAvailable: '3:00 PM',
         rating: 4.7,
         experience: '8 years'
+    },
+    {
+        id: 'dr-verma',
+        name: 'Dr. Sneha Verma',
+        specialization: 'Pediatrician',
+        status: 'available',
+        patientsToday: 10,
+        maxPatients: 18,
+        nextAvailable: '1:00 PM',
+        rating: 4.9,
+        experience: '10 years'
+    },
+    {
+        id: 'dr-kumar',
+        name: 'Dr. Rohan Kumar',
+        specialization: 'Orthopedic Surgeon',
+        status: 'busy',
+        patientsToday: 14,
+        maxPatients: 16,
+        nextAvailable: '5:30 PM',
+        rating: 4.6,
+        experience: '18 years'
+    },
+    {
+        id: 'dr-malhotra',
+        name: 'Dr. Anjali Malhotra',
+        specialization: 'Gynecologist',
+        status: 'available',
+        patientsToday: 7,
+        maxPatients: 14,
+        nextAvailable: '2:00 PM',
+        rating: 4.8,
+        experience: '14 years'
+    },
+    {
+        id: 'dr-reddy',
+        name: 'Dr. Vishal Reddy',
+        specialization: 'Neurologist',
+        status: 'offline',
+        patientsToday: 16,
+        maxPatients: 16,
+        nextAvailable: 'Tomorrow 9:00 AM',
+        rating: 4.7,
+        experience: '20 years'
+    },
+    {
+        id: 'dr-gupta2',
+        name: 'Dr. Meera Gupta',
+        specialization: 'Dermatologist',
+        status: 'available',
+        patientsToday: 6,
+        maxPatients: 12,
+        nextAvailable: '3:30 PM',
+        rating: 4.9,
+        experience: '11 years'
     }
 ];
 
@@ -1505,9 +1754,10 @@ function initializeDoctorAvailability() {
     
     doctorsGrid.innerHTML = '';
     
-    doctors.forEach(doctor => {
+    doctors.forEach((doctor, index) => {
         const doctorCard = document.createElement('div');
         doctorCard.className = 'doctor-card';
+        doctorCard.style.animationDelay = `${index * 0.1}s`;
         
         const statusClass = doctor.status === 'available' ? 'available' : 
                            doctor.status === 'busy' ? 'busy' : 'offline';
@@ -1536,6 +1786,21 @@ function initializeDoctorAvailability() {
         `;
         
         doctorsGrid.appendChild(doctorCard);
+    });
+}
+
+// Scroll doctors carousel
+function scrollDoctors(direction) {
+    const doctorsGrid = document.getElementById('doctorsGrid');
+    if (!doctorsGrid) return;
+    
+    const scrollAmount = 320; // Width of one doctor card + gap
+    const currentScroll = doctorsGrid.scrollLeft;
+    const newScroll = currentScroll + (scrollAmount * direction);
+    
+    doctorsGrid.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
     });
 }
 
