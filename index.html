@@ -3,10 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#017b9a">
   <title>HealthNest - Your Medical History, Secured</title>
+  <link rel="icon" type="image/png" href="Shinchan.png">
   <link rel="stylesheet" href="./Style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="./Vani.js" defer></script>
   <script src="./script.js" defer></script>
@@ -78,6 +83,8 @@
             <div class="meta-item"><span>Gender</span><strong id="profileGender">Male</strong></div>
             <div class="meta-item"><span data-key="profileHeightLabel">Height</span><strong id="profileHeightValue">175 cm</strong></div>
             <div class="meta-item"><span data-key="profileWeightLabel">Weight</span><strong id="profileWeightValue">52 kg</strong></div>
+            <div class="meta-item"><span data-key="profileBloodLabel">Blood Group</span><strong id="profileBloodValue">A+</strong></div>
+            <div class="meta-item address"><span>Address</span><strong id="profileAddress">Nagpur, India</strong></div>
           </div>
           <div class="profile-actions">
             <button class="cta-button" onclick="openModal('editProfileModal')"><i class="fas fa-edit"></i> Edit Profile</button>
@@ -86,10 +93,29 @@
       </div>
     </section>
 
+    <!-- DOCUMENT UPLOAD (hidden by default) -->
+    <section id="document-upload-section" class="section" style="display:none;">
+      <h2 class="section-title">Upload Medical Documents</h2>
+      <div class="document-upload-card" style="max-width:60rem;margin:0 auto;display:flex;gap:1rem;align-items:center;justify-content:center;flex-wrap:wrap;">
+        <input type="file" id="medicalFiles" class="modal-input" accept=".pdf,image/*" multiple onchange="handleFileUpload(event)">
+        <div style="display:flex;gap:0.5rem;">
+          <button class="btn" onclick="document.getElementById('medicalFiles').click();">Choose Files</button>
+          <button class="cta-button" onclick="analyzeReports()">Analyze Reports (Demo)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Uploaded documents container -->
+    <div id="uploaded-documents-container" style="display:none; margin: 1rem auto; max-width: 60rem; background: var(--surface); padding: 1rem; border-radius: var(--border-radius-medium); border: 1px solid var(--outline);">
+      <h3>Uploaded Documents</h3>
+      <ul id="document-list"></ul>
+    </div>
+
     <!-- FEATURES SECTION -->
     <section id="features" class="section">
       <h2 class="section-title" data-key="featuresTitle">Key Features</h2>
       <div class="features-container">
+        <div class="scroll-arrow left" onclick="scrollFeatures(-1)">&lt;</div>
         <div class="features-grid" id="features-grid">
           <div class="feature-card" data-searchable="health timeline">
             <span class="material-symbols-outlined">timeline</span>
@@ -107,6 +133,7 @@
             <p data-key="feature3Desc">Give doctors secure permission to view your health history.</p>
           </div>
         </div>
+        <div class="scroll-arrow right" onclick="scrollFeatures(1)">&gt;</div>
       </div>
     </section>
 
@@ -740,6 +767,7 @@
   <div id="backButton" onclick="history.back()" title="Go Back"><i class="fas fa-arrow-left"></i></div>
   <div id="scrollUpButton" onclick="scrollToTop()" title="Scroll to Top"><i class="fas fa-angle-double-up"></i></div>
   <div id="settingsButton" onclick="toggleSettings()" title="Settings"><i class="fas fa-sliders-h"></i></div>
+  <div id="aiAssistantButton" onclick="openModal('aiChatModal')" title="AI Assistant" aria-haspopup="dialog"><i class="fas fa-robot"></i></div>
   <div id="aiChatButton" onclick="openModal('aiChatModal')" title="Chat with Vani AI" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); cursor: pointer;"><i class="fas fa-comments"></i></div>
 
   <!-- SETTINGS MENU -->
