@@ -64,22 +64,13 @@
     <div class="hero-bg bg-i"></div>
     <div class="hero-content">
       <div class="hero-logo" aria-hidden="true">
-        <!-- Animated loader SVG to show on welcome -->
-      <div class="hero-logo" aria-hidden="true">
-        <img src="LOGO.png" alt="HealthNest" class="site-logo-hero">
-      </div>          <defs>
-            <linearGradient id="lg" x1="0" x2="1">
-              <stop offset="0" stop-color="#60C4B8" />
-              <stop offset="1" stop-color="#017b9a" />
-            </linearGradient>
-          </defs>
-          <g fill="none" stroke="url(#lg)" stroke-linecap="round" stroke-width="3">
-            <path class="nest-arc arc1" d="M20,70 C30,50 50,40 60,50 C70,60 90,64 100,60"/>
-            <path class="nest-arc arc2" d="M18,60 C30,42 48,36 62,42 C78,48 92,52 102,48"/>
-            <path class="nest-arc arc3" d="M24,78 C36,62 54,56 68,62 C82,68 96,72 108,68"/>
-          </g>
-          <circle class="loader-dot" cx="60" cy="30" r="6" fill="url(#lg)" />
-        </svg>
+        <!-- Loading Animation -->
+        <div class="loading-animation">
+          <div class="loading-ring"></div>
+          <div class="loading-ring"></div>
+          <div class="loading-ring"></div>
+          <div class="loading-ring"></div>
+        </div>
       </div>
       <h1 data-key="heroTitle">Your Health, In Your Hands.</h1>
       <p data-key="heroSubtitle">Save your entire medical history in one secure place and access it anytime, anywhere.</p>
@@ -494,24 +485,28 @@
   <!-- FOOTER -->
   <footer id="contact">
     <div class="footer-inner">
-      <div class="footer-brand-row">
-        <img src="LOGO.png" alt="HealthNest" class="footer-logo">
-        <div>
-          <div class="footer-brand">HealthNest</div>
-          <div class="footer-sub">&copy;2026 HealthNest All Rights Reserved | Made with ❤️</div>
+      <div class="footer-left">
+        <div class="footer-brand-row">
+          <img src="LOGO.png" alt="HealthNest" class="footer-logo">
+          <div>
+            <div class="footer-brand">HealthNest</div>
+            <div class="footer-sub">&copy;2026 HealthNest All Rights Reserved | Made with ❤️</div>
+          </div>
         </div>
       </div>
-      <div class="footer-links">
-        <a href="#" onclick="openModal('privacyPolicyModal')" data-key="footerPrivacy">Privacy Policy</a>|
-        <a href="#" onclick="openModal('termsOfServiceModal')" data-key="footerTerms">Terms of Service</a>|
-        <a href="#" onclick="openModal('contactSupportModal')">Contact Support</a>
+      <div class="footer-center">
+        <div class="footer-links">
+          <a href="#" onclick="openModal('privacyPolicyModal')" data-key="footerPrivacy">Privacy Policy</a>|
+          <a href="#" onclick="openModal('termsOfServiceModal')" data-key="footerTerms">Terms of Service</a>|
+          <a href="#" onclick="openModal('contactSupportModal')">Contact Support</a>
+        </div>
+        <div class="social-media-links">
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
       </div>
-    </div>
-    <div class="social-media-links">
-      <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-      <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
     </div>
     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
   </footer>

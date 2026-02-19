@@ -624,52 +624,25 @@
     
     function openModal(modalId) { 
         const modal = document.getElementById(modalId); 
-        if(modal) modal.classList.add('visible'); 
-        if (modalId === 'aiChatModal') {
-            const chatBox = document.getElementById('ai-chat-box');
-            if (chatBox.children.length === 0) {
-                 const aiBubble = document.createElement('div');
-                 aiBubble.className = 'ai-message ai';
-                 aiBubble.innerHTML = `<div>Hello! How can I help you today? Type 'help' to see what I can do.</div>`;
-                 chatBox.appendChild(aiBubble);
+        if(modal) {
+            // Set higher z-index for contact support modal to prevent freezing
+            if (modalId === 'contactSupportModal') {
+                modal.style.zIndex = '3001';
+            } else {
+                modal.style.zIndex = '3000';
             }
+            modal.classList.add('visible'); 
         }
-        if (modalId === 'userProfileModal') {
-            updateProfileModalData();
+        if (modalId === 'aiChatModal') {
+            setTimeout(() => {
+                document.getElementById('ai-chat-input')?.focus();
+            }, 300);
         }
         if(modal) modal.querySelector('button, input, select, textarea')?.focus(); 
     }
     function closeModal(modalId) { 
         const modal = document.getElementById(modalId);
         if(modal) modal.classList.remove('visible'); 
-    }
-
-    /* ----------------- Auth modal helpers ----------------- */
-    function switchAuthTab(tab) {
-        const loginSection = document.querySelector('.auth-tab-section.auth-login');
-        const signupSection = document.querySelector('.auth-tab-section.auth-signup');
-        const loginBtn = document.getElementById('authTabLogin');
-        const signupBtn = document.getElementById('authTabSignup');
-        if (!loginSection || !signupSection || !loginBtn || !signupBtn) return;
-        if (tab === 'login') {
-            loginSection.style.display = 'block';
-            signupSection.style.display = 'none';
-            loginSection.classList.add('active-panel');
-            signupSection.classList.remove('active-panel');
-            loginBtn.classList.add('active');
-            signupBtn.classList.remove('active');
-            document.getElementById('authModalTitle').textContent = 'Welcome Back!';
-            loginSection.querySelector('input')?.focus();
-        } else {
-            loginSection.style.display = 'none';
-            signupSection.style.display = 'block';
-            loginSection.classList.remove('active-panel');
-            signupSection.classList.add('active-panel');
-            loginBtn.classList.remove('active');
-            signupBtn.classList.add('active');
-            document.getElementById('authModalTitle').textContent = 'Create Your Account';
-            signupSection.querySelector('input')?.focus();
-        }
     }
 
     function socialSign(provider) {

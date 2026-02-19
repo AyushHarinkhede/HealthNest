@@ -191,7 +191,7 @@
 
         /* Footer logo */
         .nav-logo-img { width:42px; height:42px; }
-        .footer-logo { width:56px; height:56px; object-fit:contain; }
+        .footer-logo { width:64px; height:64px; object-fit:contain; }
         .preloader-logo { width:180px; height:180px; }
         .site-logo-hero { width:96px; height:96px; }
 
@@ -995,7 +995,11 @@
         #contactSupportModal.visible .contact-item:nth-of-type(5) { transition-delay: 300ms; }
         #contactSupportModal.visible .contact-item:nth-of-type(6) { transition-delay: 360ms; }
         #contactSupportModal.visible .contact-item:nth-of-type(7) { transition-delay: 420ms; }
-        #contactSupportModal .contact-actions button { background: linear-gradient(180deg,var(--primary-container), rgba(1,123,154,0.08)); color: var(--on-primary-container); border: 1px solid rgba(1,123,154,0.12); padding: 0.4rem 0.6rem; border-radius: 0.5rem; cursor:pointer; }
+        #contactSupportModal .contact-actions button { padding: 0.4rem 0.6rem; border-radius: 0.5rem; cursor:pointer; font-weight: 600; border: none; transition: all 0.2s ease; }
+        #contactSupportModal .contact-actions button.mail { background: linear-gradient(180deg, #2196F3, #1976D2); color: #fff; }
+        #contactSupportModal .contact-actions button.mail:hover { background: linear-gradient(180deg, #1976D2, #1565C0); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(33,150,243,0.3); }
+        #contactSupportModal .contact-actions button.call { background: linear-gradient(180deg, #4CAF50, #388E3C); color: #fff; }
+        #contactSupportModal .contact-actions button.call:hover { background: linear-gradient(180deg, #388E3C, #2E7D32); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(76,175,80,0.3); }
 
         /* Auth modal tab styles */
         .auth-modal-tabs { display:flex; gap:0.5rem; margin-bottom:1rem; }
@@ -1213,20 +1217,73 @@
         .toast.show { opacity: 1; transform: translateY(0); }
         
         /* --- Enhanced Footer --- */
-        footer { background: var(--surface-variant); padding: 2.5rem 1.25rem; color: var(--on-surface-variant); text-align: center; display:flex; flex-direction:column; align-items:center; gap:0.8rem; }
+        footer { background: var(--surface-variant); padding: 2.5rem 1.25rem; color: var(--on-surface-variant); text-align: center; display:flex; flex-direction:column; align-items:center; gap:0.8rem; position: relative; }
         footer a { color: var(--primary); text-decoration: none; font-weight: 600; margin: 0 0.4rem; }
         footer a:hover { text-decoration: none; filter:brightness(0.95); }
-        .logout-btn { background: var(--error-container); color: var(--on-error-container); border: none; padding: 0.6rem 1.25rem; margin-top: 0.75rem; border-radius: var(--border-radius-full); cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.98rem; transition: all 0.22s ease; }
+        .logout-btn { background: var(--error-container); color: var(--on-error-container); border: none; padding: 0.6rem 1.25rem; margin-top: 0.75rem; border-radius: var(--border-radius-full); cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.98rem; transition: all 0.22s ease; position: absolute; top: 2.5rem; right: 1.25rem; }
         .logout-btn:hover { filter: brightness(1.05); transform: scale(1.03); box-shadow: 0 6px 20px -8px var(--error); }
         .social-media-links { margin-top: 0.5rem; display: flex; justify-content: center; gap: 1.1rem; }
         .social-media-links a { font-size: 1.35rem; color: var(--on-surface-variant); transition: color 0.22s ease, transform 0.22s ease; }
         .social-media-links a:hover { color: var(--primary); transform: translateY(-3px); }
 
-        .footer-inner { display:flex; flex-direction:column; align-items:center; gap:0.6rem; }
+        .footer-inner { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:1200px; gap:2rem; }
+        .footer-left { display:flex; align-items:center; }
+        .footer-center { display:flex; flex-direction:column; align-items:center; gap:0.8rem; flex:1; }
         .footer-brand-row { display:flex; align-items:center; gap:0.85rem; }
         .footer-brand { font-size:1.8rem; font-weight:900; color:var(--primary); letter-spacing:0.4px; }
         .footer-sub { margin-top:0.15rem; font-size:0.95rem; color:var(--on-surface-variant); }
         .footer-links { display:flex; gap:0.5rem; align-items:center; justify-content:center; }
+
+        /* Loading Animation */
+        .loading-animation {
+          position: relative;
+          width: 120px;
+          height: 120px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .loading-ring {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          border: 4px solid transparent;
+          border-top: 4px solid var(--primary);
+          animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+
+        .loading-ring:nth-child(1) {
+          animation-delay: 0s;
+          border-top-color: var(--primary);
+        }
+
+        .loading-ring:nth-child(2) {
+          animation-delay: -0.3s;
+          width: 80%;
+          height: 80%;
+          border-top-color: var(--secondary);
+        }
+
+        .loading-ring:nth-child(3) {
+          animation-delay: -0.6s;
+          width: 60%;
+          height: 60%;
+          border-top-color: var(--tertiary);
+        }
+
+        .loading-ring:nth-child(4) {
+          animation-delay: -0.9s;
+          width: 40%;
+          height: 40%;
+          border-top-color: var(--primary-container);
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
 
         /* Floating contacts animation and settings inline animation */
         .floating-contacts { opacity:0; transform: translateY(8px) scale(.995); transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.25,1); }
