@@ -139,39 +139,96 @@
         .black-switch input:checked + .slider { background-color: #017b9a; }
         .black-switch input:checked + .slider:before { transform: translateX(24px); background: #fff; }
 
-        /* Ensure all switches visually move when toggled */
-        .switch input:checked + .slider { background-color: var(--primary); }
-        .switch input:checked + .slider:before { transform: translateX(24px); background: #fff; }
+/* Ensure all switches visually move when toggled */
+.switch input:checked + .slider { background-color: var(--primary); }
+.switch input:checked + .slider:before { transform: translateX(24px); background: #fff; }
 
-        /* Subscribe button (prominent red) */
-        .subscribe-btn { background: linear-gradient(180deg,#e74c3c,#c0392b); color: #fff; border: none; padding: 0.75rem 1.25rem; border-radius: var(--border-radius-full); cursor: pointer; font-weight:700; box-shadow: 0 8px 20px rgba(231,76,60,0.12); transition: transform .18s cubic-bezier(.2,.9,.25,1), box-shadow .18s cubic-bezier(.2,.9,.25,1); position: relative; overflow: hidden; display: inline-block; }
-        /* Hover: soft lift + warm glow */
-        .subscribe-btn:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 18px 40px rgba(192,57,43,0.18), 0 6px 14px rgba(231,76,60,0.06); }
-        .subscribe-btn:active { transform: translateY(0) scale(0.985); box-shadow: 0 8px 18px rgba(192,57,43,0.12); }
+/* Subscribe button (prominent red) */
+.subscribe-btn { 
+    background: linear-gradient(135deg, #e74c3c, #c0392b); 
+    color: #fff; 
+    border: none; 
+    padding: 0.75rem 1.25rem; 
+    border-radius: var(--border-radius-full); 
+    cursor: pointer; 
+    font-weight: 700; 
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.12); 
+    transition: transform .18s cubic-bezier(.2,.9,.25,1), 
+    box-shadow .18s cubic-bezier(.2,.9,.25,1), 
+    position: relative; 
+    overflow: hidden; 
+    display: inline-block; 
+}
+.subscribe-btn:hover { 
+    transform: translateY(-4px) scale(1.02); 
+    box-shadow: 0 18px 40px rgba(231, 76, 60, 0.18); 
+    background: linear-gradient(135deg, #c0392b, #a93226); 
+}
+.subscribe-btn:active { 
+    transform: translateY(0) scale(0.985); 
+    box-shadow: 0 8px 18px rgba(231, 76, 60, 0.12); 
+}
+/* Hover: soft lift + warm glow */
+.subscribe-btn::after { 
+    content: ''; 
+    position: absolute; 
+    left: 50%; 
+    top: 50%; 
+    width: 120%; 
+    height: 120%; 
+    transform: translate(-50%, -50%) scale(.9); 
+    border-radius: inherit; 
+    pointer-events: none; 
+    box-shadow: 0 10px 30px rgba(231, 76, 60, 0); 
+    transition: box-shadow .28s ease, transform .28s ease, opacity .28s ease; 
+    opacity: 0; 
+    background: rgba(255, 255, 255, 0.1); 
+}
+.subscribe-btn:hover::after { 
+    box-shadow: 0 18px 50px rgba(231, 76, 60, 0.14); 
+    opacity: 1; 
+    transform: translate(-50%, -50%) scale(1.02); 
+}
+.subscribe-btn:active::after { 
+    transform: translate(-50%, -50%) scale(3); 
+    opacity: 0; 
+}
+/* subscribe entrance tiny pop */
+.subscribe-btn.sub-entrance { 
+    animation: subPop 450ms cubic-bezier(.2,.9,.25,1) both; 
+}
+@keyframes subPop { 
+    0% { transform: translateY(6px) scale(.98); opacity:0 } 
+    60% { transform: translateY(-3px) scale(1.03); opacity:1 } 
+    100% { transform: translateY(0) scale(1); opacity:1 } 
+}
+/* Ripple element (created dynamically) */
+.subscribe-btn .ripple { 
+    position: absolute; 
+    border-radius: 50%; 
+    transform: scale(0); 
+    opacity: 0; 
+    transition: transform 420ms cubic-bezier(.2,.9,.25,1), 
+    opacity: 420ms; 
+}
 
-        /* subtle glowing ring on hover (pseudo) */
-        .subscribe-btn::after { content: ''; position: absolute; left: 50%; top: 50%; width: 120%; height: 120%; transform: translate(-50%, -50%) scale(.9); border-radius: inherit; pointer-events: none; box-shadow: 0 10px 30px rgba(231,76,60,0); transition: box-shadow .28s ease, transform .28s ease, opacity .28s ease; opacity: 0; }
-        .subscribe-btn:hover::after { box-shadow: 0 18px 50px rgba(231,76,60,0.14); opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+/* Contact support list */
+.contact-support { max-width: 48rem; margin: 2rem auto; background: var(--surface); padding: 1rem; border-radius: var(--border-radius-medium); border: 1px solid var(--outline); }
+.contact-item { display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.5rem; border-bottom:1px dashed var(--surface-variant); }
+.contact-item:last-child { border-bottom: none; }
+.contact-name { font-weight:700; color:var(--on-surface); }
+.contact-actions { display:flex; gap:0.5rem; }
+.contact-actions button { padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid var(--outline); background:transparent; cursor:pointer; }
 
-        /* subscribe entrance tiny pop */
-        .subscribe-btn.sub-entrance { animation: subPop 450ms cubic-bezier(.2,.9,.25,1) both; }
-        @keyframes subPop { 0% { transform: translateY(6px) scale(.98); opacity:0 } 60% { transform: translateY(-3px) scale(1.03); opacity:1 } 100% { transform: translateY(0) scale(1); opacity:1 } }
+/* Hero welcome animation tweaks */
+.hero-content { text-align:center; padding:6rem 1rem; transform-origin:center; }
+.hero-content.animate-in { animation: heroEntrance 900ms cubic-bezier(.2,.9,.25,1) both; }
+@keyframes heroEntrance { 0% { transform: translateY(2rem) scale(.98); opacity:0 } 60% { transform: translateY(-0.6rem) scale(1.02); opacity:1 } 100% { transform: translateY(0) scale(1); opacity:1 } }
 
-        /* Ripple element (created dynamically) */
-        .subscribe-btn .ripple {
-            position: absolute;
-            border-radius: 50%;
-            transform: scale(0);
-            background: rgba(255,255,255,0.45);
-            pointer-events: none;
-            animation: rippleAnim 650ms ease-out;
-        }
-        @keyframes rippleAnim { to { transform: scale(18); opacity: 0; } }
-
-        /* Contact support list */
-        .contact-support { max-width: 48rem; margin: 2rem auto; background: var(--surface); padding: 1rem; border-radius: var(--border-radius-medium); border: 1px solid var(--outline); }
-        .contact-item { display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0.5rem; border-bottom:1px dashed var(--surface-variant); }
-        .contact-item:last-child { border-bottom: none; }
+/* Hero logo */
+.hero-logo { display:flex; justify-content:center; margin-bottom: 0.75rem; }
+.site-logo-hero { width:84px; height:84px; transform-origin:center; filter: drop-shadow(0 8px 20px rgba(1,123,154,0.08)); transition: transform 420ms cubic-bezier(.2,.9,.25,1); object-fit:contain; }
+.hero-content:hover .site-logo-hero { transform: translateY(-6px) rotate(-6deg) scale(1.03); }
         .contact-name { font-weight:700; color:var(--on-surface); }
         .contact-actions { display:flex; gap:0.5rem; }
         .contact-actions button { padding:0.4rem 0.6rem; border-radius:0.5rem; border:1px solid var(--outline); background:transparent; cursor:pointer; }
@@ -185,6 +242,10 @@
         .hero-logo { display:flex; justify-content:center; margin-bottom: 0.75rem; }
         .site-logo-hero { width:84px; height:84px; transform-origin:center; filter: drop-shadow(0 8px 20px rgba(1,123,154,0.08)); transition: transform 420ms cubic-bezier(.2,.9,.25,1); object-fit:contain; }
         .hero-content:hover .site-logo-hero { transform: translateY(-6px) rotate(-6deg) scale(1.03); }
+        
+        /* Hero content entrance animation */
+        .hero-content { text-align:center; padding:6rem 1rem; transform-origin:center; }
+        .hero-content.animate-in { animation: heroEntrance 900ms cubic-bezier(.2,.9,.25,1) both; }
 
         /* Nav logo image */
         .nav-logo-img { width:36px; height:36px; object-fit:contain; display:block; }
@@ -1251,7 +1312,20 @@
         .footer-copyright-bottom a { color: var(--primary); text-decoration: none; }
         .footer-copyright-bottom a:hover { text-decoration: underline; }
 
-        /* Loading Animation */
+        /* Incognito button in navbar */
+        .incognito-btn { background: linear-gradient(180deg, #2c3e50, #1a1a1a); color: #fff; border: none; padding: 0.6rem 1.25rem; border-radius: var(--border-radius-full); cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.98rem; transition: all 0.22s ease; }
+        .incognito-btn:hover { background: linear-gradient(180deg, #1a1a1a, #0d0d0d); transform: scale(1.03); box-shadow: 0 6px 20px -8px rgba(0,0,0,0.4); }
+        .incognito-btn i { font-size: 1rem; }
+
+        /* Profile modal improvements */
+        .user-profile-modal-content { display: flex; flex-direction: column; gap: 1.5rem; max-height: 600px; overflow-y: auto; }
+        .profile-info-section { flex: 1; overflow-y: auto; padding-right: 0.5rem; }
+        .info-item { display: flex; flex-direction: column; margin-bottom: 1rem; min-width: 0; }
+        .info-item label { font-weight: 600; color: var(--primary); margin-bottom: 0.25rem; font-size: 0.9rem; }
+        .info-item p { background: var(--surface-variant); padding: 0.75rem; border-radius: var(--border-radius-medium); border: 1px solid var(--outline); margin: 0; word-wrap: break-word; }
+        .profile-actions-modal { display: flex; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--outline); }
+        .logout-btn-modal { background: var(--error-container); color: var(--on-error-container); border: none; padding: 0.6rem 1.25rem; border-radius: var(--border-radius-full); cursor: pointer; font-weight: 700; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.98rem; transition: all 0.22s ease; margin-left: auto; }
+        .logout-btn-modal:hover { filter: brightness(1.05); transform: scale(1.03); box-shadow: 0 6px 20px -8px var(--error); }
         .loading-animation {
           position: relative;
           width: 120px;

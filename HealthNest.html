@@ -36,12 +36,12 @@
       </div>
     </div>
 
-    <div class="search-container" style="margin-left:0.75rem; position:relative; flex:1; max-width:400px;">
-      <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs..." aria-label="Site search">
-      <div id="searchResults" class="search-results" role="listbox" hidden></div>
-    </div>
-
     <div class="nav-buttons">
+      <div class="search-container" style="margin-left:0.75rem; position:relative; flex:1; max-width:400px;">
+        <input type="search" id="search-bar-input" class="search-bar" placeholder="Search features, FAQs..." aria-label="Site search">
+        <div id="searchResults" class="search-results" role="listbox" hidden></div>
+      </div>
+      
       <button class="signup-btn auth-btn" onclick="openModal('authModal'); switchAuthTab('login')" data-key="navAuth" aria-haspopup="dialog">
         <i class="fas fa-user-lock" style="margin-right:0.5rem"></i> Log In / Sign Up
       </button>
@@ -641,11 +641,11 @@
       <div class="form-grid">
         <div>
           <label for="editName">Full Name</label>
-          <input type="text" id="editName" class="modal-input" placeholder="Your full name" value="Ayush Harinkhere">
+          <input type="text" id="editName" class="modal-input" placeholder="Your full name" value="">
         </div>
         <div>
           <label for="editEmail">Email Address</label>
-          <input type="email" id="editEmail" class="modal-input" placeholder="your.email@example.com" value="ayushharinkhere2005@email.com">
+          <input type="email" id="editEmail" class="modal-input" placeholder="your.email@example.com" value="">
         </div>
       </div>
       <label for="editDob">Date of Birth</label>
@@ -686,7 +686,7 @@
           </div>
         </div>
 
-        <div class="profile-info-section">
+        <div class="profile-info-section" style="max-height: 400px; overflow-y: auto;">
           <div class="info-item">
             <label>Full Name</label>
             <p id="modalUserName">-</p>
@@ -727,6 +727,9 @@
           </button>
           <button class="cta-button secondary" onclick="closeModal('userProfileModal');">
             <i class="fas fa-times"></i> Close
+          </button>
+          <button class="logout-btn-modal" onclick="confirmLogout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
           </button>
         </div>
       </div>
@@ -971,71 +974,6 @@
         </div>
       </div>
 
-
-
-        <!-- CONTACT SUPPORT MODAL (opened from Settings -> Contact Support) -->
-      <div id="contactSupportModal" class="modal-overlay">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Contact Support</h2>
-        <button class="modal-close-btn" onclick="closeModal('contactSupportModal')">&times;</button>
-      </div>
-            </div>
-            <p style="color:var(--on-surface-variant); margin-bottom:0.5rem;">Tap to call or email. You will be asked to confirm before the action.</p>
-
-            <div class="contact-item">
-              <div class="contact-name">Ayush Harinkhede</div>
-              <div class="contact-actions">
-                <button class="mail" onclick="confirmMail('ayushharinkhere2005@gmail.com','Ayush Harinkhede')">Mail</button>
-                <button class="call" onclick="confirmCall('+919209514158','Ayush Harinkhede')">Call</button>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-name">Lucky Rahangdale</div>
-              <div class="contact-actions">
-                <button class="mail" onclick="confirmMail('rahangdalelucky609@gmail.com','Lucky Rahangdale')">Mail</button>
-                <button class="call" onclick="confirmCall('+918459351781','Lucky Rahangdale')">Call</button>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-name">Vivan Tagde</div>
-              <div class="contact-actions">
-                <button class="call" onclick="confirmCall('+919356697929','Vivan Tagde')">Call</button>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-name">Akash Rai</div>
-              <div class="contact-actions">
-                <button class="call" onclick="confirmCall('+917768020163','Akash Rai')">Call</button>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-name">Jay Sharma</div>
-              <div class="contact-actions">
-                <button class="call" onclick="confirmCall('+918669111367','Jay Sharma')">Call</button>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-name">Gaurav Lanjewar</div>
-              <div class="contact-actions">
-                <button class="call" onclick="confirmCall('+918484807306','Gaurav Lanjewar')">Call</button>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <div class="contact-name">Prayag Khushwaha</div>
-              <div class="contact-actions">
-                <button class="call" onclick="confirmCall('+919322457122','Prayag Khushwaha')">Call</button>
-              </div>
-            </div>
-    </div>
-  </div>
-
       <div id="ai-settings-panel" class="ai-settings-panel" style="display:none;">
         <div class="ai-setting-row">
           <label class="ai-setting-label">Incognito Mode</label>
@@ -1047,14 +985,78 @@
           <button class="btn ai-btn" onclick="openAiHistory()">View history</button>
         </div>
       </div>
+      
       <div id="ai-chat-box" style="flex: 1; overflow-y: auto; padding: 1rem; background: var(--surface-dim); border-radius: 8px; margin-bottom: 1rem; display: flex; flex-direction: column;">
         <!-- Chat messages appear here -->
       </div>
+      
       <form id="ai-chat-input-form" onsubmit="handleAIChat(event)" style="display: flex; gap: 0.5rem;">
         <input type="text" id="ai-chat-input" class="modal-input" placeholder="Ask me anything about your health..." style="flex: 1; margin: 0;">
         <button type="submit" class="cta-button" style="margin: 0; padding: 0.75rem 1.5rem;"><i class="fas fa-paper-plane"></i></button>
         <button type="button" id="ai-voice-btn" class="cta-button" style="margin: 0; padding: 0.75rem 1.5rem;" title="Voice input"><i class="fas fa-microphone"></i></button>
       </form>
+    </div>
+  </div>
+
+  <!-- CONTACT SUPPORT MODAL (opened from Settings -> Contact Support) -->
+  <div id="contactSupportModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Contact Support</h2>
+        <button class="modal-close-btn" onclick="closeModal('contactSupportModal')">&times;</button>
+      </div>
+      <p style="color:var(--on-surface-variant); margin-bottom:0.5rem;">Tap to call or email. You will be asked to confirm before the action.</p>
+
+      <div class="contact-item">
+        <div class="contact-name">Ayush Harinkhede</div>
+        <div class="contact-actions">
+          <button class="mail" onclick="confirmMail('ayushharinkhere2005@gmail.com','Ayush Harinkhede')">Mail</button>
+          <button class="call" onclick="confirmCall('+919209514158','Ayush Harinkhede')">Call</button>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-name">Lucky Rahangdale</div>
+        <div class="contact-actions">
+          <button class="mail" onclick="confirmMail('rahangdalelucky609@gmail.com','Lucky Rahangdale')">Mail</button>
+          <button class="call" onclick="confirmCall('+918459351781','Lucky Rahangdale')">Call</button>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-name">Vivan Tagde</div>
+        <div class="contact-actions">
+          <button class="call" onclick="confirmCall('+919356697929','Vivan Tagde')">Call</button>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-name">Akash Rai</div>
+        <div class="contact-actions">
+          <button class="call" onclick="confirmCall('+917768020163','Akash Rai')">Call</button>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-name">Jay Sharma</div>
+        <div class="contact-actions">
+          <button class="call" onclick="confirmCall('+918669111367','Jay Sharma')">Call</button>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-name">Gaurav Lanjewar</div>
+        <div class="contact-actions">
+          <button class="call" onclick="confirmCall('+918484807306','Gaurav Lanjewar')">Call</button>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-name">Prayag Khushwaha</div>
+        <div class="contact-actions">
+          <button class="call" onclick="confirmCall('+919322457122','Prayag Khushwaha')">Call</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1097,7 +1099,8 @@
         <label class="switch"><input id="notificationsToggle" type="checkbox" onchange="toggleSetting('notifications', this.checked)"><span class="slider"></span></label>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <label style="margin:0;">Privacy Mode (Incognito)</label>
+        <label style="margin:0;">Incognito Mode</label>
+        <i class="fas fa-user-secret" style="color: var(--primary); margin-left: 0.5rem;"></i>
         <label class="switch black-switch"><input id="privacyMode" type="checkbox" onchange="toggleSetting('privacy', this.checked)"><span class="slider"></span></label>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:center;">

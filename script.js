@@ -1,6 +1,7 @@
 // --- GLOBAL VARIABLES ---
     let healthChartInstance = null;
-    let newProfilePicSrc = null; // To hold the new picture URL temporarily
+    let newProfilePicSrc = null; // To hold new picture URL temporarily
+    let isIncognitoMode = false; // Track incognito mode state
     
     const languageData = {
         hi: {
@@ -32,38 +33,13 @@
     };
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Preloader Logic - Hide after 2 seconds and show main content
+        // Remove preloader immediately and show content
         const preloader = document.getElementById('preloader');
-        const mainContent = document.querySelector('main');
-        const hero = document.querySelector('.hero');
+        if (preloader) {
+            preloader.style.display = 'none';
+        }
         
-        // Ensure main content is hidden initially
-        if (mainContent) mainContent.style.opacity = '0';
-        if (hero) hero.style.opacity = '0';
-        
-        window.setTimeout(() => {
-            // Hide preloader
-            preloader.classList.add('hidden');
-            
-            // Show main content with fade-in
-            setTimeout(() => {
-                if (mainContent) {
-                    mainContent.style.transition = 'opacity 1s ease-in-out';
-                    mainContent.style.opacity = '1';
-                }
-                if (hero) {
-                    hero.style.transition = 'opacity 1s ease-in-out';
-                    hero.style.opacity = '1';
-                    // add entrance animation class
-                    hero.querySelector('.hero-content')?.classList.add('animate-in');
-                }
-                
-                // Remove preloader from DOM after animation
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 800);
-            }, 200);
-        }, 2000); // Show preloader for 2 seconds
+        console.log('Preloader removed, content visible immediately');
 
         // Load saved settings or defaults (safe checks if controls missing)
         changeTheme('light');
@@ -78,6 +54,17 @@
         initializeFAQ();
         initializeScrollAnimations();
         renderHealthChart();
+        
+        // Trigger hero entrance animation
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            console.log('Adding hero entrance animation...');
+            // Small delay to ensure DOM is ready
+            setTimeout(() => {
+                heroContent.classList.add('animate-in');
+                console.log('Hero entrance animation added');
+            }, 200);
+        }
         
         // Load settings on startup
         loadSettings();
@@ -296,41 +283,19 @@
             case 'reducedMotion':
                 if (enabled) {
                     document.documentElement.setAttribute('data-reduced-motion', 'true');
-                    showToast('Reduced motion enabled', 'success');
-                } else {
-                    document.documentElement.removeAttribute('data-reduced-motion');
-                    showToast('Reduced motion disabled', 'info');
                 }
                 break;
             case 'autoSave':
-                if (enabled) {
-                    showToast('Auto-save enabled', 'success');
-                } else {
-                    showToast('Auto-save disabled - manual save required', 'info');
-                }
+                showToast('Auto-save ' + (value ? 'enabled' : 'disabled'), 'info');
                 break;
             case 'location':
-                if (enabled) {
-                    if ('geolocation' in navigator) {
-                        navigator.geolocation.getCurrentPosition(
-                            () => showToast('Location services enabled', 'success'),
-                            () => showToast('Location access denied', 'error')
-                        );
-                    } else {
-                        showToast('Location not supported by browser', 'error');
-                    }
-                } else {
-                    showToast('Location services disabled', 'info');
-                }
+                showToast('Location services ' + (value ? 'enabled' : 'disabled'), 'info');
                 break;
             case 'analytics':
-                if (enabled) {
-                    showToast('Data analytics enabled - helping us improve', 'success');
-                } else {
-                    showToast('Data analytics disabled', 'info');
-                }
+                showToast('Data analytics ' + (value ? 'enabled' : 'disabled'), 'info');
                 break;
         }
+        localStorage.setItem(setting, value);
     }
     
     function loadSettings() {
@@ -636,6 +601,14 @@
         if (modalId === 'aiChatModal') {
             setTimeout(() => {
                 document.getElementById('ai-chat-input')?.focus();
+                // Add initial greeting if chat box is empty
+                const chatBox = document.getElementById('ai-chat-box');
+                if (chatBox && chatBox.children.length === 0) {
+                    const greetingBubble = document.createElement('div');
+                    greetingBubble.className = 'ai-message ai';
+                    greetingBubble.innerHTML = `<div>Hello! How can I help you today? Type 'help' to see what I can do.</div>`;
+                    chatBox.appendChild(greetingBubble);
+                }
             }, 300);
         }
         if(modal) modal.querySelector('button, input, select, textarea')?.focus(); 
@@ -679,68 +652,19 @@
             
             showToast("Profile picture previewed. Click 'Save Changes' to apply.", "info");
         }
-    }
 
-    function saveProfile() {
-        // Update text fields
-        const newName = document.getElementById('editName').value;
-        document.querySelector('[data-key="profileName"]').textContent = newName;
-        document.getElementById('profileEmail').textContent = document.getElementById('editEmail').value;
-        document.getElementById('profileAddress').textContent = document.getElementById('editAddress').value;
-        document.getElementById('profileGender').textContent = document.getElementById('editGender').value;
-        
-        const heightCm = document.getElementById('editHeight').value;
-        const heightFt = document.getElementById('editHeightFt')?.value || '';
-        document.getElementById('profileHeightValue').textContent = heightFt ? `${heightCm} cm / ${heightFt}` : `${heightCm} cm`;
-        
-        document.getElementById('profileWeightValue').textContent = `${document.getElementById('editWeight').value} kg`;
-        const bloodEl = document.getElementById('editBlood') || document.getElementById('editBloodGroup');
-        if (bloodEl) document.getElementById('profileBloodValue').textContent = bloodEl.value;
+function closeModal(modalId) { 
+    const modal = document.getElementById(modalId);
+    if(modal) modal.classList.remove('visible'); 
+}
 
-        // Update profile picture if a new one was selected
-        if (newProfilePicSrc) {
-            // Create or update profile image in profile section
-            const profilePic = document.querySelector('.profile-pic');
-            if (profilePic) {
-                const img = profilePic.querySelector('img') || document.createElement('img');
-                img.src = newProfilePicSrc;
-                img.alt = 'Profile Picture';
-                img.style.display = 'block';
-                if (!profilePic.querySelector('img')) {
-                    profilePic.appendChild(img);
-                }
-                profilePic.querySelector('.fa-user')?.style?.setProperty('display', 'none', 'important');
-            }
-
-            // Update nav avatar
-            document.getElementById('user-avatar-img').src = newProfilePicSrc;
-            document.getElementById('user-avatar-img').style.display = 'block';
-            document.getElementById('user-initials').style.display = 'none';
-        } else {
-            // Update initials in nav
-            const nameParts = newName.split(' ');
-            const initials = nameParts[0].charAt(0) + (nameParts.length > 1 ? nameParts[nameParts.length - 1].charAt(0) : '');
-            document.getElementById('user-initials').textContent = initials.toUpperCase();
-        }
-
-        // Calculate and update age
-        const newDob = document.getElementById('editDob').value;
-        if (newDob) {
-            const birthDate = new Date(newDob);
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            document.getElementById('profileAgeValue').textContent = `${age} Years`;
-        }
-        
-        showToast("Profile updated successfully!", "success");
-        closeModal('editProfileModal');
-    }
-
-    function showToast(message, type = 'info') {
+function socialSign(provider) {
+    showToast(`Signing in with ${provider} (demo)`, 'info');
+    // Demo: simulate successful sign-in and apply same UI changes as handleLogin
+    setTimeout(() => {
+        // hide only the auth button, show profile button
+        const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = 'none';
+        const profileNavBtn = document.getElementById('profileNavBtn'); if (profileNavBtn) profileNavBtn.style.display = 'inline-flex';
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
@@ -1206,17 +1130,104 @@ function scrollFeatures(direction) {
     }
     
     // this section is for aiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-    
 
     // ---- VANIE: settings, history, persistence ----
     let vaniIncognito = false; // when true, do not save chat to history
     function toggleAiSettings() { const panel = document.getElementById('ai-settings-panel'); panel.style.display = panel.style.display === 'flex' || panel.style.display === 'block' ? 'none' : 'flex'; }
-    function toggleIncognito(enabled) { vaniIncognito = !!enabled; localStorage.setItem('vani_incognito', vaniIncognito ? '1' : '0'); showToast(`Incognito ${vaniIncognito ? 'enabled' : 'disabled'}`, 'info'); }
+    function toggleIncognito(enabled) {
+        isIncognitoMode = enabled;
+        const authBtn = document.querySelector('.auth-btn');
+        const profileNavBtn = document.getElementById('profileNavBtn');
+        
+        if (enabled) {
+            // Hide login/signup and profile buttons, show incognito button
+            if (authBtn) authBtn.style.display = 'none';
+            if (profileNavBtn) profileNavBtn.style.display = 'none';
+            
+            // Create or show incognito button
+            let incognitoBtn = document.getElementById('incognitoBtn');
+            if (!incognitoBtn) {
+                incognitoBtn = document.createElement('button');
+                incognitoBtn.id = 'incognitoBtn';
+                incognitoBtn.className = 'incognito-btn';
+                incognitoBtn.innerHTML = '<i class="fas fa-user-secret"></i> Incognito';
+                incognitoBtn.onclick = () => toggleIncognito(false);
+                
+                const navButtons = document.querySelector('.nav-buttons');
+                if (navButtons) {
+                    navButtons.appendChild(incognitoBtn);
+                }
+            }
+            incognitoBtn.style.display = 'inline-flex';
+        } else {
+            // Show normal buttons, hide incognito button
+            if (authBtn) authBtn.style.display = 'inline-flex';
+            if (profileNavBtn) profileNavBtn.style.display = 'inline-flex';
+            
+            // Remove incognito button if it exists
+            const incognitoBtn = document.getElementById('incognitoBtn');
+            if (incognitoBtn) {
+                incognitoBtn.remove();
+            }
+            
+            // Restore user data if logged in
+            restoreUserDataToView();
+        }
+        
+        // Update incognito state
+        vaniIncognito = enabled;
+        localStorage.setItem('vani_incognito', enabled ? '1' : '0');
+        showToast(`Incognito ${enabled ? 'enabled' : 'disabled'}`, 'info');
+    }
+    
+    function clearUserDataFromView() {
+        // Clear profile section
+        const profileName = document.querySelector('[data-key="profileName"]');
+        const profileEmail = document.getElementById('profileEmail');
+        const profileAge = document.getElementById('profileAgeValue');
+        const profileBlood = document.getElementById('profileBloodValue');
+        const profileHeight = document.getElementById('profileHeightValue');
+        const profileWeight = document.getElementById('profileWeightValue');
+        const profileAddress = document.getElementById('profileAddress');
+        const profileGender = document.getElementById('profileGender');
+        
+        if (profileName) profileName.textContent = 'User';
+        if (profileEmail) profileEmail.textContent = 'user@example.com';
+        if (profileAge) profileAge.textContent = '-- years';
+        if (profileBlood) profileBlood.textContent = '--';
+        if (profileHeight) profileHeight.textContent = '-- cm';
+        if (profileWeight) profileWeight.textContent = '-- kg';
+        if (profileAddress) profileAddress.textContent = '--';
+        if (profileGender) profileGender.textContent = '--';
+        
+        // Clear profile picture
+        const profilePic = document.querySelector('.profile-pic img');
+        if (profilePic) profilePic.style.display = 'none';
+        const profileIcon = document.querySelector('.profile-pic .fa-user');
+        if (profileIcon) profileIcon.style.display = 'block';
+        
+        // Hide document upload section
+        const uploadSection = document.getElementById('document-upload-section');
+        if (uploadSection) uploadSection.style.display = 'none';
+    }
+    
+    function restoreUserDataToView() {
+        // Restore user data if available
+        const savedName = localStorage.getItem('userName') || 'User';
+        const savedEmail = localStorage.getItem('userEmail') || 'user@example.com';
+        
+        const profileName = document.querySelector('[data-key="profileName"]');
+        const profileEmail = document.getElementById('profileEmail');
+        
+        if (profileName) profileName.textContent = savedName;
+        if (profileEmail) profileEmail.textContent = savedEmail;
+    }
 
     function saveVaniMessage(role, text) {
         try {
             if (vaniIncognito) return; // don't persist when incognito
             const key = 'vani_chat_history';
+            // ... (rest of the code remains the same)
             const all = JSON.parse(localStorage.getItem(key) || '[]');
             const entry = { role, text, ts: Date.now() };
             all.push(entry);
