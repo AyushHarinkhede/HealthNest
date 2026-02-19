@@ -20,7 +20,12 @@
 
   <!-- PRELOADER -->
   <div id="preloader" aria-hidden="true">
-    <img src="LOGO.png" alt="HealthNest logo" class="logo-animated preloader-logo">
+    <div class="loading-animation">
+      <div class="loading-ring"></div>
+      <div class="loading-ring"></div>
+      <div class="loading-ring"></div>
+      <div class="loading-ring"></div>
+    </div>
   </div>
 
   <nav class="navbar" id="navbar"> 
@@ -64,13 +69,7 @@
     <div class="hero-bg bg-i"></div>
     <div class="hero-content">
       <div class="hero-logo" aria-hidden="true">
-        <!-- Loading Animation -->
-        <div class="loading-animation">
-          <div class="loading-ring"></div>
-          <div class="loading-ring"></div>
-          <div class="loading-ring"></div>
-          <div class="loading-ring"></div>
-        </div>
+        <img src="LOGO.png" alt="HealthNest" class="site-logo-hero">
       </div>
       <h1 data-key="heroTitle">Your Health, In Your Hands.</h1>
       <p data-key="heroSubtitle">Save your entire medical history in one secure place and access it anytime, anywhere.</p>
@@ -490,6 +489,44 @@
           <img src="LOGO.png" alt="HealthNest" class="footer-logo">
           <div>
             <div class="footer-brand">HealthNest</div>
+        </div>
+      </div>
+      </div>
+    </div>
+    
+    <!-- Additional footer content for height -->
+    <div class="footer-bottom">
+      <div class="footer-info">
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#appointments">Appointments</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#">Health Records</a></li>
+            <li><a href="#">Doctor Consultation</a></li>
+            <li><a href="#">Lab Reports</a></li>
+            <li><a href="#">Emergency Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Info</h4>
+          <ul>
+            <li><i class="fas fa-phone"></i> +91 9209514158</li>
+            <li><i class="fas fa-envelope"></i> ayushharinkhere2005.@gmail.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> Nagpur, India</li>
+            <li><i class="fas fa-clock"></i> 24/7 Support</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-copyright-bottom">
             <div class="footer-sub">&copy;2026 HealthNest All Rights Reserved | Made with ❤️</div>
           </div>
         </div>
@@ -505,9 +542,9 @@
           <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
           <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
           <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-        </div>
-      </div>
+        </div><br>
     </div>
+    
     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
   </footer>
 
@@ -899,6 +936,7 @@
       </form>
     </div>
   </div>
+
   <div id="privacyPolicyModal" class="modal-overlay">
     <div class="modal-content">
       <div class="modal-header">
@@ -920,6 +958,8 @@
     </div>
   </div>
 
+  
+
   <!-- AI CHAT MODAL -->
   <div id="aiChatModal" class="modal-overlay" role="dialog" aria-labelledby="aiChatTitle" aria-modal="true">
     <div class="modal-content" style="max-width: 500px; height: 600px; display: flex; flex-direction: column;">
@@ -931,12 +971,15 @@
         </div>
       </div>
 
+
+
         <!-- CONTACT SUPPORT MODAL (opened from Settings -> Contact Support) -->
-        <div id="contactSupportModal" class="modal-overlay" role="dialog" aria-labelledby="contactSupportModalTitle" aria-modal="true">
-          <div class="modal-content" style="max-width:36rem;">
-            <div class="modal-header">
-              <h2 id="contactSupportModalTitle">Contact Support</h2>
-              <button class="modal-close-btn" onclick="closeModal('contactSupportModal')">&times;</button>
+      <div id="contactSupportModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Contact Support</h2>
+        <button class="modal-close-btn" onclick="closeModal('contactSupportModal')">&times;</button>
+      </div>
             </div>
             <p style="color:var(--on-surface-variant); margin-bottom:0.5rem;">Tap to call or email. You will be asked to confirm before the action.</p>
 
@@ -990,9 +1033,9 @@
                 <button class="call" onclick="confirmCall('+919322457122','Prayag Khushwaha')">Call</button>
               </div>
             </div>
+    </div>
+  </div>
 
-          </div>
-        </div>
       <div id="ai-settings-panel" class="ai-settings-panel" style="display:none;">
         <div class="ai-setting-row">
           <label class="ai-setting-label">Incognito Mode</label>
