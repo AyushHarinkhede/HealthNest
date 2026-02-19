@@ -398,20 +398,43 @@
     let floatingHideTimer = null;
     let floatingDocClickHandler = null;
     function showFloatingContacts(triggerEl) {
-        hideFloatingContacts();
+        // Ensure only one floating panel exists
+        if (floatingContactsEl) {
+            // toggle behavior: hide if already open for same trigger
+            hideFloatingContacts();
+            return;
+        }
+
         const settingsList = document.getElementById('settingsContactList');
         const panel = document.createElement('div');
         panel.className = 'floating-contacts';
+
+        // Build header with close button
+        const header = `<div class="floating-header"><div class="floating-title">Contact Support</div><button class="floating-close" aria-label="Close" onclick="hideFloatingContacts()">×</button></div>`;
+
         // Use settingsContactList contents if available, otherwise build simple fallback
+        let body = '';
         if (settingsList) {
             // clone innerHTML but strip ids to avoid duplicates
-            panel.innerHTML = settingsList.innerHTML.replace(/id="[^"]+"/g, '');
+            body = settingsList.innerHTML.replace(/id="[^"]+"/g, '');
+            // ensure mail/call buttons get classes for styling
+            body = body.replace(/<button\s+onclick=\"confirmMail/g, '<button class="mail" onclick="confirmMail');
+            body = body.replace(/<button\s+onclick=\"confirmCall/g, '<button class="call" onclick="confirmCall');
         } else {
-            panel.innerHTML = `
-                <div style="font-size:0.95rem; color:var(--on-surface-variant); margin-bottom:0.25rem;">Support contacts</div>
-                <div class="contact-item"><div class="contact-name">Support</div><div class="contact-actions"><button onclick="openModal('contactSupportModal')">Open</button></div></div>
-            `;
+            body = `<div style="font-size:0.95rem; color:var(--on-surface-variant); margin-bottom:0.25rem;">Support contacts</div><div class="contact-item"><div class="contact-name">Support</div><div class="contact-actions"><button class="ghost" onclick="openModal('contactSupportModal')">Open</button></div></div>`;
         }
+
+        // Warning block and footer action
+        const warning = `
+          <div class="floating-warning">
+            <strong>Warning:</strong>
+            <p>Please confirm before calling — calls will be placed from your device. Use email for non-urgent queries.</p>
+          </div>
+        `;
+
+        const footer = `<div class="floating-footer"><button class="btn ghost" onclick="openModal('contactSupportModal')">Open full support</button></div>`;
+
+        panel.innerHTML = header + body + warning + footer;
 
         document.body.appendChild(panel);
         floatingContactsEl = panel;
@@ -429,32 +452,26 @@
         // small show animation
         setTimeout(() => panel.classList.add('visible'), 12);
 
-        // Show behavior: show on hover, hide on leave
-        triggerEl.addEventListener('mouseenter', onTriggerEnter);
-        triggerEl.addEventListener('mouseleave', onTriggerLeave);
+        // Show behavior: panel stays visible while mouse is over the panel;
+        // the trigger element's hover is handled where the panel is opened.
         panel.addEventListener('mouseenter', onPanelEnter);
         panel.addEventListener('mouseleave', onPanelLeave);
-
-        // For touch/click, toggle on click
-        triggerEl.addEventListener('click', onTriggerClick);
 
         // close when clicking outside
         setTimeout(() => {
             floatingDocClickHandler = function(ev) { if (!panel.contains(ev.target) && ev.target !== triggerEl) hideFloatingContacts(); };
             document.addEventListener('click', floatingDocClickHandler);
         });
-
-        function onTriggerEnter() { clearTimeout(floatingHideTimer); panel.classList.remove('hidden'); }
-        function onTriggerLeave() { floatingHideTimer = setTimeout(hideFloatingContacts, 350); }
         function onPanelEnter() { clearTimeout(floatingHideTimer); }
         function onPanelLeave() { floatingHideTimer = setTimeout(hideFloatingContacts, 350); }
-        function onTriggerClick(ev) { ev.stopPropagation(); /* toggle handled by hover/tap */ }
+        // note: click events on the panel buttons will open the modal or run actions
     }
 
     function hideFloatingContacts() {
         if (!floatingContactsEl) return;
         try { floatingContactsEl.remove(); } catch(e){}
         floatingContactsEl = null;
+        if (floatingHideTimer) { clearTimeout(floatingHideTimer); floatingHideTimer = null; }
         if (floatingDocClickHandler) {
             document.removeEventListener('click', floatingDocClickHandler);
             floatingDocClickHandler = null;
@@ -2258,4 +2275,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start real-time updates
     startRealTimeUpdates();
 });
+
+// Attach hover/click handlers to contact support triggers so they show the floating
+// contact panel on hover (privacy/terms style) and open the full modal on click.
+// Attach hover/click handlers only to the footer Contact Support link and the
+// Settings -> Contact Support button. Using targeted selectors avoids matching
+// elements inside the modal itself which could cause unexpected behavior.
+(function attachContactSupportTriggers() {
+    const footerTrigger = document.querySelector('footer .footer-links a[onclick*="contactSupportModal"]');
+    const settingsTrigger = document.querySelector('#settingsMenu button[onclick*="contactSupportModal"]');
+    const triggers = [footerTrigger, settingsTrigger].filter(Boolean);
+    if (!triggers.length) return;
+
+    triggers.forEach(el => {
+        // avoid adding duplicate listeners
+        if (el.__contactSupportAttached) return;
+        el.__contactSupportAttached = true;
+
+        // Show panel on click/tap (not on hover). Toggle if already open.
+        el.addEventListener('click', (ev) => {
+            if (ev && ev.preventDefault) ev.preventDefault();
+            try { showFloatingContacts(el); } catch(e) {}
+        });
+
+        // keyboard accessibility: Enter/Space toggles floating panel
+        el.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); try { showFloatingContacts(el); } catch(e) {} } });
+    });
+})();
 

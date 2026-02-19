@@ -214,6 +214,21 @@
         .floating-contacts .contact-name { font-weight:700; }
         .floating-contacts.hidden { display:none; }
 
+        .floating-header { display:flex; align-items:center; justify-content:space-between; gap:0.5rem; padding:0.4rem 0.35rem; border-bottom:1px solid var(--surface-variant); }
+        .floating-title { font-weight:800; color:var(--primary); }
+        .floating-close { background: transparent; border: none; font-size:1.25rem; line-height:1; cursor:pointer; color:var(--on-surface); padding:0.15rem 0.5rem; border-radius:6px; }
+        .floating-close:hover { background: rgba(0,0,0,0.04); color:var(--primary); }
+
+        .floating-contacts .contact-actions button { padding:0.4rem 0.6rem; border-radius:0.5rem; border: none; cursor:pointer; font-weight:700; }
+        .floating-contacts .contact-actions button.mail { background: linear-gradient(180deg,var(--primary), var(--primary-container)); color: var(--on-primary); }
+        .floating-contacts .contact-actions button.call { background: linear-gradient(180deg,#2ecc71,#27ae60); color: #fff; }
+
+        .floating-warning { background: linear-gradient(90deg, rgba(255,244,224,0.6), rgba(255,241,241,0.02)); border-radius:8px; padding:0.6rem; margin:0.5rem 0; border:1px solid rgba(0,0,0,0.04); color:var(--on-surface-variant); font-size:0.92rem; }
+        .floating-warning strong { color: var(--primary); display:block; margin-bottom:0.25rem; }
+
+        .floating-footer { display:flex; justify-content:flex-end; padding-top:0.35rem; }
+        .floating-footer .btn.ghost { background:transparent; border:1px solid var(--outline); padding:0.45rem 0.6rem; border-radius:0.5rem; cursor:pointer; }
+
         .nav-buttons { display: flex; gap: 0.6rem; margin-left: auto; align-items: center; }
         
         /* Profile Navigation Button */
