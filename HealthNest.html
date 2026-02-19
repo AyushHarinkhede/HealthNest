@@ -28,8 +28,8 @@
 
   <nav class="navbar" id="navbar"> 
     <div class="logo">
-      <span class="material-symbols-outlined">health_and_safety</span>
-      HealthNest
+      <img src="images/healthy-nest-logo.png" alt="HealthNest Logo" style="width: 50px; height: 50px;">
+      <span>HealthNest</span>
     </div>
 
     <div class="search-container" style="margin-left:0.75rem; position:relative; flex:1; max-width:400px;">
@@ -999,6 +999,58 @@
       <button onclick="openSupport()">Contact Support</button>
     </div>
   </div>
+
+  <!-- Contact Support Section -->
+  <section id="contact-support">
+    <h2>Contact Support</h2>
+    <ul>
+        <li>
+            <span>Ayush Harinkhede</span>
+            <button onclick="confirmCall('+919209514158')">Call</button>
+            <button onclick="confirmMail('ayushharinkhere2005@gmail.com')">Mail</button>
+        </li>
+        <li>
+            <span>Lucky Rahangdale</span>
+            <button onclick="confirmCall('+918459351781')">Call</button>
+            <button onclick="confirmMail('rahangdalelucky609@gmail.com')">Mail</button>
+        </li>
+        <li>
+            <span>Vivan Tagde</span>
+            <button onclick="confirmCall('+919356697929')">Call</button>
+        </li>
+        <li>
+            <span>Akash Rai</span>
+            <button onclick="confirmCall('+917768020163')">Call</button>
+        </li>
+        <li>
+            <span>Jay Sharma</span>
+            <button onclick="confirmCall('+918669111367')">Call</button>
+        </li>
+        <li>
+            <span>Gaurav Lanjewar</span>
+            <button onclick="confirmCall('+918484807306')">Call</button>
+        </li>
+        <li>
+            <span>Prayag Khushwaha</span>
+            <button onclick="confirmCall('+919322457122')">Call</button>
+        </li>
+    </ul>
+</section>
+
+<script>
+// Confirmation logic for call and mail actions
+function confirmCall(number) {
+    if (confirm(`Do you want to call ${number}?`)) {
+        window.location.href = `tel:${number}`;
+    }
+}
+
+function confirmMail(email) {
+    if (confirm(`Do you want to mail ${email}?`)) {
+        window.location.href = `mailto:${email}`;
+    }
+}
+</script>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-    // --- GLOBAL VARIABLES ---
+// --- GLOBAL VARIABLES ---
     let healthChartInstance = null;
     let newProfilePicSrc = null; // To hold the new picture URL temporarily
     
@@ -241,7 +241,15 @@
         document.getElementById('adminLink').style.display = 'none';
         document.getElementById('document-upload-section').style.display = 'none';
     });
-    function toggleSettings() { const menu = document.getElementById('settingsMenu'); menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex'; }
+    function toggleSettings() { const menu = document.getElementById('settingsMenu');
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+
+        // Ensure toggle visually moves
+        const toggleButton = document.querySelector('.settings-toggle');
+        if (toggleButton) {
+            toggleButton.classList.toggle('active');
+        }
+    }
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
     function changeTheme(theme) { document.body.setAttribute('data-theme', theme); localStorage.setItem('theme', theme); if (document.getElementById('healthChart')) { renderHealthChart(); } }
     function switchLanguage(lang) { document.documentElement.lang = lang; localStorage.setItem('language', lang); document.querySelectorAll('[data-key]').forEach(el => { const key = el.getAttribute('data-key'); if (languageData[lang]?.[key]) el.innerHTML = languageData[lang][key]; }); }

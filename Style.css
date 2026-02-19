@@ -1,5 +1,4 @@
-
-        /* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */ 
+/* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */ 
         :root {
             --primary: #017b9a; --on-primary: #FFFFFF; --primary-container: #BBE9FF; --on-primary-container: #001F29;
             --secondary: #4C626A; --on-secondary: #FFFFFF; --secondary-container: #CFE6F0; --on-secondary-container: #071E25;
@@ -1132,4 +1131,7 @@
             .scroll-arrow.left { left: 0.5rem; }
             .scroll-arrow.right { right: 0.5rem; }
         }
-    
+        
+        .subscribe-btn { background-color: red; color: white; border: none; padding: 0.6rem 1.5rem; border-radius: var(--border-radius-full); font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease; }
+        .subscribe-btn:hover { background-color: darkred; }
+
