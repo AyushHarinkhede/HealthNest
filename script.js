@@ -54,6 +54,8 @@
                 if (hero) {
                     hero.style.transition = 'opacity 1s ease-in-out';
                     hero.style.opacity = '1';
+                    // add entrance animation class
+                    hero.querySelector('.hero-content')?.classList.add('animate-in');
                 }
                 
                 // Remove preloader from DOM after animation
@@ -84,7 +86,8 @@
         queueSystem.init();
         initializeDoctorAvailability();
         displayAppointments();
-        notificationManager.requestPermission();
+        // Do not request notification permission on load. Permission will be requested
+        // only when user enables Notifications in Settings (toggleSetting handles this).
         
         // Add event listener for appointment date selection
         const appointmentDateInput = document.getElementById('appointmentDate');
@@ -373,11 +376,234 @@
         showToast('Profile exported (demo)', 'info');
     }
 
-    function openSupport() {
-        showToast('Opening support (demo) — contact@healthnest.example', 'info');
-        window.open('mailto:support@healthnest.example', '_blank');
+    function openSupport(e, triggerEl) {
+        // If a trigger element was passed, show floating contact panel above it
+        const settingsList = document.getElementById('settingsContactList');
+        if (triggerEl) {
+            showFloatingContacts(triggerEl);
+            return;
+        }
+        // Fallback: if settings menu open, toggle settings inline list (keeps backward compatibility)
+        const settingsMenu = document.getElementById('settingsMenu');
+        if (settingsMenu && settingsMenu.style.display === 'flex' && settingsList) {
+            // toggle animated visibility class
+            settingsList.classList.toggle('visible');
+            return;
+        }
+        openModal('contactSupportModal');
     }
-    function clearStorage() { if(confirm("Are you sure you want to clear all local data?")){ localStorage.clear(); sessionStorage.clear(); showToast("Storage cleared!", "success"); location.reload(); } }
+
+    // Floating contacts panel helper
+    let floatingContactsEl = null;
+    let floatingHideTimer = null;
+    let floatingDocClickHandler = null;
+    function showFloatingContacts(triggerEl) {
+        hideFloatingContacts();
+        const settingsList = document.getElementById('settingsContactList');
+        const panel = document.createElement('div');
+        panel.className = 'floating-contacts';
+        // Use settingsContactList contents if available, otherwise build simple fallback
+        if (settingsList) {
+            // clone innerHTML but strip ids to avoid duplicates
+            panel.innerHTML = settingsList.innerHTML.replace(/id="[^"]+"/g, '');
+        } else {
+            panel.innerHTML = `
+                <div style="font-size:0.95rem; color:var(--on-surface-variant); margin-bottom:0.25rem;">Support contacts</div>
+                <div class="contact-item"><div class="contact-name">Support</div><div class="contact-actions"><button onclick="openModal('contactSupportModal')">Open</button></div></div>
+            `;
+        }
+
+        document.body.appendChild(panel);
+        floatingContactsEl = panel;
+
+        // Position above trigger
+        const rect = triggerEl.getBoundingClientRect();
+        const panelRect = panel.getBoundingClientRect();
+        const top = Math.max(12, rect.top - panelRect.height - 8);
+        let left = rect.left + (rect.width / 2) - (panelRect.width / 2);
+        left = Math.max(8, Math.min(left, window.innerWidth - panelRect.width - 8));
+        panel.style.position = 'fixed';
+        panel.style.top = top + 'px';
+        panel.style.left = left + 'px';
+
+        // small show animation
+        setTimeout(() => panel.classList.add('visible'), 12);
+
+        // Show behavior: show on hover, hide on leave
+        triggerEl.addEventListener('mouseenter', onTriggerEnter);
+        triggerEl.addEventListener('mouseleave', onTriggerLeave);
+        panel.addEventListener('mouseenter', onPanelEnter);
+        panel.addEventListener('mouseleave', onPanelLeave);
+
+        // For touch/click, toggle on click
+        triggerEl.addEventListener('click', onTriggerClick);
+
+        // close when clicking outside
+        setTimeout(() => {
+            floatingDocClickHandler = function(ev) { if (!panel.contains(ev.target) && ev.target !== triggerEl) hideFloatingContacts(); };
+            document.addEventListener('click', floatingDocClickHandler);
+        });
+
+        function onTriggerEnter() { clearTimeout(floatingHideTimer); panel.classList.remove('hidden'); }
+        function onTriggerLeave() { floatingHideTimer = setTimeout(hideFloatingContacts, 350); }
+        function onPanelEnter() { clearTimeout(floatingHideTimer); }
+        function onPanelLeave() { floatingHideTimer = setTimeout(hideFloatingContacts, 350); }
+        function onTriggerClick(ev) { ev.stopPropagation(); /* toggle handled by hover/tap */ }
+    }
+
+    function hideFloatingContacts() {
+        if (!floatingContactsEl) return;
+        try { floatingContactsEl.remove(); } catch(e){}
+        floatingContactsEl = null;
+        if (floatingDocClickHandler) {
+            document.removeEventListener('click', floatingDocClickHandler);
+            floatingDocClickHandler = null;
+        }
+    }
+
+    // Newsletter subscription handler
+    function handleSubscription(e) {
+        e.preventDefault();
+        const input = document.getElementById('newsletterEmail');
+        const btn = document.getElementById('subscribeBtn');
+        if (!input) return showToast('Email input not found', 'error');
+        const email = input.value.trim();
+        if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return showToast('Please enter a valid email', 'error');
+
+        const existing = JSON.parse(localStorage.getItem('subscribers') || '[]');
+        if (existing.includes(email)) {
+            showToast('You are already subscribed', 'info');
+            btn.textContent = 'Subscribed';
+            btn.disabled = true;
+            return;
+        }
+
+        existing.push(email);
+        localStorage.setItem('subscribers', JSON.stringify(existing));
+        showToast('Thanks! You are subscribed.', 'success');
+        btn.textContent = 'Subscribed';
+        btn.disabled = true;
+    }
+
+    // Add subscribe button tap animation (scale effect + brief shadow) — robust setup
+    (function setupSubscribeAnimation(){
+        function attach(btn) {
+            const down = () => { btn.style.transform = 'scale(0.98)'; btn.style.boxShadow = '0 6px 16px rgba(0,0,0,0.08)'; };
+            const up = () => { btn.style.transform = ''; btn.style.boxShadow = ''; };
+            btn.addEventListener('mousedown', down);
+            btn.addEventListener('touchstart', down, {passive:true});
+            btn.addEventListener('click', () => { btn.style.transform = 'scale(0.995)'; setTimeout(()=> btn.style.transform = '', 120); });
+            document.addEventListener('mouseup', up);
+            document.addEventListener('touchend', up);
+            btn.style.transition = 'transform 140ms ease, box-shadow 140ms ease';
+            setTimeout(()=> btn.classList.add('sub-entrance'), 300);
+        }
+
+        const btn = document.getElementById('subscribeBtn');
+        if (btn) { attach(btn); return; }
+        // If element not yet available, wait for DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const b = document.getElementById('subscribeBtn');
+            if (b) attach(b);
+        });
+    })();
+
+    // Ripple on click for subscribe button
+    function createRippleEffect(e) {
+        const btn = e.currentTarget;
+        // create ripple element
+        const rect = btn.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        const size = Math.max(rect.width, rect.height) * 0.2;
+        ripple.style.width = ripple.style.height = size + 'px';
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left - size/2;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top - size/2;
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => { ripple.remove(); }, 700);
+    }
+
+    // Attach ripple handler if subscribe button exists (or on DOMContentLoaded)
+    (function attachRipple(){
+        const btn = document.getElementById('subscribeBtn');
+        if (btn) {
+            btn.addEventListener('pointerdown', createRippleEffect);
+            btn.addEventListener('touchstart', createRippleEffect, {passive:true});
+        } else {
+            document.addEventListener('DOMContentLoaded', () => {
+                const b = document.getElementById('subscribeBtn');
+                if (b) b.addEventListener('pointerdown', createRippleEffect);
+            });
+        }
+    })();
+
+    /* Reusable in-app confirmation modal helper
+       Usage: await showConfirmModal(title, message) -> returns true if confirmed */
+    function showConfirmModal(title, message, okText = 'Confirm', cancelText = 'Cancel') {
+        return new Promise((resolve) => {
+            const modal = document.getElementById('confirmModal');
+            if (!modal) {
+                // Fallback to native confirm if modal missing
+                const ok = confirm(message);
+                return resolve(Boolean(ok));
+            }
+            const titleEl = modal.querySelector('.confirm-title');
+            const msgEl = modal.querySelector('.confirm-message');
+            const okBtn = modal.querySelector('.confirm-ok');
+            const cancelBtn = modal.querySelector('.confirm-cancel');
+
+            titleEl.textContent = title || 'Confirm';
+            msgEl.textContent = message || '';
+            okBtn.textContent = okText;
+            cancelBtn.textContent = cancelText;
+
+            function cleanup(result) {
+                modal.classList.remove('visible');
+                okBtn.removeEventListener('click', onOk);
+                cancelBtn.removeEventListener('click', onCancel);
+                modal.removeEventListener('click', onOverlayClick);
+                resolve(result);
+            }
+
+            function onOk(e) { e.stopPropagation(); cleanup(true); }
+            function onCancel(e) { e.stopPropagation(); cleanup(false); }
+            function onOverlayClick(e) { if (e.target === modal) cleanup(false); }
+
+            okBtn.addEventListener('click', onOk);
+            cancelBtn.addEventListener('click', onCancel);
+            modal.addEventListener('click', onOverlayClick);
+
+            // show modal
+            setTimeout(() => modal.classList.add('visible'), 10);
+            // focus the confirm button for accessibility
+            setTimeout(() => okBtn.focus(), 100);
+        });
+    }
+
+    // Confirm before making a call (tel:) — mobile/phone will trigger
+    async function confirmCall(phone, name) {
+        const ok = await showConfirmModal('Place Call', `Call ${name} at ${phone}?\n\nPlease confirm that you want to place the call.`, 'Call', 'Cancel');
+        if (!ok) return showToast('Call cancelled', 'info');
+        showToast('Placing call...', 'info');
+        window.location.href = `tel:${phone}`;
+    }
+
+    // Confirm before composing email
+    async function confirmMail(email, name) {
+        if (!email) return showToast('No email available for this contact', 'error');
+        const ok = await showConfirmModal('Send Email', `Send email to ${name} (${email})?\n\nConfirm to open your mail app.`, 'Send', 'Cancel');
+        if (!ok) return showToast('Email cancelled', 'info');
+        showToast('Opening mail app...', 'info');
+        window.open(`mailto:${email}`, '_blank');
+    }
+
+    async function clearStorage() { 
+        const ok = await showConfirmModal('Clear Storage', 'Are you sure you want to clear all local data?', 'Clear', 'Keep');
+        if (!ok) return showToast('Storage clear cancelled', 'info');
+        localStorage.clear(); sessionStorage.clear(); showToast('Storage cleared!', 'success'); location.reload(); 
+    }
     
     function openModal(modalId) { 
         const modal = document.getElementById(modalId); 

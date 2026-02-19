@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#017b9a">
   <title>HealthNest - Your Medical History, Secured</title>
-  <link rel="icon" type="image/png" href="Shinchan.png">
+  <link rel="icon" type="image/png" href="LOGO.png">
   <link rel="stylesheet" href="./Style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,16 +20,16 @@
 
   <!-- PRELOADER -->
   <div id="preloader" aria-hidden="true">
-    <svg class="logo-animated" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <path class="pulse" d="M50,5 C74.85,5 95,25.15 95,50 C95,74.85 74.85,95 50,95 C25.15,95 5,74.85 5,50 C5,25.15 25.15,5 50,5 Z"/>
-      <path class="cross" d="M50 30 L50 70 M30 50 L70 50" stroke="white" stroke-width="8" stroke-linecap="round"/>
-    </svg>
+    <img src="LOGO.png" alt="HealthNest logo" class="logo-animated preloader-logo">
   </div>
 
   <nav class="navbar" id="navbar"> 
-    <div class="logo">
-      <span class="material-symbols-outlined">health_and_safety</span>
-      HealthNest
+    <div class="logo" aria-label="HealthNest logo">
+      <img src="LOGO.png" alt="HealthNest" class="nav-logo-img">
+      <div style="display:flex;flex-direction:column;line-height:1;margin-left:0.5rem;">
+        <span class="brand-name" style="font-weight:700;">HealthNest</span>
+        <small style="font-size:0.7rem;color:var(--on-surface-variant);">Healthy Living</small>
+      </div>
     </div>
 
     <div class="search-container" style="margin-left:0.75rem; position:relative; flex:1; max-width:400px;">
@@ -64,6 +64,24 @@
     <div class="hero-bg bg-h"></div>
     <div class="hero-bg bg-i"></div>
     <div class="hero-content">
+      <div class="hero-logo" aria-hidden="true">
+        <!-- Animated loader SVG to show on welcome -->
+      <div class="hero-logo" aria-hidden="true">
+        <img src="LOGO.png" alt="HealthNest" class="site-logo-hero">
+      </div>          <defs>
+            <linearGradient id="lg" x1="0" x2="1">
+              <stop offset="0" stop-color="#60C4B8" />
+              <stop offset="1" stop-color="#017b9a" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#lg)" stroke-linecap="round" stroke-width="3">
+            <path class="nest-arc arc1" d="M20,70 C30,50 50,40 60,50 C70,60 90,64 100,60"/>
+            <path class="nest-arc arc2" d="M18,60 C30,42 48,36 62,42 C78,48 92,52 102,48"/>
+            <path class="nest-arc arc3" d="M24,78 C36,62 54,56 68,62 C82,68 96,72 108,68"/>
+          </g>
+          <circle class="loader-dot" cx="60" cy="30" r="6" fill="url(#lg)" />
+        </svg>
+      </div>
       <h1 data-key="heroTitle">Your Health, In Your Hands.</h1>
       <p data-key="heroSubtitle">Save your entire medical history in one secure place and access it anytime, anywhere.</p>
       <a href="#" class="cta-button" data-key="heroCTA" onclick="openModal('authModal'); switchAuthTab('signup')">Get Started Today</a>
@@ -465,20 +483,31 @@
     <section class="newsletter">
       <h2 data-key="newsletterTitle">Stay Updated!</h2>
       <p data-key="newsletterSubtitle">Subscribe to our newsletter for latest news and updates.</p>
-      <form onsubmit="handleSubscription(event)">
-        <input type="email" placeholder="Your Email" required>
-        <button type="submit" class="btn signup-btn">Subscribe</button>
-      </form>
+        <form onsubmit="handleSubscription(event)">
+          <input type="email" id="newsletterEmail" placeholder="Your Email" required>
+          <button type="submit" id="subscribeBtn" class="subscribe-btn">Subscribe</button>
+        </form>
     </section>
   </main>
+  <!-- CONTACT SUPPORT (added) -->
+  <!-- Contact support moved to settings modal (see Contact Support modal below) -->
 
   <!-- FOOTER -->
   <footer id="contact">
-    <p>
-      <b data-key="footerRights">&copy; 2026 HealthNest. All rights reserved.</b> |
-      <a href="#" onclick="openModal('privacyPolicyModal')" data-key="footerPrivacy">Privacy Policy</a> |
-      <a href="#" onclick="openModal('termsOfServiceModal')" data-key="footerTerms">Terms of Service</a>
-    </p>
+    <div class="footer-inner">
+      <div class="footer-brand-row">
+        <img src="LOGO.png" alt="HealthNest" class="footer-logo">
+        <div>
+          <div class="footer-brand">HealthNest</div>
+          <div class="footer-sub">&copy;2026 HealthNest All Rights Reserved | Made with ❤️</div>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#" onclick="openModal('privacyPolicyModal')" data-key="footerPrivacy">Privacy Policy</a>|
+        <a href="#" onclick="openModal('termsOfServiceModal')" data-key="footerTerms">Terms of Service</a>|
+        <a href="#" onclick="openSupport(event,this)">Contact Support</a>
+      </div>
+    </div>
     <div class="social-media-links">
       <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
       <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
@@ -907,6 +936,69 @@
           <button class="modal-close-btn" onclick="closeModal('aiChatModal')">&times;</button>
         </div>
       </div>
+
+        <!-- CONTACT SUPPORT MODAL (opened from Settings -> Contact Support) -->
+        <div id="contactSupportModal" class="modal-overlay" role="dialog" aria-labelledby="contactSupportModalTitle" aria-modal="true">
+          <div class="modal-content" style="max-width:36rem;">
+            <div class="modal-header">
+              <h2 id="contactSupportModalTitle">Contact Support</h2>
+              <button class="modal-close-btn" onclick="closeModal('contactSupportModal')">&times;</button>
+            </div>
+            <p style="color:var(--on-surface-variant); margin-bottom:0.5rem;">Tap to call or email. You will be asked to confirm before the action.</p>
+
+            <div class="contact-item">
+              <div class="contact-name">Ayush Harinkhede</div>
+              <div class="contact-actions">
+                <button onclick="confirmCall('+919209514158','Ayush Harinkhede')">Call</button>
+                <button onclick="confirmMail('ayushharinkhere2005@gmail.com','Ayush Harinkhede')">Mail</button>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-name">Lucky Rahangdale</div>
+              <div class="contact-actions">
+                <button onclick="confirmCall('+918459351781','Lucky Rahangdale')">Call</button>
+                <button onclick="confirmMail('rahangdalelucky609@gmail.com','Lucky Rahangdale')">Mail</button>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-name">Vivan Tagde</div>
+              <div class="contact-actions">
+                <button onclick="confirmCall('+919356697929','Vivan Tagde')">Call</button>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-name">Akash Rai</div>
+              <div class="contact-actions">
+                <button onclick="confirmCall('+917768020163','Akash Rai')">Call</button>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-name">Jay Sharma</div>
+              <div class="contact-actions">
+                <button onclick="confirmCall('+918669111367','Jay Sharma')">Call</button>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-name">Gaurav Lanjewar</div>
+              <div class="contact-actions">
+                <button onclick="confirmCall('+918484807306','Gaurav Lanjewar')">Call</button>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-name">Prayag Khushwaha</div>
+              <div class="contact-actions">
+                <button onclick="confirmCall('+919322457122','Prayag Khushwaha')">Call</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
       <div id="ai-settings-panel" class="ai-settings-panel" style="display:none;">
         <div class="ai-setting-row">
           <label class="ai-setting-label">Incognito Mode</label>
@@ -993,10 +1085,70 @@
       </div>
     </div>
 
-    <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;">
+      <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;">
       <button onclick="updateAccount()">Save Settings</button>
       <button onclick="clearStorage()">Clear Storage</button>
-      <button onclick="openSupport()">Contact Support</button>
+      <button onclick="openSupport(event,this)">Contact Support</button>
+    </div>
+    <!-- Inline contact list inside Settings (hidden by default) -->
+    <div id="settingsContactList" style="margin-top:1rem;">
+      <div style="font-size:0.95rem; color:var(--on-surface-variant); margin-bottom:0.5rem;">Support contacts</div>
+      <div class="contact-item">
+        <div class="contact-name">Ayush Harinkhede</div>
+        <div class="contact-actions">
+          <button onclick="confirmCall('+919209514158','Ayush Harinkhede')">Call</button>
+          <button onclick="confirmMail('ayushharinkhere2005@gmail.com','Ayush Harinkhede')">Mail</button>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-name">Lucky Rahangdale</div>
+        <div class="contact-actions">
+          <button onclick="confirmCall('+918459351781','Lucky Rahangdale')">Call</button>
+          <button onclick="confirmMail('rahangdalelucky609@gmail.com','Lucky Rahangdale')">Mail</button>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-name">Vivan Tagde</div>
+        <div class="contact-actions">
+          <button onclick="confirmCall('+919356697929','Vivan Tagde')">Call</button>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-name">Akash Rai</div>
+        <div class="contact-actions">
+          <button onclick="confirmCall('+917768020163','Akash Rai')">Call</button>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-name">Jay Sharma</div>
+        <div class="contact-actions">
+          <button onclick="confirmCall('+918669111367','Jay Sharma')">Call</button>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-name">Gaurav Lanjewar</div>
+        <div class="contact-actions">
+          <button onclick="confirmCall('+918484807306','Gaurav Lanjewar')">Call</button>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-name">Prayag Khushwaha</div>
+        <div class="contact-actions">
+          <button onclick="confirmCall('+919322457122','Prayag Khushwaha')">Call</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reusable confirmation modal (for Call / Mail confirmations) -->
+  <div id="confirmModal" class="modal-overlay confirm-modal-overlay" aria-hidden="true">
+    <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <h3 id="confirmTitle" class="confirm-title">Confirm action</h3>
+      <p class="confirm-message">Are you sure?</p>
+      <div class="confirm-actions">
+        <button class="btn confirm-cancel">Cancel</button>
+        <button class="btn confirm-ok">Confirm</button>
+      </div>
     </div>
   </div>
 
