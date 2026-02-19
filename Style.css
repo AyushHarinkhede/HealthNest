@@ -1,4 +1,5 @@
-/* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */ 
+
+        /* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */ 
         :root {
             --primary: #017b9a; --on-primary: #FFFFFF; --primary-container: #BBE9FF; --on-primary-container: #001F29;
             --secondary: #4C626A; --on-secondary: #FFFFFF; --secondary-container: #CFE6F0; --on-secondary-container: #071E25;
@@ -60,12 +61,12 @@
             transform: translateX(-50%) scale(1.01); 
             box-shadow: 0 12px 40px -10px rgba(0,0,0,0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
         }
-        .logo { font-size: 1.5em; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; margin-right: auto; }
+        .logo { font-size: 1.5em; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; margin-right: 1.25rem; }
         .logo .material-symbols-outlined { font-size: 1.5em; color: var(--tertiary); }
         .nav-links { display: flex; gap: 0.6rem; align-items: center; }
         .nav-links a { color: var(--on-surface); font-weight: 500; text-decoration: none; font-size: 1em; display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: var(--border-radius-full); transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease; }
         .nav-links a:hover { color: var(--on-primary-container); background-color: var(--primary-container); transform: translateY(-0.125rem); }
-        .search-container { display: flex; justify-content: center; max-width: 300px; }
+        .search-container { display: flex; justify-content: flex-end; flex: 1; max-width: 400px;}
         .search-bar { background-color: var(--surface-variant); border: none; border-radius: var(--border-radius-full); padding: 0.6rem 1.25rem; width: 250px; color: var(--on-surface-variant); font-size: 0.9rem; transition: all 0.3s ease; }
         .search-bar:hover { transform: translateY(-0.06rem) scale(1.01); box-shadow: 0 8px 24px rgba(1,123,154,0.04); width: 280px; }
         .search-bar:active { animation: searchTap 0.28s cubic-bezier(0.22,1,0.36,1); width: 270px; transform-origin: left center; }
@@ -1131,7 +1132,4 @@
             .scroll-arrow.left { left: 0.5rem; }
             .scroll-arrow.right { right: 0.5rem; }
         }
-        
-        .subscribe-btn { background-color: red; color: white; border: none; padding: 0.6rem 1.5rem; border-radius: var(--border-radius-full); font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease; }
-        .subscribe-btn:hover { background-color: darkred; }
-
+    
