@@ -966,6 +966,22 @@
         .modal-content { background: var(--surface); padding: 1.875rem; border-radius: var(--border-radius-large); width: 90%; max-width: 31.25rem; box-shadow: 0 0.6rem 2.5rem rgba(0,0,0,0.15); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
         .modal-overlay.visible .modal-content { transform: scale(1); }
 
+        /* Contact Support modal themed accent */
+        #contactSupportModal .modal-content { border-top: 6px solid var(--primary); background: linear-gradient(180deg, rgba(1,123,154,0.03), var(--surface)); }
+        #contactSupportModal .modal-header h2 { color: var(--primary); }
+        #contactSupportModal .contact-item { background: transparent; border: none; padding: 0.5rem 0; display:flex; justify-content:space-between; align-items:center; border-bottom: 1px dashed rgba(1,123,154,0.06); opacity:0; transform: translateY(10px); }
+        #contactSupportModal .contact-item:last-child { border-bottom:none; }
+        /* Staggered reveal when modal visible */
+        #contactSupportModal.visible .contact-item { opacity:1; transform: translateY(0); transition: transform 300ms cubic-bezier(.2,.9,.25,1), opacity 260ms ease; }
+        #contactSupportModal.visible .contact-item:nth-of-type(1) { transition-delay: 60ms; }
+        #contactSupportModal.visible .contact-item:nth-of-type(2) { transition-delay: 120ms; }
+        #contactSupportModal.visible .contact-item:nth-of-type(3) { transition-delay: 180ms; }
+        #contactSupportModal.visible .contact-item:nth-of-type(4) { transition-delay: 240ms; }
+        #contactSupportModal.visible .contact-item:nth-of-type(5) { transition-delay: 300ms; }
+        #contactSupportModal.visible .contact-item:nth-of-type(6) { transition-delay: 360ms; }
+        #contactSupportModal.visible .contact-item:nth-of-type(7) { transition-delay: 420ms; }
+        #contactSupportModal .contact-actions button { background: linear-gradient(180deg,var(--primary-container), rgba(1,123,154,0.08)); color: var(--on-primary-container); border: 1px solid rgba(1,123,154,0.12); padding: 0.4rem 0.6rem; border-radius: 0.5rem; cursor:pointer; }
+
         /* Auth modal tab styles */
         .auth-modal-tabs { display:flex; gap:0.5rem; margin-bottom:1rem; }
         .auth-tab-btn { flex:1; padding:0.5rem; border-radius: var(--border-radius-full); border:1px solid var(--outline); background: var(--surface-variant); color: var(--on-surface-variant); font-weight:600; cursor:pointer; transition: all 0.18s ease; }

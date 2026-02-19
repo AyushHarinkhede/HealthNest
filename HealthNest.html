@@ -503,9 +503,9 @@
         </div>
       </div>
       <div class="footer-links">
-        <a href="#" onclick="openModal('privacyPolicyModal')" data-key="footerPrivacy">Privacy Policy</a>|
-        <a href="#" onclick="openModal('termsOfServiceModal')" data-key="footerTerms">Terms of Service</a>|
-        <a href="#" onclick="openSupport(event,this)">Contact Support</a>
+        <a href="#" onclick="openModal('privacyPolicyModal')" data-key="footerPrivacy">Privacy Policy</a>
+        <a href="#" onclick="openModal('termsOfServiceModal')" data-key="footerTerms">Terms of Service</a>
+        <a href="#" onclick="openModal('contactSupportModal')">Contact Support</a>
       </div>
     </div>
     <div class="social-media-links">
@@ -949,16 +949,16 @@
             <div class="contact-item">
               <div class="contact-name">Ayush Harinkhede</div>
               <div class="contact-actions">
-                <button onclick="confirmCall('+919209514158','Ayush Harinkhede')">Call</button>
                 <button onclick="confirmMail('ayushharinkhere2005@gmail.com','Ayush Harinkhede')">Mail</button>
+                <button onclick="confirmCall('+919209514158','Ayush Harinkhede')">Call</button>
               </div>
             </div>
 
             <div class="contact-item">
               <div class="contact-name">Lucky Rahangdale</div>
               <div class="contact-actions">
-                <button onclick="confirmCall('+918459351781','Lucky Rahangdale')">Call</button>
                 <button onclick="confirmMail('rahangdalelucky609@gmail.com','Lucky Rahangdale')">Mail</button>
+                <button onclick="confirmCall('+918459351781','Lucky Rahangdale')">Call</button>
               </div>
             </div>
 
@@ -1088,7 +1088,7 @@
       <div style="display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;">
       <button onclick="updateAccount()">Save Settings</button>
       <button onclick="clearStorage()">Clear Storage</button>
-      <button onclick="openSupport(event,this)">Contact Support</button>
+      <button onclick="openModal('contactSupportModal')">Contact Support</button>
     </div>
     <!-- Inline contact list inside Settings (hidden by default) -->
     <div id="settingsContactList" style="margin-top:1rem;">
