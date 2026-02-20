@@ -607,6 +607,25 @@
         if(modal) modal.classList.remove('visible'); 
     }
 
+    function showToast(message, type = 'info') {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'toast-container';
+            document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        let iconClass = 'fas fa-info-circle';
+        if (type === 'success') iconClass = 'fas fa-check-circle';
+        if (type === 'error') iconClass = 'fas fa-times-circle';
+        toast.innerHTML = `<i class="${iconClass}"></i> ${message}`;
+        container.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 100);
+        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => container.removeChild(toast), 500); }, 3000);
+    }
+
     function socialSign(provider) {
         showToast(`Signing in with ${provider} (demo)`, 'info');
         // Demo: simulate successful sign-in and apply same UI changes as handleLogin
@@ -638,52 +657,10 @@
                 previewImg.style.display = 'block';
                 previewIcon.style.display = 'none';
             }
-            
-            showToast("Profile picture previewed. Click 'Save Changes' to apply.", "info");
+
+            showToast("Profile picture previewed. Click 'Save Changes' to apply.", 'info');
         }
-
-function closeModal(modalId) { 
-    const modal = document.getElementById(modalId);
-    if(modal) modal.classList.remove('visible'); 
-}
-
-function showToast(message, type = 'info') {
-    const container = document.getElementById('toast-container');
-    if (!container) {
-        const toastContainer = document.createElement('div');
-        toastContainer.id = 'toast-container';
-        toastContainer.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 10000;
-            pointer-events: none;
-        `;
-        document.body.appendChild(toastContainer);
     }
-    
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    let iconClass = 'fas fa-info-circle';
-    if (type === 'success') iconClass = 'fas fa-check-circle';
-    if (type === 'error') iconClass = 'fas fa-times-circle';
-    toast.innerHTML = `<i class="${iconClass}"></i> ${message}`;
-    container.appendChild(toast);
-    setTimeout(() => toast.classList.add('show'), 100);
-    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => container.removeChild(toast), 500); }, 3000);
-}
-
-function socialSign(provider) {
-    showToast(`Signing in with ${provider} (demo)`, 'info');
-    // Demo: simulate successful sign-in and apply same UI changes as handleLogin
-    setTimeout(() => {
-        // hide only the auth button, show profile button
-        const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = 'none';
-        const profileNavBtn = document.getElementById('profileNavBtn'); if (profileNavBtn) profileNavBtn.style.display = 'inline-flex';
-        showToast('Signed in successfully!', 'success');
-    }, 1500);
-}
-    
     function handleSubscription(event) { event.preventDefault(); showToast('Thank you for subscribing!', 'success'); event.target.reset(); }
     
     function togglePasswordVisibility(fieldId, button) {
