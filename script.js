@@ -33,23 +33,12 @@
     };
 
     document.addEventListener('DOMContentLoaded', function() {
-        // Remove preloader immediately and show content
-        const preloader = document.getElementById('preloader');
-        if (preloader) {
-            preloader.style.display = 'none';
-        }
-        
-        console.log('Preloader removed, content visible immediately');
+        console.log('Content loaded immediately');
 
         // Load saved settings or defaults (safe checks if controls missing)
         changeTheme('light');
         const themeEl = document.getElementById('theme'); if (themeEl) themeEl.value = 'light';
         switchLanguage('en');
-        const langEl = document.getElementById('language'); if (langEl) langEl.value = 'en';
-        changeTextSize('16px');
-        const textSizeEl = document.getElementById('textSize'); if (textSizeEl) textSizeEl.value = '16px';
-
-
         // Initialize components
         initializeFAQ();
         initializeScrollAnimations();
@@ -658,6 +647,32 @@ function closeModal(modalId) {
     if(modal) modal.classList.remove('visible'); 
 }
 
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    if (!container) {
+        const toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            pointer-events: none;
+        `;
+        document.body.appendChild(toastContainer);
+    }
+    
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    let iconClass = 'fas fa-info-circle';
+    if (type === 'success') iconClass = 'fas fa-check-circle';
+    if (type === 'error') iconClass = 'fas fa-times-circle';
+    toast.innerHTML = `<i class="${iconClass}"></i> ${message}`;
+    container.appendChild(toast);
+    setTimeout(() => toast.classList.add('show'), 100);
+    setTimeout(() => { toast.classList.remove('show'); setTimeout(() => container.removeChild(toast), 500); }, 3000);
+}
+
 function socialSign(provider) {
     showToast(`Signing in with ${provider} (demo)`, 'info');
     // Demo: simulate successful sign-in and apply same UI changes as handleLogin
@@ -665,17 +680,9 @@ function socialSign(provider) {
         // hide only the auth button, show profile button
         const authBtn = document.querySelector('.auth-btn'); if (authBtn) authBtn.style.display = 'none';
         const profileNavBtn = document.getElementById('profileNavBtn'); if (profileNavBtn) profileNavBtn.style.display = 'inline-flex';
-        const container = document.getElementById('toast-container');
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        let iconClass = 'fas fa-info-circle';
-        if (type === 'success') iconClass = 'fas fa-check-circle';
-        if (type === 'error') iconClass = 'fas fa-times-circle';
-        toast.innerHTML = `<i class="${iconClass}"></i> ${message}`;
-        container.appendChild(toast);
-        setTimeout(() => toast.classList.add('show'), 100);
-        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => container.removeChild(toast), 500); }, 3000);
-    }
+        showToast('Signed in successfully!', 'success');
+    }, 1500);
+}
     
     function handleSubscription(event) { event.preventDefault(); showToast('Thank you for subscribing!', 'success'); event.target.reset(); }
     
@@ -2249,15 +2256,28 @@ function enhanceProfileModal() {
 // Initialize enhanced profile when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Existing initialization code...
+    loadSettings();
+    
+    // Initialize NEW FEATURES
+    queueSystem.init();
+    initializeDoctorAvailability();
+    displayAppointments();
+    // Do not request notification permission on load. Permission will be requested
+    // only when user enables Notifications in Settings (toggleSetting handles this).
+    
+    // Add event listener for appointment date selection
+    const appointmentDateInput = document.getElementById('appointmentDate');
+    if (appointmentDateInput) {
+        appointmentDateInput.addEventListener('change', (e) => {
+            generateTimeSlots(e.target.value);
+        });
+    }
     
     // Enhance profile modal with additional fields
     enhanceProfileModal();
     
     // Initialize crowd monitor
     crowdMonitor.init();
-    
-    // Start real-time updates
-    startRealTimeUpdates();
 });
 
 // Attach hover/click handlers to contact support triggers so they show the floating
@@ -2286,4 +2306,3 @@ document.addEventListener('DOMContentLoaded', function() {
         el.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); try { showFloatingContacts(el); } catch(e) {} } });
     });
 })();
-

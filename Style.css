@@ -881,7 +881,7 @@
         #settingsMenu button { width: 100%; padding: 0.75rem; margin-top: 1rem; border: none; border-radius: var(--border-radius-full); background: var(--primary); color: var(--on-primary); font-weight: bold; cursor: pointer; transition: background 0.3s, transform 0.2s; }
         #settingsMenu button:hover { filter: brightness(1.15); }
         
-        .hero { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 120vh; padding: 6.5rem 1.25rem 3rem 1.25rem; background-color: var(--primary-container); position: relative; overflow: hidden; transition: background-color 0.4s ease; margin-top: 0; }
+        .hero { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 100vh; padding: 6.5rem 1.25rem 3rem 1.25rem; background-color: var(--primary-container); position: relative; overflow: hidden; transition: background-color 0.4s ease; margin-top: 0; }
         /* Decorative floating circles inside the hero — increased top coverage */
         .hero-bg { position: absolute; border-radius: 50%; z-index: 0; filter: blur(40px); opacity: 0.28; animation: float 22s infinite ease-in-out; will-change: transform; pointer-events: none; }
         .hero-bg.bg-a { width: 46rem; height: 46rem; background: radial-gradient(circle at 30% 30%, rgba(1,123,154,0.95), rgba(11,136,166,0.35)); top: -20rem; left: -8rem; animation-duration: 22s; }
