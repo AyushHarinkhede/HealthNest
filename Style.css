@@ -2,7 +2,7 @@
         /* CSS: Rebuilt with a Professional Material 3 Color System & All Requested Features */ 
         :root {
             --primary: #017b9a; --on-primary: #FFFFFF; --primary-container: #BBE9FF; --on-primary-container: #001F29;
-            --secondary: #4C626A; --on-secondary: #FFFFFF; --secondary-container: #CFE6F0; --on-secondary-container: #071E25;
+            --secondary: #4C626A; --on-secondary: #FFFFFF;  --secondary-container: #CFE6F0; --on-secondary-container: #071E25;
             --tertiary: #5E5C7D; --on-tertiary: #FFFFFF; --tertiary-container: #E4DFFF; --on-tertiary-container: #1A1936;
             --error: #BA1A1A; --on-error: #FFFFFF; --error-container: #FFDAD6; --on-error-container: #410002;
             --background: #F8FDFF; --on-background: #191C1E; --surface: #FFFFFF; --on-surface: #191C1E;
