@@ -13,7 +13,7 @@ function getAIResponse(userMessage = '') {
   let aiResponse = "I'm here to help with your health — type 'help' for suggestions.";
 
   // --- priority / exact checks ---
-  if (msg.includes('dark') && msg.includes('mode')) {
+  if (msg.includes('dark') && msg.includes('mode')) { 
     changeTheme?.('dark');
     return '🌙 Switched to dark mode.';
   }
