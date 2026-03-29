@@ -2,7 +2,7 @@
  * VANIE (cleaned) — getAIResponse implementation
  * - Consolidated, syntactically-correct version of the AI-response logic
  * - Matches user messages against prioritized checks and keyword categories
- * - Returns a plain string (safe for the chat UI)
+ * - Returns a plain string (safe for the chat UI) 
  */
 
 function getAIResponse(userMessage = '') {
