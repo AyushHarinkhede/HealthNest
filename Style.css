@@ -72,7 +72,7 @@
         .search-bar:active { animation: searchTap 0.28s cubic-bezier(0.22,1,0.36,1); width: 270px; transform-origin: left center; }
         @keyframes searchTap { 0% { transform: scaleX(1); } 40% { transform: scaleX(1.04) translateY(-1px); } 70% { transform: scaleX(1.02); } 100% { transform: scaleX(1); } }
         .search-bar:focus { outline: 2px solid var(--primary); background-color: var(--surface); box-shadow: 0 0 1rem -0.125rem var(--primary); width: 350px; }
-        
+         
         .search-results {
             position: absolute;
             top: 100%;
