@@ -43,7 +43,11 @@ class VANIEAlgorithm {
                 keywords: [
                     'headache', 'fever', 'cough', 'nausea', 'dizziness', 'fatigue', 'pain',
                     'stomach ache', 'sore throat', 'vomiting', 'diarrhea', 'migraine',
-                    'body ache', 'chills', 'cramp', 'feeling sick', 'unwell', 'illness'
+                    'body ache', 'chills', 'cramp', 'feeling sick', 'unwell', 'illness',
+                    'cold', 'flu', 'allergy', 'asthma', 'diabetes', 'cancer', 'arthritis',
+                    'back pain', 'joint pain', 'muscle pain', 'chest pain', 'breathing',
+                    'indigestion', 'constipation', 'weakness', 'numbness', 'tingling',
+                    'swelling', 'rash', 'itching', 'burning', 'infection', 'wound'
                 ],
                 handler: this.handleSymptoms.bind(this)
             },
@@ -53,7 +57,12 @@ class VANIEAlgorithm {
                 priority: 5,
                 keywords: [
                     'diet', 'exercise', 'sleep', 'stress', 'weight', 'nutrition',
-                    'workout', 'healthy food', 'prevent', 'lifestyle', 'fitness'
+                    'workout', 'healthy food', 'prevent', 'lifestyle', 'fitness',
+                    'yoga', 'meditation', 'running', 'walking', 'swimming', 'cycling',
+                    'gym', 'protein', 'vitamins', 'supplements', 'water', 'hydration',
+                    'calories', 'metabolism', 'cholesterol', 'sugar', 'diabetes prevention',
+                    'heart health', 'immunity', 'detox', 'organic', 'vegetarian', 'vegan',
+                    'weight loss', 'weight gain', 'muscle building', 'flexibility', 'endurance'
                 ],
                 handler: this.handleLifestyle.bind(this)
             },
@@ -71,7 +80,12 @@ class VANIEAlgorithm {
                 keywords: [
                     'hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening',
                     'help', 'thank', 'thanks', 'bye', 'goodbye', 'how are you',
-                    'your name', 'who are you', 'joke', 'weather'
+                    'your name', 'who are you', 'joke', 'weather', 'namaste', 'sat sri akal',
+                    'assalam o alaikum', 'what\'s up', 'howdy', 'greetings', 'welcome',
+                    'awesome', 'great', 'fantastic', 'amazing', 'wonderful', 'excellent',
+                    'bored', 'tired', 'sleepy', 'hungry', 'thirsty', 'happy', 'sad',
+                    'angry', 'excited', 'nervous', 'scared', 'worried', 'confused',
+                    'movie', 'music', 'song', 'game', 'book', 'story', 'news', 'time'
                 ],
                 handler: this.handleConversation.bind(this)
             },
@@ -308,6 +322,256 @@ Try asking: "What is my BMI?"`;
 *Persistent symptoms need medical evaluation.*`;
         }
         
+        if (msgLower.includes('cold') || msgLower.includes('flu')) {
+            return `🤧 **Cold & Flu Care**
+
+**Home Remedies:**
+- Rest and stay hydrated
+- Use saline nasal spray
+- Take steam inhalation
+- Eat chicken soup (it really helps!)
+
+**Cold vs Flu:**
+- **Cold:** Gradual onset, mild fever, stuffy nose
+- **Flu:** Sudden onset, high fever, body aches
+
+**When to See Doctor:**
+- Difficulty breathing
+- Persistent high fever
+- Symptoms worsen after 5 days
+- You're in a high-risk group
+
+*Prevention is key - wash hands frequently!*`;
+        }
+        
+        if (msgLower.includes('back pain') || msgLower.includes('joint pain') || msgLower.includes('muscle pain')) {
+            return `🦴 **Pain Management**
+
+**Immediate Relief:**
+- Apply ice for first 48 hours (15 mins at a time)
+- Then switch to heat for muscle relaxation
+- Gentle stretching and movement
+- Over-the-counter pain relievers (if appropriate)
+
+**Back Pain Specific:**
+- Maintain good posture
+- Sleep on your side with pillow between knees
+- Strengthen core muscles gradually
+- Avoid heavy lifting
+
+**Joint Pain:**
+- Low-impact exercise (swimming, walking)
+- Maintain healthy weight
+- Warm up before exercise
+- Consider anti-inflammatory foods
+
+**See Doctor If:**
+- Pain lasts more than 2 weeks
+- Pain radiates down legs
+- Numbness or weakness
+- Pain after injury
+
+*Listen to your body - don't push through severe pain!*`;
+        }
+        
+        if (msgLower.includes('allergy') || msgLower.includes('asthma')) {
+            return `🌿 **Allergy & Asthma Management**
+
+**Allergy Relief:**
+- Identify and avoid triggers
+- Use air purifiers
+- Keep windows closed during high pollen
+- Try saline nasal rinses
+- Consider local honey for seasonal allergies
+
+**Asthma Care:**
+- Always have rescue inhaler available
+- Use controller medications as prescribed
+- Identify and avoid triggers
+- Create an asthma action plan
+- Monitor peak flow readings
+
+**Common Triggers:**
+- Pollen, dust mites, pet dander
+- Mold, strong fragrances
+- Cold air, exercise
+- Certain foods
+
+**Emergency Signs:**
+- Difficulty speaking full sentences
+- Blue lips or fingernails
+- No relief from rescue inhaler
+
+*Always follow your doctor's treatment plan!*`;
+        }
+        
+        if (msgLower.includes('diabetes')) {
+            return `🩸 **Diabetes Management**
+
+**Type 2 Diabetes Prevention:**
+- Maintain healthy weight
+- Regular physical activity
+- Balanced diet low in refined sugars
+- Regular health check-ups
+
+**Blood Sugar Management:**
+- Monitor glucose levels as directed
+- Take medications consistently
+- Eat regular, balanced meals
+- Stay hydrated
+- Exercise regularly
+
+**Healthy Eating:**
+- Choose complex carbohydrates
+- Include lean proteins
+- Eat plenty of vegetables
+- Limit processed sugars
+- Control portion sizes
+
+**Warning Signs:**
+- Excessive thirst/urination
+- Unexplained weight loss
+- Extreme fatigue
+- Blurred vision
+- Slow-healing sores
+
+*Work closely with your healthcare team!*`;
+        }
+        
+        if (msgLower.includes('indigestion') || msgLower.includes('constipation')) {
+            return `🍽️ **Digestive Health**
+
+**Indigestion Relief:**
+- Eat smaller, more frequent meals
+- Avoid trigger foods (spicy, fatty, acidic)
+- Stay upright after eating
+- Try ginger or peppermint tea
+- Manage stress
+
+**Constipation Relief:**
+- Increase fiber intake gradually
+- Drink plenty of water
+- Regular physical activity
+- Establish routine bathroom habits
+- Consider probiotic foods
+
+**Fiber-Rich Foods:**
+- Whole grains, beans, lentils
+- Fresh fruits and vegetables
+- Nuts and seeds
+- Popcorn (air-popped)
+
+**When to See Doctor:**
+- Persistent digestive issues
+- Blood in stool
+- Unexplained weight loss
+- Severe abdominal pain
+
+*Gut health is crucial for overall wellness!*`;
+        }
+        
+        if (msgLower.includes('weakness') || msgLower.includes('numbness') || msgLower.includes('tingling')) {
+            return `⚡ **Neurological Symptoms**
+
+**Weakness & Fatigue:**
+- Ensure adequate iron and B12 intake
+- Stay well hydrated
+- Get regular, moderate exercise
+- Prioritize quality sleep
+- Manage stress levels
+
+**Numbness & Tingling:**
+- Often caused by pressure on nerves
+- Change positions frequently
+- Ensure good ergonomics
+- Check vitamin B12 levels
+- Consider circulation issues
+
+**Common Causes:**
+- Pinched nerves
+- Vitamin deficiencies
+- Poor circulation
+- Diabetes complications
+- Anxiety/panic attacks
+
+**See Doctor If:**
+- Sudden onset
+- One-sided symptoms
+- Accompanied by confusion
+- After head injury
+- Persistent or worsening
+
+*These symptoms can indicate serious conditions - get evaluated!*`;
+        }
+        
+        if (msgLower.includes('swelling') || msgLower.includes('rash') || msgLower.includes('itching')) {
+            return `🔴 **Skin & Swelling Issues**
+
+**Swelling (Edema) Relief:**
+- Elevate affected area
+- Reduce sodium intake
+- Stay hydrated
+- Gentle movement/exercise
+- Compression stockings if appropriate
+
+**Rash Care:**
+- Keep area clean and dry
+- Avoid scratching
+- Use cool compresses
+- Identify potential triggers
+- Over-the-counter hydrocortisone cream
+
+**Itching Relief:**
+- Cold compresses
+- Oatmeal baths
+- Moisturize regularly
+- Antihistamines (if appropriate)
+- Identify and avoid triggers
+
+**When to Seek Immediate Care:**
+- Swelling with breathing difficulty
+- Rash spreading rapidly
+- Signs of infection (fever, pus)
+- Allergic reaction symptoms
+- Swelling after injury
+
+*Skin changes can indicate internal health issues!*`;
+        }
+        
+        if (msgLower.includes('infection') || msgLower.includes('wound')) {
+            return `🦠 **Infection & Wound Care**
+
+**Wound Care Steps:**
+1. Clean with mild soap and water
+2. Apply antibiotic ointment
+3. Cover with clean bandage
+4. Change dressing daily
+5. Monitor for infection signs
+
+**Infection Signs:**
+- Redness, warmth, swelling
+- Pus or drainage
+- Fever
+- Increased pain
+- Red streaks from wound
+
+**When to Seek Care:**
+- Deep or large wounds
+- Animal bites
+- Wounds not healing
+- Signs of infection
+- Tetanus-prone injuries
+
+**Prevention:**
+- Keep wounds clean and covered
+- Wash hands frequently
+- Update tetanus shots
+- Practice good hygiene
+- Don't share personal items
+
+*When in doubt, get it checked out!*`;
+        }
+        
         return `🏥 **General Symptom Guidance**
 
 I understand you're not feeling well. While I can provide general information, **please consult a healthcare professional** for:
@@ -343,6 +607,584 @@ Your health is important - don't hesitate to see a doctor.`;
 - Choose healthy snacks (nuts, fruits, yogurt)
 
 **Remember:** Small, consistent changes work better than drastic diets!`;
+        }
+        
+        if (msgLower.includes('yoga') || msgLower.includes('meditation')) {
+            return `🧘 **Yoga & Meditation Benefits**
+
+**Yoga Benefits:**
+- Improves flexibility and strength
+- Reduces stress and anxiety
+- Enhances balance and posture
+- Boosts respiratory function
+- Promotes mind-body connection
+
+**Beginner Yoga Poses:**
+- Mountain Pose (Tadasana)
+- Downward Dog (Adho Mukha Svanasana)
+- Child's Pose (Balasana)
+- Cat-Cow Stretch (Marjaryasana-Bitilasana)
+
+**Meditation Benefits:**
+- Lowers blood pressure
+- Improves focus and concentration
+- Reduces anxiety and depression
+- Enhances self-awareness
+- Boosts immune system
+
+**Simple Meditation:**
+1. Find a quiet, comfortable space
+2. Focus on your breath (4 counts in, 4 counts out)
+3. When mind wanders, gently return to breath
+4. Start with 5 minutes, gradually increase
+
+**Apps & Resources:**
+- YouTube: Yoga with Adriene, Boho Beautiful
+- Apps: Headspace, Calm, Insight Timer
+- Local yoga studios and community centers
+
+**Remember:** Consistency is more important than intensity!`;
+        }
+        
+        if (msgLower.includes('running') || msgLower.includes('walking') || msgLower.includes('swimming') || msgLower.includes('cycling')) {
+            return `🏃‍♂️ **Cardiovascular Exercise**
+
+**Running Benefits:**
+- Improves heart health
+- Burns calories effectively
+- Strengthens bones and joints
+- Boosts mental health
+- Enhances endurance
+
+**Beginner Running Tips:**
+- Start with walk-run intervals
+- Invest in good running shoes
+- Warm up before, cool down after
+- Stay hydrated
+- Listen to your body
+
+**Walking Benefits:**
+- Low-impact, accessible to all
+- Improves circulation
+- Boosts mood and creativity
+- Helps maintain healthy weight
+- Reduces stress
+
+**Swimming Benefits:**
+- Full-body workout
+- Easy on joints
+- Improves lung capacity
+- Builds endurance
+- Burns significant calories
+
+**Cycling Benefits:**
+- Low-impact cardio
+- Strengthens lower body
+- Improves balance
+- Environmentally friendly transport
+- Great for mental health
+
+**Weekly Cardio Goals:**
+- 150 minutes moderate intensity
+- OR 75 minutes vigorous intensity
+- Mix different activities for variety
+
+**Safety Tips:**
+- Wear appropriate gear
+- Stay visible (reflective clothing)
+- Check weather conditions
+- Tell someone your route
+- Carry identification
+
+What's your favorite cardio activity?`;
+        }
+        
+        if (msgLower.includes('gym') || msgLower.includes('strength training')) {
+            return `🏋️ **Strength Training Guide**
+
+**Benefits of Strength Training:**
+- Builds muscle mass
+- Increases metabolism
+- Improves bone density
+- Enhances functional strength
+- Boosts confidence
+
+**Beginner Strength Exercises:**
+- Bodyweight squats
+- Push-ups (modified if needed)
+- Planks
+- Lunges
+- Dumbbell rows
+- Glute bridges
+
+**Gym Etiquette:**
+- Wipe down equipment after use
+- Re-rack your weights
+- Don't hog machines during peak hours
+- Ask for help if unsure
+- Respect others' space and routine
+
+**Strength Training Principles:**
+- Progressive overload
+- Proper form over heavy weight
+- Rest between sets (30-90 seconds)
+- Allow muscle recovery (48 hours)
+- Consistency is key
+
+**Weekly Schedule:**
+- 2-3 strength sessions per week
+- Focus on different muscle groups
+- Include cardio on other days
+- Rest days are crucial
+
+**Safety Tips:**
+- Warm up before lifting
+- Use spotters for heavy lifts
+- Stay hydrated
+- Listen to your body
+- Consider hiring a trainer initially
+
+Ready to build some strength?`;
+        }
+        
+        if (msgLower.includes('protein') || msgLower.includes('vitamins') || msgLower.includes('supplements')) {
+            return `💊 **Nutrition Supplements**
+
+**Protein Needs:**
+- Adults: 0.8g per kg body weight
+- Athletes: 1.2-2.0g per kg body weight
+- Sources: Meat, fish, eggs, dairy, beans, nuts
+
+**Essential Vitamins:**
+- **Vitamin D:** Bone health, immune function
+- **B Vitamins:** Energy metabolism, nerve function
+- **Vitamin C:** Immune system, skin health
+- **Vitamin E:** Antioxidant, skin health
+
+**Key Minerals:**
+- **Iron:** Oxygen transport, energy
+- **Calcium:** Bone health, muscle function
+- **Magnesium:** Muscle relaxation, sleep
+- **Zinc:** Immune function, wound healing
+
+**Supplement Guidelines:**
+- Food first approach
+- Get blood work to identify deficiencies
+- Choose quality brands
+- Follow recommended dosages
+- Consider timing with meals
+
+**Popular Supplements:**
+- Omega-3 fatty acids
+- Probiotics
+- Vitamin D (especially in winter)
+- Magnesium for sleep
+- B-complex for energy
+
+**⚠️ Important:**
+- Consult healthcare provider before starting
+- Supplements aren't regulated like medications
+- More isn't always better
+- Some supplements interact with medications
+
+What specific nutritional questions do you have?`;
+        }
+        
+        if (msgLower.includes('water') || msgLower.includes('hydration')) {
+            return `💧 **Hydration Excellence**
+
+**Daily Water Goals:**
+- Men: 3.7 liters (15.5 cups)
+- Women: 2.7 liters (11.5 cups)
+- More if exercising or in hot weather
+- Individual needs vary
+
+**Signs of Dehydration:**
+- Dark yellow urine
+- Dry mouth and lips
+- Headache
+- Fatigue
+- Dizziness
+- Reduced concentration
+
+**Hydration Tips:**
+- Start day with glass of water
+- Carry reusable water bottle
+- Set reminders throughout day
+- Flavor water with lemon/cucumber
+- Eat water-rich foods
+
+**Hydrating Foods:**
+- Watermelon (92% water)
+- Cucumber (96% water)
+- Strawberries (91% water)
+- Oranges (87% water)
+- Yogurt (85% water)
+
+**Exercise Hydration:**
+- Drink 17-20 oz 2 hours before
+- 7-10 oz every 10-20 minutes during
+- 16-24 oz for every pound lost after
+
+**When to Increase Intake:**
+- Hot weather
+- High altitude
+- Illness (fever, vomiting)
+- Intense exercise
+- Pregnancy/breastfeeding
+
+**Fun Fact:** Proper hydration can boost metabolism by up to 30%!
+
+Stay hydrated, stay healthy!`;
+        }
+        
+        if (msgLower.includes('calories') || msgLower.includes('metabolism')) {
+            return `🔥 **Metabolism & Calories**
+
+**What is Metabolism?**
+- Chemical processes that maintain life
+- Converts food to energy
+- Basal Metabolic Rate (BMR) = calories at rest
+- Varies based on age, gender, muscle mass
+
+**Daily Calorie Needs:**
+- Women: 1,600-2,400 calories
+- Men: 2,000-3,000 calories
+- Depends on age, activity level, goals
+
+**Boost Metabolism Naturally:**
+- Build muscle mass
+- Eat protein with each meal
+- Stay hydrated
+- Get adequate sleep
+- Eat regular meals
+- Include spicy foods
+- Drink green tea
+
+**Calorie Quality Matters:**
+- 1,000 calories of junk vs. 1,000 calories of nutrients
+- Focus on nutrient-dense foods
+- Balance macros: protein, carbs, fats
+- Fiber increases satiety
+
+**Healthy Weight Loss:**
+- 500-750 calorie deficit daily
+- 1-2 pounds per week maximum
+- Combine diet and exercise
+- Preserve muscle mass
+
+**Metabolism Myths:**
+- Eating late at night doesn't slow metabolism
+- Small meals throughout day don't significantly boost it
+- Certain foods have minimal effect on metabolism
+
+**Track Progress:**
+- Focus on how clothes fit
+- Energy levels and sleep quality
+- Strength gains
+- Not just the scale!
+
+What's your metabolism question?`;
+        }
+        
+        if (msgLower.includes('cholesterol') || msgLower.includes('sugar') || msgLower.includes('diabetes prevention')) {
+            return `❤️ **Heart Health & Blood Sugar**
+
+**Cholesterol Management:**
+- **LDL (Bad):** Below 100 mg/dL
+- **HDL (Good):** Above 60 mg/dL
+- **Triglycerides:** Below 150 mg/dL
+
+**Heart-Healthy Foods:**
+- Oats, barley, whole grains
+- Fatty fish (salmon, mackerel)
+- Nuts and seeds
+- Olive oil
+- Avocados
+- Beans and lentils
+
+**Foods to Limit:**
+- Saturated fats (red meat, butter)
+- Trans fats (processed foods)
+- Excessive sugar
+- Refined carbohydrates
+
+**Blood Sugar Management:**
+- Eat regular, balanced meals
+- Choose complex carbohydrates
+- Include protein and healthy fats
+- Monitor portion sizes
+- Exercise regularly
+
+**Diabetes Prevention:**
+- Maintain healthy weight
+- 150+ minutes weekly exercise
+- Balanced diet rich in fiber
+- Limit sugary beverages
+- Manage stress
+- Get adequate sleep
+
+**Warning Signs:**
+- Increased thirst/urination
+- Fatigue
+- Blurred vision
+- Slow-healing sores
+
+**Regular Check-ups:**
+- Annual physical exams
+- Blood pressure monitoring
+- Cholesterol screening
+- Blood sugar tests
+
+Prevention is always better than treatment!`;
+        }
+        
+        if (msgLower.includes('heart health') || msgLower.includes('immunity') || msgLower.includes('detox')) {
+            return `🛡️ **Immunity & Heart Health**
+
+**Heart Health Essentials:**
+- 150 minutes moderate exercise weekly
+- Blood pressure below 120/80
+- Healthy cholesterol levels
+- Stress management
+- Adequate sleep (7-9 hours)
+
+**Heart-Healthy Lifestyle:**
+- Mediterranean diet pattern
+- Limit sodium (under 2,300mg daily)
+- No smoking
+- Moderate alcohol (if any)
+- Maintain healthy weight
+
+**Immunity Boosters:**
+- Vitamin C-rich foods (citrus, berries)
+- Zinc (nuts, seeds, legumes)
+- Probiotics (yogurt, kefir)
+- Garlic and ginger
+- Green tea
+- Adequate sleep
+
+**Stress Reduction:**
+- Deep breathing exercises
+- Regular physical activity
+- Mindfulness/meditation
+- Social connections
+- Time in nature
+- Hobbies and relaxation
+
+**Natural "Detox":**
+- Your body detoxifies naturally
+- Support with hydration
+- Fiber-rich foods
+- Limit processed foods
+- Regular exercise
+- Adequate sleep
+
+**Warning Signs:**
+- Chest pain/pressure
+- Shortness of breath
+- Persistent fatigue
+- Frequent illnesses
+- Slow wound healing
+
+**Prevention Tips:**
+- Annual health check-ups
+- Know your family history
+- Maintain healthy lifestyle
+- Listen to your body
+- Act on warning signs
+
+Your health is your wealth - invest in it daily!`;
+        }
+        
+        if (msgLower.includes('organic') || msgLower.includes('vegetarian') || msgLower.includes('vegan')) {
+            return `🌱 **Plant-Based & Organic Eating**
+
+**Organic Benefits:**
+- Fewer pesticides and chemicals
+- Often higher in nutrients
+- Better for environment
+- No GMOs
+- Supports sustainable farming
+
+**When to Choose Organic:**
+- Dirty Dozen (strawberries, spinach, etc.)
+- Thin-skinned fruits
+- Animal products
+- Baby foods
+- If budget allows
+
+**Vegetarian Diet Benefits:**
+- Lower heart disease risk
+- Reduced cancer risk
+- Better weight management
+- Environmental benefits
+- Often more affordable
+
+**Vegetarian Protein Sources:**
+- Lentils (18g protein per cup)
+- Chickpeas (15g per cup)
+- Quinoa (8g per cup)
+- Tofu (20g per cup)
+- Greek yogurt (20g per cup)
+- Eggs (6g per large egg)
+
+**Vegan Considerations:**
+- B12 supplementation essential
+- Iron from plant sources
+- Calcium from fortified foods
+- Omega-3 from algae sources
+- Vitamin D from sunlight/fortified foods
+
+**Balanced Plant-Based Plate:**
+- Whole grains (quinoa, brown rice)
+- Legumes (beans, lentils)
+- Nuts and seeds
+- Variety of vegetables
+- Healthy fats (avocado, olive oil)
+
+**Transition Tips:**
+- Start with Meatless Mondays
+- Try plant-based alternatives
+- Focus on what you can eat
+- Experiment with new recipes
+- Ensure nutritional completeness
+
+What aspect interests you most?`;
+        }
+        
+        if (msgLower.includes('weight loss') || msgLower.includes('weight gain') || msgLower.includes('muscle building')) {
+            return `⚖️ **Body Composition Goals**
+
+**Healthy Weight Loss:**
+- 1-2 pounds per week maximum
+- 500-750 calorie daily deficit
+- Preserve muscle mass
+- Focus on sustainable changes
+- Include strength training
+
+**Weight Loss Strategy:**
+- Balanced, nutrient-dense diet
+- Regular cardiovascular exercise
+- Strength training 2-3x weekly
+- Adequate protein intake
+- Proper hydration and sleep
+- Stress management
+
+**Healthy Weight Gain:**
+- 300-500 calorie surplus daily
+- Focus on nutrient-dense foods
+- Strength training to build muscle
+- Adequate protein (1.6-2.2g per kg)
+- Consistent eating schedule
+- Progressive resistance training
+
+**Weight Gain Foods:**
+- Nuts and nut butters
+- Avocados and healthy oils
+- Whole grains and legumes
+- Lean proteins
+- Smoothies with added nutrients
+
+**Muscle Building:**
+- Resistance training 3-4x weekly
+- Progressive overload
+- Adequate protein intake
+- Caloric surplus (300-500)
+- Sufficient rest and recovery
+- Consistency over intensity
+
+**Body Composition Tips:**
+- Focus on how clothes fit
+- Track measurements
+- Progress photos
+- Strength gains
+- Energy levels
+
+**Common Mistakes:**
+- Extreme calorie restriction
+- Skipping meals
+- Over-exercising
+- Ignoring rest days
+- Comparing to others
+
+**Remember:**
+- Health isn't just weight
+- Muscle weighs more than fat
+- Consistency beats intensity
+- Listen to your body
+- Progress takes time
+
+What are your specific goals?`;
+        }
+        
+        if (msgLower.includes('flexibility') || msgLower.includes('endurance')) {
+            return `🤸 **Flexibility & Endurance Training**
+
+**Flexibility Benefits:**
+- Reduced injury risk
+- Better range of motion
+- Improved posture
+- Enhanced athletic performance
+- Stress relief
+
+**Stretching Types:**
+- **Static:** Hold 15-30 seconds
+- **Dynamic:** Movement-based
+- **PNF:** Contract-relax technique
+- **Ballistic:** Bouncing (advanced)
+
+**Daily Stretches:**
+- Neck rolls and shoulder shrugs
+- Cat-cow stretch
+- Hamstring stretch
+- Quad stretch
+- Chest opener
+- Child's pose
+
+**Endurance Building:**
+- Gradual progression
+- Consistent training
+- Proper fueling
+- Adequate recovery
+- Cross-training
+
+**Endurance Activities:**
+- Running/jogging
+- Cycling
+- Swimming
+- Rowing
+- Brisk walking
+- Dancing
+
+**Endurance Training Principles:**
+- Start slow, build gradually
+- Include interval training
+- Long slow distance sessions
+- Proper breathing techniques
+- Mental toughness development
+
+**Flexibility Schedule:**
+- Daily light stretching
+- Post-workout cool-down
+- Dedicated flexibility sessions 2-3x weekly
+- Yoga or Pilates classes
+
+**Endurance Schedule:**
+- 3-5 cardio sessions weekly
+- Mix intensity levels
+- Include rest days
+- Cross-train for balance
+- Track progress
+
+**Safety Tips:**
+- Warm up before stretching
+- Never bounce cold muscles
+- Listen to your body
+- Stay hydrated
+- Proper form over intensity
+
+Ready to improve your flexibility and endurance?`;
         }
         
         if (msgLower.includes('exercise') || msgLower.includes('workout') || msgLower.includes('physical activity')) {
@@ -546,6 +1388,362 @@ I can't check live weather, but here's how weather affects health:
 - Maintain indoor exercise
 
 **Any weather:** Stay active and healthy!`;
+        }
+        
+        // Indian greetings
+        if (msgLower.includes('namaste') || msgLower.includes('sat sri akal') || msgLower.includes('assalam o alaikum')) {
+            return `🙏 **Greetings!**
+
+Thank you for your warm greeting! I'm VANIE, your health assistant.
+
+How can I help you with your health today?`;
+        }
+        
+        // Casual greetings
+        if (msgLower.includes('what\'s up') || msgLower.includes('howdy') || msgLower.includes('greetings')) {
+            return `👋 **Hello there!**
+
+Not much - just here to help you stay healthy! 
+
+What health questions do you have for me today?`;
+        }
+        
+        // Compliments
+        if (msgLower.includes('awesome') || msgLower.includes('great') || msgLower.includes('fantastic') || 
+            msgLower.includes('amazing') || msgLower.includes('wonderful') || msgLower.includes('excellent')) {
+            return `😊 **Thank you so much!**
+
+Your kind words mean a lot to me! I'm always striving to provide the best health guidance.
+
+Is there anything specific I can help you with today?`;
+        }
+        
+        // Emotional states
+        if (msgLower.includes('bored')) {
+            return `🎯 **Let's make things interesting!**
+
+Boredom can actually be good for creativity! How about:
+
+🏃‍♂️ **Quick Health Challenge:**
+- 10 jumping jacks
+- Drink a glass of water
+- Do 5 deep breaths
+
+🧠 **Learn Something New:**
+- Ask me about any health topic
+- "Tell me about vitamins"
+- "How does the brain work?"
+
+💡 **Fun Fact:** Did you know that laughing 100 times is equivalent to 15 minutes of exercise?
+
+What would you like to explore?`;
+        }
+        
+        if (msgLower.includes('tired') || msgLower.includes('sleepy')) {
+            return `😴 **Feeling tired?**
+
+That's your body telling you to rest! Here are some quick energy boosters:
+
+⚡ **Immediate Pick-Me-Ups:**
+- Splash cold water on your face
+- Do 5 minutes of stretching
+- Eat a handful of nuts or fruit
+- Take 10 deep breaths
+
+💧 **Check Your Hydration:**
+- Dehydration is a common cause of fatigue
+- Try drinking a full glass of water
+
+🌙 **Long-Term Energy:**
+- Aim for 7-9 hours of sleep
+- Regular exercise boosts energy
+- Balanced meals prevent energy crashes
+
+Need more personalized energy tips?`;
+        }
+        
+        if (msgLower.includes('hungry')) {
+            return `🍎 **Let's talk healthy snacks!**
+
+Here are some great options to satisfy your hunger:
+
+🥜 **Quick & Easy:**
+- Handful of almonds or walnuts
+- Apple with peanut butter
+- Greek yogurt with berries
+- Carrot sticks with hummus
+
+🥗 **Light Meals:**
+- Mixed green salad with grilled chicken
+- Quinoa bowl with vegetables
+- Whole grain toast with avocado
+
+💡 **Tip:** Eating protein with carbs helps you feel full longer!
+
+What kind of snacks do you usually enjoy?`;
+        }
+        
+        if (msgLower.includes('thirsty')) {
+            return `💧 **Stay hydrated!**
+
+Great that you're listening to your body! Here's how to hydrate effectively:
+
+🚰 **Water Goals:**
+- 8 glasses (64 oz) daily minimum
+- More if you exercise or it's hot
+- Your urine should be light yellow
+
+🍋 **Hydration Boosters:**
+- Add lemon to water for flavor
+- Herbal teas count too!
+- Water-rich foods: watermelon, cucumber, oranges
+
+⚠️ **Signs of Dehydration:**
+- Dark urine
+- Dry mouth
+- Headache
+- Fatigue
+
+Keep sipping throughout the day!`;
+        }
+        
+        if (msgLower.includes('happy') || msgLower.includes('excited')) {
+            return `🎉 **That's wonderful to hear!**
+
+Happiness is actually great for your health! Here's why:
+
+❤️ **Health Benefits of Happiness:**
+- Lowers blood pressure
+- Boosts immune system
+- Reduces stress hormones
+- Increases lifespan
+
+🌟 **Keep the Good Vibes Going:**
+- Share your joy with others
+- Practice gratitude
+- Engage in activities you love
+- Exercise releases endorphins
+
+What's making you so happy today? I'd love to hear!`;
+        }
+        
+        if (msgLower.includes('sad')) {
+            return `🤗 **I'm here for you**
+
+It's okay to feel sad sometimes. Here are some gentle ways to care for yourself:
+
+🌈 **Mood Boosters:**
+- Listen to uplifting music
+- Take a short walk outside
+- Call or text a friend
+- Watch something funny
+
+🧘 **Self-Care:**
+- Deep breathing: 4 counts in, 6 counts out
+- Write down your feelings
+- Take a warm bath or shower
+- Get some gentle exercise
+
+💙 **Remember:**
+- It's temporary - this feeling will pass
+- You're stronger than you think
+- Reaching out for help is brave
+
+Would you like to talk more about what's bothering you?`;
+        }
+        
+        if (msgLower.includes('angry') || msgLower.includes('frustrated')) {
+            return `😤 **Let's work through that anger**
+
+Anger is a normal emotion - let's channel it constructively:
+
+🔥 **Healthy Anger Release:**
+- Physical activity: running, punching bag, intense exercise
+- Deep breathing to calm your nervous system
+- Write down what's making you angry
+- Talk to someone you trust
+
+🧘 **Quick Calming Techniques:**
+- Count to 10 slowly
+- Splash cold water on your face
+- Step away from the situation
+- Progressive muscle relaxation
+
+💡 **Remember:** Anger itself isn't bad - it's how we handle it that matters.
+
+What triggered this feeling? Talking about it might help.`;
+        }
+        
+        if (msgLower.includes('scared') || msgLower.includes('nervous') || msgLower.includes('worried')) {
+            return `🛡️ **You're safe here**
+
+Anxiety and fear are your body's protection system. Let's calm it together:
+
+🌬️ **Grounding Exercise - 5-4-3-2-1:**
+- **5** things you can see
+- **4** things you can touch
+- **3** things you can hear
+- **2** things you can smell
+- **1** thing you can taste
+
+💪 **Confidence Boosters:**
+- Remember past challenges you've overcome
+- Break big problems into small steps
+- Talk to someone supportive
+- Practice deep, slow breathing
+
+🌟 **You've got this!** What specifically is worrying you?`;
+        }
+        
+        if (msgLower.includes('confused')) {
+            return `🤔 **Let's clear things up!**
+
+Confusion happens when we have too much information. Let's simplify:
+
+🎯 **Step-by-Step Approach:**
+1. What exactly are you trying to understand?
+2. What do you already know?
+3. What specific questions do you have?
+
+📝 **I'm here to help explain:**
+- Health topics in simple terms
+- Medical concepts in easy language
+- Step-by-step guidance
+- Answer any follow-up questions
+
+💡 **No question is too basic!** What would you like me to clarify?`;
+        }
+        
+        // Entertainment topics
+        if (msgLower.includes('movie') || msgLower.includes('music') || msgLower.includes('song')) {
+            return `🎬 **Entertainment & Health**
+
+Did you know entertainment can be good for your health?
+
+🎵 **Music Benefits:**
+- Reduces stress and anxiety
+- Lowers blood pressure
+- Improves mood and motivation
+- Helps with exercise performance
+
+🎥 **Movies & Mental Health:**
+- Comedy releases endorphins
+- Dramas build empathy
+- Action movies can be exciting stress relief
+- Documentaries can be educational
+
+🎮 **Healthy Entertainment Balance:**
+- Take breaks every 30-60 minutes
+- Stand up and stretch
+- Stay hydrated
+- Don't watch screens right before bed
+
+What's your favorite way to unwind?`;
+        }
+        
+        if (msgLower.includes('game')) {
+            return `🎮 **Gaming & Health**
+
+Gaming can actually have health benefits when done right:
+
+✅ **Positive Effects:**
+- Improves problem-solving skills
+- Enhances hand-eye coordination
+- Social connection through multiplayer games
+- Stress relief and entertainment
+
+⚠️ **Healthy Gaming Habits:**
+- Take breaks every hour (20-20-20 rule for eyes)
+- Maintain good posture
+- Stay hydrated and stretch
+- Don't play right before sleep
+- Balance with physical activity
+
+🏃‍♂️ **Active Gaming:**
+- VR games for exercise
+- Motion-based games
+- Fitness gaming apps
+
+What games do you enjoy?`;
+        }
+        
+        if (msgLower.includes('book') || msgLower.includes('story')) {
+            return `📚 **Reading & Mental Health**
+
+Reading is fantastic for your brain and wellbeing! 🧠
+
+📖 **Health Benefits of Reading:**
+- Reduces stress by 68% (research shows!)
+- Improves memory and concentration
+- Increases empathy and emotional intelligence
+- Better sleep compared to screen time
+- Expands knowledge and vocabulary
+
+🌙 **Bedtime Reading:**
+- Helps you wind down
+- Reduces blue light exposure
+- Improves sleep quality
+- Creates a relaxing routine
+
+📚 **Health-Related Book Recommendations:**
+- "How Not to Die" by Michael Greger
+- "The Body Keeps the Score" by Bessel van der Kolk
+- "Atomic Habits" by James Clear
+
+What kind of books do you enjoy reading?`;
+        }
+        
+        if (msgLower.includes('news')) {
+            return `📰 **News & Mental Health**
+
+Staying informed is important, but news can affect our health:
+
+⚠️ **News-Related Stress:**
+- Can increase anxiety and worry
+- May disrupt sleep
+- Can lead to "doomscrolling"
+- Affects mood and outlook
+
+🛡️ **Healthy News Habits:**
+- Limit news to specific times
+- Choose reliable sources
+- Take breaks from constant updates
+- Balance with positive content
+- Don't check news before bed
+
+💪 **Stay Informed, Stay Calm:**
+- Focus on what you can control
+- Practice self-care during stressful times
+- Talk about concerns with others
+- Limit social media news consumption
+
+How are you feeling about current events?`;
+        }
+        
+        if (msgLower.includes('time')) {
+            const currentTime = new Date().toLocaleTimeString();
+            const currentDate = new Date().toLocaleDateString();
+            
+            return `⏰ **Time & Health**
+
+Current time: ${currentTime}
+Today's date: ${currentDate}
+
+⏳ **Time Management for Health:**
+- Schedule exercise like appointments
+- Meal prep saves time and improves nutrition
+- Sleep schedule regulates your body clock
+- "Me time" reduces stress
+
+🎯 **Health Timing Tips:**
+- Exercise in morning for energy boost
+- Avoid caffeine after 2 PM
+- Screen-free hour before bed
+- Consistent meal times help metabolism
+
+⏰ **Remember:** Your health is worth making time for!
+
+What health goals would you like to schedule time for?`;
         }
         
         return this.getGreeting();
