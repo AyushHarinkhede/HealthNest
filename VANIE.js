@@ -461,30 +461,30 @@ You can also say things like "go to appointments", "show my reports", "change to
         }
         
         if (msgLower.includes('weakness') || msgLower.includes('numbness') || msgLower.includes('tingling')) {
-            return `⚡ **Neurological Symptoms**
+            return `⚡  Neurological Symptoms 
 
-**Weakness & Fatigue:**
+ Weakness & Fatigue: 
 - Ensure adequate iron and B12 intake
 - Stay well hydrated
 - Get regular, moderate exercise
 - Prioritize quality sleep
 - Manage stress levels
 
-**Numbness & Tingling:**
+ Numbness & Tingling: 
 - Often caused by pressure on nerves
 - Change positions frequently
 - Ensure good ergonomics
 - Check vitamin B12 levels
 - Consider circulation issues
 
-**Common Causes:**
+ Common Causes: 
 - Pinched nerves
 - Vitamin deficiencies
 - Poor circulation
 - Diabetes complications
 - Anxiety/panic attacks
 
-**See Doctor If:**
+ See Doctor If: 
 - Sudden onset
 - One-sided symptoms
 - Accompanied by confusion
@@ -495,30 +495,30 @@ You can also say things like "go to appointments", "show my reports", "change to
         }
         
         if (msgLower.includes('swelling') || msgLower.includes('rash') || msgLower.includes('itching')) {
-            return `🔴 **Skin & Swelling Issues**
+            return `🔴  Skin & Swelling Issues 
 
-**Swelling (Edema) Relief:**
+ Swelling (Edema) Relief: 
 - Elevate affected area
 - Reduce sodium intake
 - Stay hydrated
 - Gentle movement/exercise
 - Compression stockings if appropriate
 
-**Rash Care:**
+ Rash Care: 
 - Keep area clean and dry
 - Avoid scratching
 - Use cool compresses
 - Identify potential triggers
 - Over-the-counter hydrocortisone cream
 
-**Itching Relief:**
+ Itching Relief: 
 - Cold compresses
 - Oatmeal baths
 - Moisturize regularly
 - Antihistamines (if appropriate)
 - Identify and avoid triggers
 
-**When to Seek Immediate Care:**
+ When to Seek Immediate Care: 
 - Swelling with breathing difficulty
 - Rash spreading rapidly
 - Signs of infection (fever, pus)
@@ -529,30 +529,30 @@ You can also say things like "go to appointments", "show my reports", "change to
         }
         
         if (msgLower.includes('infection') || msgLower.includes('wound')) {
-            return `🦠 **Infection & Wound Care**
+            return `🦠  Infection & Wound Care 
 
-**Wound Care Steps:**
+ Wound Care Steps: 
 1. Clean with mild soap and water
 2. Apply antibiotic ointment
 3. Cover with clean bandage
 4. Change dressing daily
 5. Monitor for infection signs
 
-**Infection Signs:**
+ Infection Signs: 
 - Redness, warmth, swelling
 - Pus or drainage
 - Fever
 - Increased pain
 - Red streaks from wound
 
-**When to Seek Care:**
+ When to Seek Care: 
 - Deep or large wounds
 - Animal bites
 - Wounds not healing
 - Signs of infection
 - Tetanus-prone injuries
 
-**Prevention:**
+ Prevention: 
 - Keep wounds clean and covered
 - Wash hands frequently
 - Update tetanus shots
@@ -570,102 +570,102 @@ You can also say things like "go to appointments", "show my reports", "change to
         const msgLower = msg.toLowerCase();
         
         if (msgLower.includes('diet') || msgLower.includes('nutrition') || msgLower.includes('eat')) {
-            return `🥗 **Healthy Eating Tips**
+            return `🥗  Healthy Eating Tips 
 
-**Balanced Plate Formula:**
+ Balanced Plate Formula: 
 - ½ plate: Vegetables & fruits
 - ¼ plate: Lean proteins (chicken, fish, beans)
 - ¼ plate: Whole grains (brown rice, quinoa)
 
-**Daily Goals:**
+ Daily Goals: 
 - 8+ glasses of water
 - Limit processed foods
 - Choose healthy snacks (nuts, fruits, yogurt)
 
-**Remember:** Small, consistent changes work better than drastic diets!`;
+ Remember:  Small, consistent changes work better than drastic diets!`;
         }
         
         if (msgLower.includes('yoga') || msgLower.includes('meditation')) {
-            return `🧘 **Yoga & Meditation Benefits**
+            return `🧘  Yoga & Meditation Benefits 
 
-**Yoga Benefits:**
+ Yoga Benefits: 
 - Improves flexibility and strength
 - Reduces stress and anxiety
 - Enhances balance and posture
 - Boosts respiratory function
 - Promotes mind-body connection
 
-**Beginner Yoga Poses:**
+ Beginner Yoga Poses: 
 - Mountain Pose (Tadasana)
 - Downward Dog (Adho Mukha Svanasana)
 - Child's Pose (Balasana)
 - Cat-Cow Stretch (Marjaryasana-Bitilasana)
 
-**Meditation Benefits:**
+ Meditation Benefits: 
 - Lowers blood pressure
 - Improves focus and concentration
 - Reduces anxiety and depression
 - Enhances self-awareness
 - Boosts immune system
 
-**Simple Meditation:**
+ Simple Meditation: 
 1. Find a quiet, comfortable space
 2. Focus on your breath (4 counts in, 4 counts out)
 3. When mind wanders, gently return to breath
 4. Start with 5 minutes, gradually increase
 
-**Apps & Resources:**
+ Apps & Resources: 
 - YouTube: Yoga with Adriene, Boho Beautiful
 - Apps: Headspace, Calm, Insight Timer
 - Local yoga studios and community centers
 
-**Remember:** Consistency is more important than intensity!`;
+ Remember:  Consistency is more important than intensity!`;
         }
         
         if (msgLower.includes('running') || msgLower.includes('walking') || msgLower.includes('swimming') || msgLower.includes('cycling')) {
-            return `🏃‍♂️ **Cardiovascular Exercise**
+            return `🏃‍♂️  Cardiovascular Exercise 
 
-**Running Benefits:**
+ Running Benefits: 
 - Improves heart health
 - Burns calories effectively
 - Strengthens bones and joints
 - Boosts mental health
 - Enhances endurance
 
-**Beginner Running Tips:**
+ Beginner Running Tips: 
 - Start with walk-run intervals
 - Invest in good running shoes
 - Warm up before, cool down after
 - Stay hydrated
 - Listen to your body
 
-**Walking Benefits:**
+ Walking Benefits: 
 - Low-impact, accessible to all
 - Improves circulation
 - Boosts mood and creativity
 - Helps maintain healthy weight
 - Reduces stress
 
-**Swimming Benefits:**
+ Swimming Benefits: 
 - Full-body workout
 - Easy on joints
 - Improves lung capacity
 - Builds endurance
 - Burns significant calories
 
-**Cycling Benefits:**
+ Cycling Benefits: 
 - Low-impact cardio
 - Strengthens lower body
 - Improves balance
 - Environmentally friendly transport
 - Great for mental health
 
-**Weekly Cardio Goals:**
+ Weekly Cardio Goals: 
 - 150 minutes moderate intensity
 - OR 75 minutes vigorous intensity
 - Mix different activities for variety
 
-**Safety Tips:**
+ Safety Tips: 
 - Wear appropriate gear
 - Stay visible (reflective clothing)
 - Check weather conditions
@@ -676,16 +676,16 @@ What's your favorite cardio activity?`;
         }
         
         if (msgLower.includes('gym') || msgLower.includes('strength training')) {
-            return `🏋️ **Strength Training Guide**
+            return `🏋️  Strength Training Guide 
 
-**Benefits of Strength Training:**
+ Benefits of Strength Training: 
 - Builds muscle mass
 - Increases metabolism
 - Improves bone density
 - Enhances functional strength
 - Boosts confidence
 
-**Beginner Strength Exercises:**
+ Beginner Strength Exercises: 
 - Bodyweight squats
 - Push-ups (modified if needed)
 - Planks
@@ -693,27 +693,27 @@ What's your favorite cardio activity?`;
 - Dumbbell rows
 - Glute bridges
 
-**Gym Etiquette:**
+ Gym Etiquette: 
 - Wipe down equipment after use
 - Re-rack your weights
 - Don't hog machines during peak hours
 - Ask for help if unsure
 - Respect others' space and routine
 
-**Strength Training Principles:**
+ Strength Training Principles: 
 - Progressive overload
 - Proper form over heavy weight
 - Rest between sets (30-90 seconds)
 - Allow muscle recovery (48 hours)
 - Consistency is key
 
-**Weekly Schedule:**
+ Weekly Schedule: 
 - 2-3 strength sessions per week
 - Focus on different muscle groups
 - Include cardio on other days
 - Rest days are crucial
 
-**Safety Tips:**
+ Safety Tips: 
 - Warm up before lifting
 - Use spotters for heavy lifts
 - Stay hydrated
@@ -724,40 +724,40 @@ Ready to build some strength?`;
         }
         
         if (msgLower.includes('protein') || msgLower.includes('vitamins') || msgLower.includes('supplements')) {
-            return `💊 **Nutrition Supplements**
+            return `💊  Nutrition Supplements 
 
-**Protein Needs:**
+ Protein Needs: 
 - Adults: 0.8g per kg body weight
 - Athletes: 1.2-2.0g per kg body weight
 - Sources: Meat, fish, eggs, dairy, beans, nuts
 
-**Essential Vitamins:**
-- **Vitamin D:** Bone health, immune function
-- **B Vitamins:** Energy metabolism, nerve function
-- **Vitamin C:** Immune system, skin health
-- **Vitamin E:** Antioxidant, skin health
+ Essential Vitamins: 
+-  Vitamin D:  Bone health, immune function
+-  B Vitamins:  Energy metabolism, nerve function
+-  Vitamin C:  Immune system, skin health
+-  Vitamin E:  Antioxidant, skin health
 
-**Key Minerals:**
-- **Iron:** Oxygen transport, energy
-- **Calcium:** Bone health, muscle function
-- **Magnesium:** Muscle relaxation, sleep
-- **Zinc:** Immune function, wound healing
+ Key Minerals: 
+-  Iron:  Oxygen transport, energy
+-  Calcium:  Bone health, muscle function
+-  Magnesium:  Muscle relaxation, sleep
+-  Zinc:  Immune function, wound healing
 
-**Supplement Guidelines:**
+ Supplement Guidelines: 
 - Food first approach
 - Get blood work to identify deficiencies
 - Choose quality brands
 - Follow recommended dosages
 - Consider timing with meals
 
-**Popular Supplements:**
+ Popular Supplements: 
 - Omega-3 fatty acids
 - Probiotics
 - Vitamin D (especially in winter)
 - Magnesium for sleep
 - B-complex for energy
 
-**⚠️ Important:**
+ ⚠️ Important: 
 - Consult healthcare provider before starting
 - Supplements aren't regulated like medications
 - More isn't always better
@@ -767,15 +767,15 @@ What specific nutritional questions do you have?`;
         }
         
         if (msgLower.includes('water') || msgLower.includes('hydration')) {
-            return `💧 **Hydration Excellence**
+            return `💧  Hydration Excellence 
 
-**Daily Water Goals:**
+ Daily Water Goals: 
 - Men: 3.7 liters (15.5 cups)
 - Women: 2.7 liters (11.5 cups)
 - More if exercising or in hot weather
 - Individual needs vary
 
-**Signs of Dehydration:**
+ Signs of Dehydration: 
 - Dark yellow urine
 - Dry mouth and lips
 - Headache
@@ -783,52 +783,52 @@ What specific nutritional questions do you have?`;
 - Dizziness
 - Reduced concentration
 
-**Hydration Tips:**
+ Hydration Tips: 
 - Start day with glass of water
 - Carry reusable water bottle
 - Set reminders throughout day
 - Flavor water with lemon/cucumber
 - Eat water-rich foods
 
-**Hydrating Foods:**
+ Hydrating Foods: 
 - Watermelon (92% water)
 - Cucumber (96% water)
 - Strawberries (91% water)
 - Oranges (87% water)
 - Yogurt (85% water)
 
-**Exercise Hydration:**
+ Exercise Hydration: 
 - Drink 17-20 oz 2 hours before
 - 7-10 oz every 10-20 minutes during
 - 16-24 oz for every pound lost after
 
-**When to Increase Intake:**
+ When to Increase Intake: 
 - Hot weather
 - High altitude
 - Illness (fever, vomiting)
 - Intense exercise
 - Pregnancy/breastfeeding
 
-**Fun Fact:** Proper hydration can boost metabolism by up to 30%!
+ Fun Fact:  Proper hydration can boost metabolism by up to 30%!
 
 Stay hydrated, stay healthy!`;
         }
         
         if (msgLower.includes('calories') || msgLower.includes('metabolism')) {
-            return `🔥 **Metabolism & Calories**
+            return `🔥  Metabolism & Calories 
 
-**What is Metabolism?**
+ What is Metabolism? 
 - Chemical processes that maintain life
 - Converts food to energy
 - Basal Metabolic Rate (BMR) = calories at rest
 - Varies based on age, gender, muscle mass
 
-**Daily Calorie Needs:**
+ Daily Calorie Needs: 
 - Women: 1,600-2,400 calories
 - Men: 2,000-3,000 calories
 - Depends on age, activity level, goals
 
-**Boost Metabolism Naturally:**
+ Boost Metabolism Naturally: 
 - Build muscle mass
 - Eat protein with each meal
 - Stay hydrated
@@ -837,24 +837,24 @@ Stay hydrated, stay healthy!`;
 - Include spicy foods
 - Drink green tea
 
-**Calorie Quality Matters:**
+ Calorie Quality Matters: 
 - 1,000 calories of junk vs. 1,000 calories of nutrients
 - Focus on nutrient-dense foods
 - Balance macros: protein, carbs, fats
 - Fiber increases satiety
 
-**Healthy Weight Loss:**
+ Healthy Weight Loss: 
 - 500-750 calorie deficit daily
 - 1-2 pounds per week maximum
 - Combine diet and exercise
 - Preserve muscle mass
 
-**Metabolism Myths:**
+ Metabolism Myths: 
 - Eating late at night doesn't slow metabolism
 - Small meals throughout day don't significantly boost it
 - Certain foods have minimal effect on metabolism
 
-**Track Progress:**
+ Track Progress: 
 - Focus on how clothes fit
 - Energy levels and sleep quality
 - Strength gains
@@ -864,14 +864,14 @@ What's your metabolism question?`;
         }
         
         if (msgLower.includes('cholesterol') || msgLower.includes('sugar') || msgLower.includes('diabetes prevention')) {
-            return `❤️ **Heart Health & Blood Sugar**
+            return `❤️  Heart Health & Blood Sugar 
 
-**Cholesterol Management:**
-- **LDL (Bad):** Below 100 mg/dL
-- **HDL (Good):** Above 60 mg/dL
-- **Triglycerides:** Below 150 mg/dL
+ Cholesterol Management: 
+-  LDL (Bad):  Below 100 mg/dL
+-  HDL (Good):  Above 60 mg/dL
+-  Triglycerides:  Below 150 mg/dL
 
-**Heart-Healthy Foods:**
+ Heart-Healthy Foods: 
 - Oats, barley, whole grains
 - Fatty fish (salmon, mackerel)
 - Nuts and seeds
@@ -879,20 +879,20 @@ What's your metabolism question?`;
 - Avocados
 - Beans and lentils
 
-**Foods to Limit:**
+ Foods to Limit: 
 - Saturated fats (red meat, butter)
 - Trans fats (processed foods)
 - Excessive sugar
 - Refined carbohydrates
 
-**Blood Sugar Management:**
+ Blood Sugar Management: 
 - Eat regular, balanced meals
 - Choose complex carbohydrates
 - Include protein and healthy fats
 - Monitor portion sizes
 - Exercise regularly
 
-**Diabetes Prevention:**
+ Diabetes Prevention: 
 - Maintain healthy weight
 - 150+ minutes weekly exercise
 - Balanced diet rich in fiber
@@ -900,13 +900,13 @@ What's your metabolism question?`;
 - Manage stress
 - Get adequate sleep
 
-**Warning Signs:**
+ Warning Signs: 
 - Increased thirst/urination
 - Fatigue
 - Blurred vision
 - Slow-healing sores
 
-**Regular Check-ups:**
+ Regular Check-ups: 
 - Annual physical exams
 - Blood pressure monitoring
 - Cholesterol screening
@@ -916,23 +916,23 @@ Prevention is always better than treatment!`;
         }
         
         if (msgLower.includes('heart health') || msgLower.includes('immunity') || msgLower.includes('detox')) {
-            return `🛡️ **Immunity & Heart Health**
+            return `🛡️  Immunity & Heart Health 
 
-**Heart Health Essentials:**
+ Heart Health Essentials: 
 - 150 minutes moderate exercise weekly
 - Blood pressure below 120/80
 - Healthy cholesterol levels
 - Stress management
 - Adequate sleep (7-9 hours)
 
-**Heart-Healthy Lifestyle:**
+ Heart-Healthy Lifestyle: 
 - Mediterranean diet pattern
 - Limit sodium (under 2,300mg daily)
 - No smoking
 - Moderate alcohol (if any)
 - Maintain healthy weight
 
-**Immunity Boosters:**
+ Immunity Boosters: 
 - Vitamin C-rich foods (citrus, berries)
 - Zinc (nuts, seeds, legumes)
 - Probiotics (yogurt, kefir)
@@ -940,7 +940,7 @@ Prevention is always better than treatment!`;
 - Green tea
 - Adequate sleep
 
-**Stress Reduction:**
+ Stress Reduction: 
 - Deep breathing exercises
 - Regular physical activity
 - Mindfulness/meditation
@@ -948,7 +948,7 @@ Prevention is always better than treatment!`;
 - Time in nature
 - Hobbies and relaxation
 
-**Natural "Detox":**
+ Natural "Detox": 
 - Your body detoxifies naturally
 - Support with hydration
 - Fiber-rich foods
@@ -956,14 +956,14 @@ Prevention is always better than treatment!`;
 - Regular exercise
 - Adequate sleep
 
-**Warning Signs:**
+ Warning Signs: 
 - Chest pain/pressure
 - Shortness of breath
 - Persistent fatigue
 - Frequent illnesses
 - Slow wound healing
 
-**Prevention Tips:**
+ Prevention Tips: 
 - Annual health check-ups
 - Know your family history
 - Maintain healthy lifestyle
@@ -974,30 +974,30 @@ Your health is your wealth - invest in it daily!`;
         }
         
         if (msgLower.includes('organic') || msgLower.includes('vegetarian') || msgLower.includes('vegan')) {
-            return `🌱 **Plant-Based & Organic Eating**
+            return `🌱  Plant-Based & Organic Eating 
 
-**Organic Benefits:**
+ Organic Benefits: 
 - Fewer pesticides and chemicals
 - Often higher in nutrients
 - Better for environment
 - No GMOs
 - Supports sustainable farming
 
-**When to Choose Organic:**
+ When to Choose Organic: 
 - Dirty Dozen (strawberries, spinach, etc.)
 - Thin-skinned fruits
 - Animal products
 - Baby foods
 - If budget allows
 
-**Vegetarian Diet Benefits:**
+ Vegetarian Diet Benefits: 
 - Lower heart disease risk
 - Reduced cancer risk
 - Better weight management
 - Environmental benefits
 - Often more affordable
 
-**Vegetarian Protein Sources:**
+ Vegetarian Protein Sources: 
 - Lentils (18g protein per cup)
 - Chickpeas (15g per cup)
 - Quinoa (8g per cup)
@@ -1005,21 +1005,21 @@ Your health is your wealth - invest in it daily!`;
 - Greek yogurt (20g per cup)
 - Eggs (6g per large egg)
 
-**Vegan Considerations:**
+ Vegan Considerations: 
 - B12 supplementation essential
 - Iron from plant sources
 - Calcium from fortified foods
 - Omega-3 from algae sources
 - Vitamin D from sunlight/fortified foods
 
-**Balanced Plant-Based Plate:**
+ Balanced Plant-Based Plate: 
 - Whole grains (quinoa, brown rice)
 - Legumes (beans, lentils)
 - Nuts and seeds
 - Variety of vegetables
 - Healthy fats (avocado, olive oil)
 
-**Transition Tips:**
+ Transition Tips: 
 - Start with Meatless Mondays
 - Try plant-based alternatives
 - Focus on what you can eat
@@ -1030,16 +1030,16 @@ What aspect interests you most?`;
         }
         
         if (msgLower.includes('weight loss') || msgLower.includes('weight gain') || msgLower.includes('muscle building')) {
-            return `⚖️ **Body Composition Goals**
+            return `⚖️  Body Composition Goals 
 
-**Healthy Weight Loss:**
+ Healthy Weight Loss: 
 - 1-2 pounds per week maximum
 - 500-750 calorie daily deficit
 - Preserve muscle mass
 - Focus on sustainable changes
 - Include strength training
 
-**Weight Loss Strategy:**
+ Weight Loss Strategy: 
 - Balanced, nutrient-dense diet
 - Regular cardiovascular exercise
 - Strength training 2-3x weekly
@@ -1047,7 +1047,7 @@ What aspect interests you most?`;
 - Proper hydration and sleep
 - Stress management
 
-**Healthy Weight Gain:**
+ Healthy Weight Gain: 
 - 300-500 calorie surplus daily
 - Focus on nutrient-dense foods
 - Strength training to build muscle
@@ -1055,14 +1055,14 @@ What aspect interests you most?`;
 - Consistent eating schedule
 - Progressive resistance training
 
-**Weight Gain Foods:**
+ Weight Gain Foods: 
 - Nuts and nut butters
 - Avocados and healthy oils
 - Whole grains and legumes
 - Lean proteins
 - Smoothies with added nutrients
 
-**Muscle Building:**
+ Muscle Building: 
 - Resistance training 3-4x weekly
 - Progressive overload
 - Adequate protein intake
@@ -1070,21 +1070,21 @@ What aspect interests you most?`;
 - Sufficient rest and recovery
 - Consistency over intensity
 
-**Body Composition Tips:**
+ Body Composition Tips: 
 - Focus on how clothes fit
 - Track measurements
 - Progress photos
 - Strength gains
 - Energy levels
 
-**Common Mistakes:**
+ Common Mistakes: 
 - Extreme calorie restriction
 - Skipping meals
 - Over-exercising
 - Ignoring rest days
 - Comparing to others
 
-**Remember:**
+ Remember: 
 - Health isn't just weight
 - Muscle weighs more than fat
 - Consistency beats intensity
@@ -1095,22 +1095,22 @@ What are your specific goals?`;
         }
         
         if (msgLower.includes('flexibility') || msgLower.includes('endurance')) {
-            return `🤸 **Flexibility & Endurance Training**
+            return `🤸  Flexibility & Endurance Training 
 
-**Flexibility Benefits:**
+ Flexibility Benefits: 
 - Reduced injury risk
 - Better range of motion
 - Improved posture
 - Enhanced athletic performance
 - Stress relief
 
-**Stretching Types:**
-- **Static:** Hold 15-30 seconds
-- **Dynamic:** Movement-based
-- **PNF:** Contract-relax technique
-- **Ballistic:** Bouncing (advanced)
+ Stretching Types: 
+-  Static:  Hold 15-30 seconds
+-  Dynamic:  Movement-based
+-  PNF:  Contract-relax technique
+-  Ballistic:  Bouncing (advanced)
 
-**Daily Stretches:**
+ Daily Stretches: 
 - Neck rolls and shoulder shrugs
 - Cat-cow stretch
 - Hamstring stretch
@@ -1118,14 +1118,14 @@ What are your specific goals?`;
 - Chest opener
 - Child's pose
 
-**Endurance Building:**
+ Endurance Building: 
 - Gradual progression
 - Consistent training
 - Proper fueling
 - Adequate recovery
 - Cross-training
 
-**Endurance Activities:**
+ Endurance Activities: 
 - Running/jogging
 - Cycling
 - Swimming
@@ -1133,27 +1133,27 @@ What are your specific goals?`;
 - Brisk walking
 - Dancing
 
-**Endurance Training Principles:**
+ Endurance Training Principles: 
 - Start slow, build gradually
 - Include interval training
 - Long slow distance sessions
 - Proper breathing techniques
 - Mental toughness development
 
-**Flexibility Schedule:**
+ Flexibility Schedule: 
 - Daily light stretching
 - Post-workout cool-down
 - Dedicated flexibility sessions 2-3x weekly
 - Yoga or Pilates classes
 
-**Endurance Schedule:**
+ Endurance Schedule: 
 - 3-5 cardio sessions weekly
 - Mix intensity levels
 - Include rest days
 - Cross-train for balance
 - Track progress
 
-**Safety Tips:**
+ Safety Tips: 
 - Warm up before stretching
 - Never bounce cold muscles
 - Listen to your body
@@ -1164,55 +1164,55 @@ Ready to improve your flexibility and endurance?`;
         }
         
         if (msgLower.includes('exercise') || msgLower.includes('workout') || msgLower.includes('physical activity')) {
-            return `💪 **Exercise Guidelines**
+            return `💪  Exercise Guidelines 
 
-**Weekly Target:**
+ Weekly Target: 
 - 150 minutes moderate activity (brisk walking)
 - OR 75 minutes vigorous activity (running)
 - PLUS 2+ strength training sessions
 
-**Easy Ways to Start:**
+ Easy Ways to Start: 
 - 10-minute walks after meals
 - Take stairs instead of elevator
 - Dance to your favorite music
 - Stretch during TV commercials
 
-**Key:** Consistency over intensity!`;
+ Key:  Consistency over intensity!`;
         }
         
         if (msgLower.includes('sleep') || msgLower.includes('insomnia') || msgLower.includes('tired')) {
-            return `😴 **Better Sleep Tips**
+            return `😴  Better Sleep Tips 
 
-**Sleep Hygiene:**
+ Sleep Hygiene: 
 - 7-9 hours nightly for adults
 - Consistent sleep/wake times
 - Dark, cool, quiet bedroom
 - No screens 1 hour before bed
 
-**Bedtime Routine Ideas:**
+ Bedtime Routine Ideas: 
 - Warm bath or shower
 - Reading (not screens)
 - Light stretching or meditation
 - Herbal tea (caffeine-free)
 
-**Trouble Sleeping?** Try the 4-7-8 breathing technique!`;
+ Trouble Sleeping?  Try the 4-7-8 breathing technique!`;
         }
         
         if (msgLower.includes('stress') || msgLower.includes('anxiety') || msgLower.includes('mental health')) {
-            return `🧘 **Stress Management**
+            return `🧘  Stress Management 
 
-**Quick Relief Techniques:**
+ Quick Relief Techniques: 
 - Deep breathing: 4s in, 6s out
 - 5-4-3-2-1 grounding exercise
 - Short walk or stretch
 
-**Daily Practices:**
+ Daily Practices: 
 - Regular exercise
 - Adequate sleep
 - Limit caffeine and alcohol
 - Connect with friends/family
 
-**When to Seek Help:**
+ When to Seek Help: 
 - Stress affecting daily life
 - Persistent anxiety or depression
 - Thoughts of self-harm
@@ -1220,14 +1220,14 @@ Ready to improve your flexibility and endurance?`;
 *Professional help is a sign of strength!*`;
         }
         
-        return `🌟 **Healthy Lifestyle**
+        return `🌟  Healthy Lifestyle 
 
 Focus on these pillars:
-1. **Nutrition** - Balanced, whole foods
-2. **Movement** - Regular physical activity
-3. **Sleep** - Quality rest
-4. **Stress Management** - Mental wellness
-5. **Social Connection** - Relationships matter
+1.  Nutrition  - Balanced, whole foods
+2.  Movement  - Regular physical activity
+3.  Sleep  - Quality rest
+4.  Stress Management  - Mental wellness
+5.  Social Connection  - Relationships matter
 
 What specific area would you like to focus on?`;
     }
@@ -1239,7 +1239,7 @@ What specific area would you like to focus on?`;
         if (msgLower.includes('age')) {
             const ageElement = document.getElementById('profileAgeValue');
             const age = ageElement ? ageElement.textContent : 'not set';
-            return `📅 **Your Age**: ${age}
+            return `📅  Your Age : ${age}
 
 Keep your profile updated for accurate health recommendations!`;
         }
@@ -1247,12 +1247,12 @@ Keep your profile updated for accurate health recommendations!`;
         if (msgLower.includes('blood group')) {
             const bloodElement = document.getElementById('profileBloodValue');
             const blood = bloodElement ? bloodElement.textContent : 'not set';
-            return `🩸 **Blood Group**: ${blood}
+            return `🩸  Blood Group : ${blood}
 
 Important information for medical emergencies and donations!`;
         }
         
-        return `👤 **Profile Information**
+        return `👤  Profile Information 
 
 Your personal health data helps me provide better guidance.
 
@@ -1585,18 +1585,18 @@ Type any health question to get started!`;
         
         if (msgLower.includes('love')) {
             const loveResponses = [
-                `💖 **Love and Health**
+                `💖  Love and Health 
 
 Love is more than just an emotion - it's a powerful force for health and wellbeing:
 
-**Health Benefits of Love:**
+ Health Benefits of Love: 
 - Reduces stress and anxiety
 - Lowers blood pressure
 - Boosts immune system
 - Increases longevity
 - Improves mental health
 
-**Healthy Relationships:**
+ Healthy Relationships: 
 - Communication and trust
 - Mutual respect and support
 - Shared values and goals
@@ -1604,17 +1604,17 @@ Love is more than just an emotion - it's a powerful force for health and wellbei
 
 Remember: Self-love is the foundation for loving others. Take care of your own wellbeing first!`,
                 
-                `🧠 **The Science of Love**
+                `🧠  The Science of Love 
 
 Love triggers the release of powerful chemicals in your brain:
 
-**Love Chemistry:**
-- **Oxytocin** - The "bonding hormone"
-- **Dopamine** - Pleasure and reward
-- **Serotonin** - Mood stabilization
-- **Endorphins** - Natural pain relief
+ Love Chemistry: 
+-  Oxytocin  - The "bonding hormone"
+-  Dopamine  - Pleasure and reward
+-  Serotonin  - Mood stabilization
+-  Endorphins  - Natural pain relief
 
-**Health Impact:**
+ Health Impact: 
 - Reduced inflammation
 - Better stress management
 - Improved cardiovascular health
@@ -1622,18 +1622,18 @@ Love triggers the release of powerful chemicals in your brain:
 
 Love isn't just good for the heart - it's good for your entire body!`,
                 
-                `🌟 **Love as Wellness**
+                `🌟  Love as Wellness 
 
 Love in all its forms contributes to holistic health:
 
-**Types of Healthy Love:**
+ Types of Healthy Love: 
 - Romantic love
 - Family bonds
 - Friendships
 - Self-love
 - Community connection
 
-**Wellness Benefits:**
+ Wellness Benefits: 
 - Stronger immune system
 - Faster recovery from illness
 - Better mental resilience
@@ -1646,18 +1646,18 @@ Cultivating love in your life is one of the best investments in your health!`
         }
         
         if (msgLower.includes('life') || msgLower.includes('meaning') || msgLower.includes('purpose')) {
-            return `🌟 **Life Purpose and Health**
+            return `🌟  Life Purpose and Health 
 
 Finding meaning in life is essential for overall wellbeing:
 
-**Health Benefits of Purpose:**
+ Health Benefits of Purpose: 
 - Reduced risk of chronic disease
 - Better stress management
 - Improved mental health
 - Increased longevity
 - Better sleep quality
 
-**Ways to Find Purpose:**
+ Ways to Find Purpose: 
 - Help others through volunteering
 - Pursue meaningful work
 - Build strong relationships
@@ -1670,18 +1670,18 @@ Your health journey itself can be a source of meaning and purpose!`;
         }
         
         if (msgLower.includes('happiness')) {
-            return `😊 **The Science of Happiness**
+            return `😊  The Science of Happiness 
 
 Happiness isn't just a feeling - it's a state of wellbeing that affects your health:
 
-**Health Benefits of Happiness:**
+ Health Benefits of Happiness: 
 - Stronger immune system
 - Lower stress levels
 - Better cardiovascular health
 - Longer lifespan
 - Faster recovery from illness
 
-**Building Happiness:**
+ Building Happiness: 
 - Practice gratitude daily
 - Build meaningful connections
 - Engage in physical activity
@@ -1689,16 +1689,16 @@ Happiness isn't just a feeling - it's a state of wellbeing that affects your hea
 - Help others
 - Pursue hobbies and interests
 
-**Remember:** Happiness is a skill that can be cultivated. Small, consistent practices lead to lasting wellbeing!
+ Remember:  Happiness is a skill that can be cultivated. Small, consistent practices lead to lasting wellbeing!
 
 What brings you joy in your daily life?`;
         }
         
-        return `🤔 **Deep Questions**
+        return `🤔  Deep Questions 
 
 That's a profound question! While I'm focused on health and wellness, these deeper aspects of life are definitely connected to our overall wellbeing.
 
-**Health and Life Philosophy:**
+ Health and Life Philosophy: 
 - Physical health supports mental clarity
 - Mental wellbeing affects physical health
 - Purpose and meaning boost resilience
@@ -1717,17 +1717,17 @@ Is there a specific aspect of this topic you'd like to explore from a health per
         
         if (bmiNum < 18.5) {
             category = "Underweight ⚠️";
-            advice = "\n\n**Recommendation:** Consider consulting a nutritionist for healthy weight gain strategies.";
+            advice = "\n\n Recommendation:  Consider consulting a nutritionist for healthy weight gain strategies.";
         } else if (bmiNum >= 25 && bmiNum < 30) {
             category = "Overweight ⚠️";
-            advice = "\n\n**Recommendation:** Focus on balanced diet and regular exercise. Consider consulting a healthcare provider.";
+            advice = "\n\n Recommendation:  Focus on balanced diet and regular exercise. Consider consulting a healthcare provider.";
         } else if (bmiNum >= 30) {
             category = "Obesity ⚠️";
-            advice = "\n\n**Recommendation:** Please consult a healthcare provider for a comprehensive weight management plan.";
+            advice = "\n\n Recommendation:  Please consult a healthcare provider for a comprehensive weight management plan.";
         }
         
-        return `📏 **Your BMI**: ${bmi}
-**Category**: ${category}
+        return `📏  Your BMI : ${bmi}
+ Category : ${category}
 
 BMI Categories:
 - Below 18.5: Underweight
@@ -1745,14 +1745,14 @@ BMI Categories:
         
         if (systolic >= 140) {
             status = "High ⚠️";
-            advice = "\n\n**Recommendation:** Please consult your healthcare provider soon.";
+            advice = "\n\n Recommendation:  Please consult your healthcare provider soon.";
         } else if (systolic >= 130) {
             status = "Elevated ⚠️";
-            advice = "\n\n**Recommendation:** Monitor closely and consider lifestyle changes.";
+            advice = "\n\n Recommendation:  Monitor closely and consider lifestyle changes.";
         }
         
-        return `❤️ **Blood Pressure**: ${bp} mmHg
-**Status**: ${status}
+        return `❤️  Blood Pressure : ${bp} mmHg
+ Status : ${status}
 
 Normal range: Less than 120/80 mmHg${advice}
 
@@ -1766,14 +1766,14 @@ Normal range: Less than 120/80 mmHg${advice}
         
         if (hrNum > 100) {
             status = "High ⚠️";
-            advice = "\n\n**Note:** Resting heart rate above 100 may indicate stress, illness, or fitness needs.";
+            advice = "\n\n Note:  Resting heart rate above 100 may indicate stress, illness, or fitness needs.";
         } else if (hrNum < 60) {
             status = "Low ⚠️";
-            advice = "\n\n**Note:** Low resting heart rate is common in athletes but may need medical evaluation otherwise.";
+            advice = "\n\n Note:  Low resting heart rate is common in athletes but may need medical evaluation otherwise.";
         }
         
-        return `💓 **Heart Rate**: ${hr} BPM
-**Status**: ${status}
+        return `💓  Heart Rate : ${hr} BPM
+ Status : ${status}
 
 Normal range: 60-100 BPM for adults${advice}
 
@@ -1791,12 +1791,12 @@ Normal range: 60-100 BPM for adults${advice}
         
         return `${greeting}! I'm VANIE, your health assistant. How can I help you today?
 
-💡 **Tip:** Type "help" to see all available commands`;
+💡  Tip:  Type "help" to see all available commands`;
     }
     
     // Fallback response
     getFallbackResponse() {
-        return `🤔 **I didn't understand that**
+        return `🤔  I didn't understand that 
 
 I'm here to help with health-related questions. Try:
 
