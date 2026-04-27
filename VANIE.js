@@ -26,7 +26,16 @@ class VANIEAlgorithm {
             // Level 2: App Navigation
             navigation: {
                 priority: 2,
-                keywords: ['dashboard', 'profile', 'dark mode', 'light mode', 'theme', 'settings'],
+                keywords: [
+                    'dashboard', 'profile', 'dark mode', 'light mode', 'theme', 'settings',
+                    'open', 'show', 'go to', 'navigate', 'switch', 'change', 'scroll',
+                    'appointment', 'doctor', 'medicine', 'report', 'history', 'records',
+                    'metrics', 'stats', 'analytics', 'overview', 'summary', 'health data',
+                    'medications', 'prescriptions', 'tests', 'lab results', 'vitals',
+                    'appointments', 'booking', 'schedule', 'calendar', 'reminder',
+                    'emergency', 'urgent', 'help', 'support', 'contact', 'feedback',
+                    'logout', 'exit', 'quit', 'close', 'home', 'main', 'back'
+                ],
                 handler: this.handleNavigation.bind(this)
             },
             
@@ -92,7 +101,11 @@ class VANIEAlgorithm {
                     'stress', 'anxiety', 'depression', 'lonely', 'relationship', 'love',
                     'money', 'job', 'career', 'study', 'exam', 'test', 'project', 'deadline',
                     'birthday', 'festival', 'celebration', 'party', 'gift', 'surprise',
-                    'pet', 'dog', 'cat', 'animal', 'garden', 'plant', 'nature', 'environment'
+                    'pet', 'dog', 'cat', 'animal', 'garden', 'plant', 'nature', 'environment',
+                    // Navigation keywords for natural conversation
+                    'take me to', 'show me', 'i want to see', 'navigate to', 'go to', 'open',
+                    'switch to', 'change to', 'scroll to', 'find', 'search', 'look for',
+                    'where is', 'can you find', 'i need', 'get me to', 'move to', 'jump to'
                 ],
                 handler: this.handleConversation.bind(this)
             },
@@ -108,34 +121,34 @@ class VANIEAlgorithm {
         // Response templates
         this.templates = {
             emergency: {
-                medical: `🚨 **MEDICAL EMERGENCY** 🚨
+                medical: `MEDICAL EMERGENCY
 
 If this is a real emergency, call your local emergency number immediately:
-- 📞 **112** (General Emergency)
-- 📞 **102** (Ambulance)
+- 112 (General Emergency)
+- 102 (Ambulance)
 
-**Please seek immediate medical help. Don't wait.**
+Please seek immediate medical help. Don't wait.
 
 If you're having thoughts of self-harm, please call:
-- 📞 **KIRAN Mental Health Helpline: 1800-599-0019**
-- 📞 **Aasra: 9820466726**
+- KIRAN Mental Health Helpline: 1800-599-0019
+- Aasra: 9820466726
 
 You're not alone - help is available 24/7.`,
                 
-                mental: `🧠 **MENTAL HEALTH SUPPORT** 🧠
+                mental: `MENTAL HEALTH SUPPORT
 
 If you're in crisis, please reach out for help:
 
-**24/7 Helplines:**
-- 📞 **KIRAN Mental Health Helpline: 1800-599-0019**
-- 📞 **Aasra: 9820466726**
+24/7 Helplines:
+- KIRAN Mental Health Helpline: 1800-599-0019
+- Aasra: 9820466726
 
-**Remember:**
+Remember:
 - You're not alone in this
 - Help is available and effective
 - Taking that first step shows incredible strength
 
-**For immediate support:**
+For immediate support:
 - Call one of the numbers above
 - Talk to someone you trust
 - Go to the nearest emergency room if needed
@@ -193,53 +206,197 @@ Your life matters. There is hope, and there is help.`
     handleNavigation(msg, originalMsg) {
         const msgLower = msg.toLowerCase();
         
-        if (msgLower.includes('dashboard')) {
+        // Dashboard Navigation
+        if (msgLower.includes('dashboard') || msgLower.includes('metrics') || msgLower.includes('stats') || 
+            msgLower.includes('overview') || msgLower.includes('summary') || msgLower.includes('health data')) {
             document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' });
             closeModal?.('aiChatModal');
-            return `📊 **Opening Dashboard...**
-
-Your health metrics and overview are now visible!`;
+            return `Opening Dashboard... Your health metrics and overview are now visible!`;
         }
         
+        // Profile Navigation
         if (msgLower.includes('profile')) {
             const name = document.querySelector('[data-key="profileName"]')?.textContent?.trim() || 'your profile';
             closeModal?.('aiChatModal');
-            return `👤 **Opening Profile...**
-
-Welcome to ${name}! Here you can update your personal information.`;
+            return `Opening Profile... Welcome to ${name}! Here you can update your personal information.`;
         }
         
+        // Theme Controls
         if (msgLower.includes('dark mode') || (msgLower.includes('dark') && msgLower.includes('mode'))) {
             if (typeof changeTheme === 'function') {
                 changeTheme('dark');
-                return `🌙 **Dark Mode Activated**
-
-Easier on the eyes for evening use!`;
+                return `Dark Mode Activated - Easier on the eyes for evening use!`;
             }
-            return `🌙 **Dark Mode**
-
-Theme change feature is available in settings.`;
+            return `Dark Mode - Theme change feature is available in settings.`;
         }
         
         if (msgLower.includes('light mode') || (msgLower.includes('light') && msgLower.includes('mode'))) {
             if (typeof changeTheme === 'function') {
                 changeTheme('light');
-                return `☀️ **Light Mode Activated**
-
-Bright and clear for daytime use!`;
+                return `Light Mode Activated - Bright and clear for daytime use!`;
             }
-            return `☀️ **Light Mode**
-
-Theme change feature is available in settings.`;
+            return `Light Mode - Theme change feature is available in settings.`;
         }
         
-        return `🧭 **Navigation Help**
-
-Try these commands:
-- "Open dashboard" - View health metrics
-- "Show profile" - Personal information
+        // Appointment Navigation
+        if (msgLower.includes('appointment') || msgLower.includes('appointments') || msgLower.includes('booking') || 
+            msgLower.includes('schedule') || msgLower.includes('calendar')) {
+            document.getElementById('appointmentSection')?.scrollIntoView({ behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Opening Appointments... Here you can schedule and manage your doctor appointments.`;
+        }
+        
+        // Doctor/Medicine Navigation
+        if (msgLower.includes('doctor') || msgLower.includes('medicine') || msgLower.includes('medications') || 
+            msgLower.includes('prescriptions')) {
+            document.getElementById('doctorSection')?.scrollIntoView({ behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Opening Medical Section... Here you can manage your doctors and medications.`;
+        }
+        
+        // Reports/Records Navigation
+        if (msgLower.includes('report') || msgLower.includes('reports') || msgLower.includes('history') || 
+            msgLower.includes('records') || msgLower.includes('tests') || msgLower.includes('lab results') || 
+            msgLower.includes('vitals')) {
+            document.getElementById('reportsSection')?.scrollIntoView({ behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Opening Reports... Here you can view your medical history and test results.`;
+        }
+        
+        // Settings Navigation
+        if (msgLower.includes('settings') || msgLower.includes('preferences')) {
+            if (typeof toggleSettings === 'function') {
+                toggleSettings();
+                closeModal?.('aiChatModal');
+                return `Opening Settings... Here you can customize your app preferences.`;
+            }
+            return `Settings - Use the settings button to access app preferences.`;
+        }
+        
+        // Emergency Navigation
+        if (msgLower.includes('emergency') || msgLower.includes('urgent') || msgLower.includes('help')) {
+            document.getElementById('emergencySection')?.scrollIntoView({ behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Opening Emergency Section... Quick access to emergency contacts and urgent care information.`;
+        }
+        
+        // Support/Contact Navigation
+        if (msgLower.includes('support') || msgLower.includes('contact') || msgLower.includes('feedback')) {
+            document.getElementById('supportSection')?.scrollIntoView({ behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Opening Support... Here you can contact us and send feedback.`;
+        }
+        
+        // Logout/Exit
+        if (msgLower.includes('logout') || msgLower.includes('exit') || msgLower.includes('quit') || 
+            msgLower.includes('close')) {
+            if (typeof logout === 'function') {
+                logout();
+                return `Logging out... Thank you for using HealthNest!`;
+            }
+            return `Logout - Use the logout button to sign out safely.`;
+        }
+        
+        // Home/Main Navigation
+        if (msgLower.includes('home') || msgLower.includes('main') || msgLower.includes('back')) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Going Home... Welcome back to the main page!`;
+        }
+        
+        // Generic Open/Show/Go To Commands
+        if (msgLower.includes('open') || msgLower.includes('show') || msgLower.includes('go to') || 
+            msgLower.includes('navigate') || msgLower.includes('switch') || msgLower.includes('change') || 
+            msgLower.includes('scroll')) {
+            
+            // Try to find specific sections
+            if (msgLower.includes('appointment')) {
+                document.getElementById('appointmentSection')?.scrollIntoView({ behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Opening Appointments...`;
+            } else if (msgLower.includes('profile')) {
+                document.getElementById('profileSection')?.scrollIntoView({ behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Opening Profile...`;
+            } else if (msgLower.includes('dashboard')) {
+                document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Opening Dashboard...`;
+            } else if (msgLower.includes('report')) {
+                document.getElementById('reportsSection')?.scrollIntoView({ behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Opening Reports...`;
+            } else if (msgLower.includes('settings')) {
+                if (typeof toggleSettings === 'function') {
+                    toggleSettings();
+                    closeModal?.('aiChatModal');
+                    return `Opening Settings...`;
+                }
+            } else if (msgLower.includes('emergency')) {
+                document.getElementById('emergencySection')?.scrollIntoView({ behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Opening Emergency Section...`;
+            }
+        }
+        
+        // Advanced Area Navigation - User can specify exact areas
+        if (msgLower.includes('area') || msgLower.includes('section') || msgLower.includes('part')) {
+            
+            // Extract target area from message
+            let targetArea = '';
+            if (msgLower.includes('top') || msgLower.includes('header')) {
+                targetArea = 'top';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Going to top area...`;
+            } else if (msgLower.includes('bottom') || msgLower.includes('footer')) {
+                targetArea = 'bottom';
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Going to bottom area...`;
+            } else if (msgLower.includes('middle') || msgLower.includes('center')) {
+                targetArea = 'middle';
+                window.scrollTo({ top: document.body.scrollHeight / 2, behavior: 'smooth' });
+                closeModal?.('aiChatModal');
+                return `Going to middle area...`;
+            }
+        }
+        
+        // Dynamic Element Search - Find elements by partial matches
+        const possibleElements = [
+            'dashboard', 'profile', 'appointment', 'reports', 'settings', 'emergency',
+            'doctor', 'medicine', 'history', 'records', 'metrics', 'stats', 'calendar',
+            'support', 'contact', 'feedback', 'help', 'home', 'main', 'login', 'signup'
+        ];
+        
+        for (const element of possibleElements) {
+            if (msgLower.includes(element)) {
+                const elementId = element + 'Section';
+                const domElement = document.getElementById(elementId) || 
+                                  document.getElementById(element) || 
+                                  document.querySelector(`[data-section="${element}"]`) ||
+                                  document.querySelector(`.${element}`);
+                
+                if (domElement) {
+                    domElement.scrollIntoView({ behavior: 'smooth' });
+                    closeModal?.('aiChatModal');
+                    return `Navigating to ${element} section...`;
+                }
+            }
+        }
+        
+        return `Navigation Help - Try these commands:
+- "Open dashboard" or "show metrics" - View health metrics
+- "Open profile" or "show profile" - Personal information
+- "Open appointments" or "schedule appointment" - Book appointments
+- "Open reports" or "show history" - Medical records
 - "Dark mode" / "Light mode" - Change theme
-- "Settings" - App preferences`;
+- "Open settings" - App preferences
+- "Emergency" - Urgent help
+- "Home" or "Back" - Go to main page
+- "Logout" - Sign out
+
+You can also say things like "go to appointments", "show my reports", "change to dark mode", etc.`;
     }
     
     // Health metrics handler
@@ -264,14 +421,7 @@ Try these commands:
             return this.formatHeartRateResponse(hr);
         }
         
-        return `📊 **Health Metrics**
-
-I can help you check:
-- **BMI** (Body Mass Index)
-- **Blood Pressure**
-- **Heart Rate**
-
-Try asking: "What is my BMI?"`;
+        return `Health Metrics: I can help you check: BMI (Body Mass Index), Blood Pressure, Heart Rate. Try asking: "What is my BMI?"`;
     }
     
     // Symptoms handler
@@ -279,202 +429,35 @@ Try asking: "What is my BMI?"`;
         const msgLower = msg.toLowerCase();
         
         if (msgLower.includes('headache')) {
-            return `🤕 **Headache Care**
-
-**Immediate Relief:**
-- Drink a large glass of water (dehydration is common)
-- Rest in a quiet, dark room
-- Apply cold compress to forehead
-
-**When to See a Doctor:**
-- Severe or sudden headache
-- Headache with fever, stiff neck
-- Headache after head injury
-- Worsening pattern
-
-*This is general advice. Consult a doctor for persistent symptoms.*`;
+            return `Headache Care: Immediate Relief: Drink a large glass of water (dehydration is common), rest in a quiet, dark room, apply cold compress to forehead. When to See a Doctor: Severe or sudden headache, headache with fever, stiff neck, headache after head injury, worsening pattern. This is general advice. Consult a doctor for persistent symptoms.`;
         }
         
         if (msgLower.includes('fever')) {
-            return `🌡️ **Fever Management**
-
-**Home Care:**
-- Rest and stay hydrated
-- Take lukewarm baths
-- Wear lightweight clothing
-
-**When to Seek Medical Help:**
-- Temperature above 103°F (39.4°C)
-- Fever lasting more than 3 days
-- Fever with severe headache, rash, or confusion
-
-*For children, consult pediatrician for specific guidance.*`;
+            return `Fever Management: Home Care: Rest and stay hydrated, take lukewarm baths, wear lightweight clothing. When to Seek Medical Help: Temperature above 103°F (39.4°C), fever lasting more than 3 days, fever with severe headache, rash, or confusion. For children, consult pediatrician for specific guidance.`;
         }
         
         if (msgLower.includes('cough') || msgLower.includes('sore throat')) {
-            return `🗣️ **Cough & Sore Throat**
-
-**Relief Measures:**
-- Stay hydrated with warm fluids
-- Use honey (1+ year old only)
-- Gargle with warm salt water
-- Use a humidifier
-
-**See Doctor If:**
-- Cough lasts more than 2 weeks
-- Difficulty breathing
-- High fever with cough
-- Coughing up blood
-
-*Persistent symptoms need medical evaluation.*`;
+            return `Cough & Sore Throat: Relief Measures: Stay hydrated with warm fluids, use honey (1+ year old only), gargle with warm salt water, use a humidifier. See Doctor If: Cough lasts more than 2 weeks, difficulty breathing, high fever with cough, coughing up blood. Persistent symptoms need medical evaluation.`;
         }
         
         if (msgLower.includes('cold') || msgLower.includes('flu')) {
-            return `🤧 **Cold & Flu Care**
-
-**Home Remedies:**
-- Rest and stay hydrated
-- Use saline nasal spray
-- Take steam inhalation
-- Eat chicken soup (it really helps!)
-
-**Cold vs Flu:**
-- **Cold:** Gradual onset, mild fever, stuffy nose
-- **Flu:** Sudden onset, high fever, body aches
-
-**When to See Doctor:**
-- Difficulty breathing
-- Persistent high fever
-- Symptoms worsen after 5 days
-- You're in a high-risk group
-
-*Prevention is key - wash hands frequently!*`;
+            return `Cold & Flu Care: Home Remedies: Rest and stay hydrated, use saline nasal spray, take steam inhalation, eat chicken soup (it really helps!). Cold vs Flu: Cold: Gradual onset, mild fever, stuffy nose. Flu: Sudden onset, high fever, body aches. When to See Doctor: Difficulty breathing, persistent high fever, symptoms worsen after 5 days, you're in a high-risk group. Prevention is key - wash hands frequently!`;
         }
         
         if (msgLower.includes('back pain') || msgLower.includes('joint pain') || msgLower.includes('muscle pain')) {
-            return `🦴 **Pain Management**
-
-**Immediate Relief:**
-- Apply ice for first 48 hours (15 mins at a time)
-- Then switch to heat for muscle relaxation
-- Gentle stretching and movement
-- Over-the-counter pain relievers (if appropriate)
-
-**Back Pain Specific:**
-- Maintain good posture
-- Sleep on your side with pillow between knees
-- Strengthen core muscles gradually
-- Avoid heavy lifting
-
-**Joint Pain:**
-- Low-impact exercise (swimming, walking)
-- Maintain healthy weight
-- Warm up before exercise
-- Consider anti-inflammatory foods
-
-**See Doctor If:**
-- Pain lasts more than 2 weeks
-- Pain radiates down legs
-- Numbness or weakness
-- Pain after injury
-
-*Listen to your body - don't push through severe pain!*`;
+            return `Pain Management: Immediate Relief: Apply ice for first 48 hours (15 mins at a time), then switch to heat for muscle relaxation, gentle stretching and movement, over-the-counter pain relievers (if appropriate). Back Pain Specific: Maintain good posture, sleep on your side with pillow between knees, strengthen core muscles gradually, avoid heavy lifting. Joint Pain: Low-impact exercise (swimming, walking), maintain healthy weight, warm up before exercise, consider anti-inflammatory foods. See Doctor If: Pain lasts more than 2 weeks, pain radiates down legs, numbness or weakness, pain after injury. Listen to your body - don't push through severe pain!`;
         }
         
         if (msgLower.includes('allergy') || msgLower.includes('asthma')) {
-            return `🌿 **Allergy & Asthma Management**
-
-**Allergy Relief:**
-- Identify and avoid triggers
-- Use air purifiers
-- Keep windows closed during high pollen
-- Try saline nasal rinses
-- Consider local honey for seasonal allergies
-
-**Asthma Care:**
-- Always have rescue inhaler available
-- Use controller medications as prescribed
-- Identify and avoid triggers
-- Create an asthma action plan
-- Monitor peak flow readings
-
-**Common Triggers:**
-- Pollen, dust mites, pet dander
-- Mold, strong fragrances
-- Cold air, exercise
-- Certain foods
-
-**Emergency Signs:**
-- Difficulty speaking full sentences
-- Blue lips or fingernails
-- No relief from rescue inhaler
-
-*Always follow your doctor's treatment plan!*`;
+            return `Allergy & Asthma Management: Allergy Relief: Identify and avoid triggers, use air purifiers, keep windows closed during high pollen, try saline nasal rinses, consider local honey for seasonal allergies. Asthma Care: Always have rescue inhaler available, use controller medications as prescribed, identify and avoid triggers, create an asthma action plan, monitor peak flow readings. Common Triggers: Pollen, dust mites, pet dander, mold, strong fragrances, cold air, exercise, certain foods. Emergency Signs: Difficulty speaking full sentences, blue lips or fingernails, no relief from rescue inhaler. Always follow your doctor's treatment plan!`;
         }
         
         if (msgLower.includes('diabetes')) {
-            return `🩸 **Diabetes Management**
-
-**Type 2 Diabetes Prevention:**
-- Maintain healthy weight
-- Regular physical activity
-- Balanced diet low in refined sugars
-- Regular health check-ups
-
-**Blood Sugar Management:**
-- Monitor glucose levels as directed
-- Take medications consistently
-- Eat regular, balanced meals
-- Stay hydrated
-- Exercise regularly
-
-**Healthy Eating:**
-- Choose complex carbohydrates
-- Include lean proteins
-- Eat plenty of vegetables
-- Limit processed sugars
-- Control portion sizes
-
-**Warning Signs:**
-- Excessive thirst/urination
-- Unexplained weight loss
-- Extreme fatigue
-- Blurred vision
-- Slow-healing sores
-
-*Work closely with your healthcare team!*`;
+            return `Diabetes Management: Type 2 Diabetes Prevention: Maintain healthy weight, regular physical activity, balanced diet low in refined sugars, regular health check-ups. Blood Sugar Management: Monitor glucose levels as directed, take medications consistently, eat regular, balanced meals, stay hydrated, exercise regularly. Healthy Eating: Choose complex carbohydrates, include lean proteins, eat plenty of vegetables, limit processed sugars, control portion sizes. Warning Signs: Excessive thirst/urination, unexplained weight loss, extreme fatigue, blurred vision, slow-healing sores. Work closely with your healthcare team!`;
         }
         
         if (msgLower.includes('indigestion') || msgLower.includes('constipation')) {
-            return `🍽️ **Digestive Health**
-
-**Indigestion Relief:**
-- Eat smaller, more frequent meals
-- Avoid trigger foods (spicy, fatty, acidic)
-- Stay upright after eating
-- Try ginger or peppermint tea
-- Manage stress
-
-**Constipation Relief:**
-- Increase fiber intake gradually
-- Drink plenty of water
-- Regular physical activity
-- Establish routine bathroom habits
-- Consider probiotic foods
-
-**Fiber-Rich Foods:**
-- Whole grains, beans, lentils
-- Fresh fruits and vegetables
-- Nuts and seeds
-- Popcorn (air-popped)
-
-**When to See Doctor:**
-- Persistent digestive issues
-- Blood in stool
-- Unexplained weight loss
-- Severe abdominal pain
-
-*Gut health is crucial for overall wellness!*`;
+            return `Digestive Health: Indigestion Relief: Eat smaller, more frequent meals, avoid trigger foods (spicy, fatty, acidic), stay upright after eating, try ginger or peppermint tea, manage stress. Constipation Relief: Increase fiber intake gradually, drink plenty of water, regular physical activity, establish routine bathroom habits, consider probiotic foods. Fiber-Rich Foods: Whole grains, beans, lentils, fresh fruits and vegetables, nuts and seeds, popcorn (air-popped). When to See Doctor: Persistent digestive issues, blood in stool, unexplained weight loss, severe abdominal pain. Gut health is crucial for overall wellness!`;
         }
         
         if (msgLower.includes('weakness') || msgLower.includes('numbness') || msgLower.includes('tingling')) {
@@ -579,21 +562,7 @@ Try asking: "What is my BMI?"`;
 *When in doubt, get it checked out!*`;
         }
         
-        return `🏥 **General Symptom Guidance**
-
-I understand you're not feeling well. While I can provide general information, **please consult a healthcare professional** for:
-
-- Accurate diagnosis
-- Personalized treatment
-- Proper medication guidance
-
-**When to Seek Immediate Care:**
-- Severe symptoms
-- Difficulty breathing
-- High fever with confusion
-- Sudden, severe pain
-
-Your health is important - don't hesitate to see a doctor.`;
+        return `General Symptom Guidance: I understand you're not feeling well. While I can provide general information, please consult a healthcare professional for: Accurate diagnosis, personalized treatment, proper medication guidance. When to Seek Immediate Care: Severe symptoms, difficulty breathing, high fever with confusion, sudden, severe pain. Your health is important - don't hesitate to see a doctor.`;
     }
     
     // Lifestyle handler
@@ -1496,7 +1465,118 @@ Type any health question to get started!`;
             return `Relationships are key to health! Combat loneliness by: Joining clubs or groups, volunteering in community, taking classes or workshops, reaching out to old friends, using technology to connect, practicing active listening, being vulnerable and authentic, scheduling regular social time. Remember: Quality relationships are as important as diet and exercise for longevity!`;
         }
         
+        // Natural Navigation Commands in Conversation
+        if (msgLower.includes('take me to') || msgLower.includes('show me') || msgLower.includes('i want to see')) {
+            return this.handleNaturalNavigation(msgLower);
+        }
+        
+        if (msgLower.includes('navigate to') || msgLower.includes('go to') || msgLower.includes('open')) {
+            return this.handleNaturalNavigation(msgLower);
+        }
+        
+        if (msgLower.includes('switch to') || msgLower.includes('change to') || msgLower.includes('scroll to')) {
+            return this.handleNaturalNavigation(msgLower);
+        }
+        
+        if (msgLower.includes('find') || msgLower.includes('search') || msgLower.includes('look for')) {
+            return this.handleNaturalNavigation(msgLower);
+        }
+        
+        if (msgLower.includes('where is') || msgLower.includes('can you find') || msgLower.includes('i need')) {
+            return this.handleNaturalNavigation(msgLower);
+        }
+        
+        if (msgLower.includes('get me to') || msgLower.includes('move to') || msgLower.includes('jump to')) {
+            return this.handleNaturalNavigation(msgLower);
+        }
+        
         return this.getGreeting();
+    }
+    
+    // Natural Navigation Handler for conversational commands
+    handleNaturalNavigation(msgLower) {
+        // Extract the target from the message
+        const targets = {
+            'dashboard': ['dashboard', 'metrics', 'stats', 'overview', 'summary', 'health data'],
+            'profile': ['profile', 'personal', 'my info', 'my details', 'account'],
+            'appointment': ['appointment', 'appointments', 'booking', 'schedule', 'calendar', 'doctor visit'],
+            'reports': ['reports', 'report', 'history', 'records', 'tests', 'lab results', 'vitals', 'medical'],
+            'settings': ['settings', 'preferences', 'options', 'config', 'setup'],
+            'emergency': ['emergency', 'urgent', 'help', 'crisis', 'urgent care'],
+            'support': ['support', 'contact', 'feedback', 'help', 'assist'],
+            'home': ['home', 'main', 'start', 'beginning', 'top'],
+            'doctor': ['doctor', 'medic', 'physician', 'specialist'],
+            'medicine': ['medicine', 'medications', 'drugs', 'prescriptions', 'pharmacy']
+        };
+        
+        for (const [target, keywords] of Object.entries(targets)) {
+            for (const keyword of keywords) {
+                if (msgLower.includes(keyword)) {
+                    return this.navigateToSection(target);
+                }
+            }
+        }
+        
+        // Handle theme changes
+        if (msgLower.includes('dark') && (msgLower.includes('mode') || msgLower.includes('theme'))) {
+            if (typeof changeTheme === 'function') {
+                changeTheme('dark');
+                closeModal?.('aiChatModal');
+                return `Switching to dark mode... Easier on the eyes for evening use!`;
+            }
+        }
+        
+        if (msgLower.includes('light') && (msgLower.includes('mode') || msgLower.includes('theme'))) {
+            if (typeof changeTheme === 'function') {
+                changeTheme('light');
+                closeModal?.('aiChatModal');
+                return `Switching to light mode... Bright and clear for daytime use!`;
+            }
+        }
+        
+        return `I can help you navigate! Try saying: "take me to dashboard", "show me my profile", "open appointments", "switch to dark mode", or "go to reports".`;
+    }
+    
+    // Helper method to navigate to specific sections
+    navigateToSection(section) {
+        const elementMap = {
+            'dashboard': 'dashboard',
+            'profile': 'profileSection',
+            'appointment': 'appointmentSection',
+            'reports': 'reportsSection',
+            'settings': 'settings',
+            'emergency': 'emergencySection',
+            'support': 'supportSection',
+            'doctor': 'doctorSection',
+            'medicine': 'medicineSection',
+            'home': 'top'
+        };
+        
+        const elementId = elementMap[section];
+        
+        if (elementId === 'top') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Taking you to ${section}...`;
+        }
+        
+        if (elementId === 'settings' && typeof toggleSettings === 'function') {
+            toggleSettings();
+            closeModal?.('aiChatModal');
+            return `Opening ${section}...`;
+        }
+        
+        const element = document.getElementById(elementId) || 
+                        document.querySelector(`[data-section="${section}"]`) ||
+                        document.querySelector(`.${section}`);
+        
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            closeModal?.('aiChatModal');
+            return `Taking you to ${section}...`;
+        }
+        
+        return `I couldn't find the ${section} section. It might not be available yet.`;
     }
     
     // Complex topics handler
