@@ -1060,31 +1060,49 @@ function scrollFeatures(direction) {
         chatBox.appendChild(thinkingBubble);
         chatBox.scrollTop = chatBox.scrollHeight;
         
-        // Generate AI response using VANIE.js
+        // Generate AI response using VANIE.js with backend integration
         setTimeout(() => {
             let aiResponse = "Sorry, I couldn't process that. Please try again.";
             try {
-                // Call getAIResponse from VANIE.js
-                if (typeof getAIResponse === 'function') {
+                // Check if backend system is available and working
+                if (window.chatBackend && typeof window.chatBackend.processMessage === 'function') {
+                    try {
+                        const backendResponse = window.chatBackend.processMessage(userMessage);
+                        if (backendResponse && backendResponse.trim()) {
+                            aiResponse = backendResponse;
+                            console.log('Using backend response for:', userMessage);
+                        } else {
+                            throw new Error('Backend returned empty response');
+                        }
+                    } catch (backendError) {
+                        console.warn('Backend failed, falling back to VANIE.js:', backendError);
+                        // Fallback to VANIE.js
+                        if (typeof getAIResponse === 'function') {
+                            const result = getAIResponse(userMessage);
+                            aiResponse = typeof result === 'string' ? result : String(result ?? aiResponse);
+                        } else {
+                            throw new Error('Both backend and VANIE.js failed');
+                        }
+                    }
+                } else if (typeof getAIResponse === 'function') {
+                    // Use VANIE.js directly if backend not available
                     const result = getAIResponse(userMessage);
                     aiResponse = typeof result === 'string' ? result : String(result ?? aiResponse);
+                    console.log('Using VANIE.js response for:', userMessage);
                 } else {
-                    console.error('getAIResponse function not found in VANIE.js');
-                    aiResponse = "I'm having trouble accessing my knowledge base. Please try again.";
+                    throw new Error('No AI response system available');
                 }
+                
+                // Log response category if available
+                if (window.chatBackend && typeof window.chatBackend.detectCategory === 'function') {
+                    const category = window.chatBackend.detectCategory(userMessage);
+                    console.log(`Response category: ${category}`);
+                }
+                
             } catch (err) {
-                console.error('getAIResponse error', err);
-                // Fallback to help response
-                try {
-                    if (typeof getAIResponse === 'function') {
-                        aiResponse = getAIResponse('help');
-                    } else {
-                        aiResponse = "I'm temporarily unable to respond. Please try again in a moment.";
-                    }
-                } catch (err2) {
-                    console.error('getAIResponse fallback error', err2);
-                    aiResponse = "I'm temporarily unable to respond. Please try again in a moment.";
-                }
+                console.error('AI response system error:', err);
+                // Provide helpful fallback response
+                aiResponse = `🤔 **I'm having trouble processing that**\n\nLet me help you differently. Try asking:\n• "What is my BMI?"\n• "How to improve sleep?"\n• "Headache remedies"\n• "Open dashboard"\n• Type "help" for more options\n\nIf the problem continues, try refreshing the page.`;
             }
 
             thinkingBubble.innerHTML = `<div></div>`; // Clear typing indicator
