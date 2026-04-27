@@ -85,7 +85,14 @@ class VANIEAlgorithm {
                     'awesome', 'great', 'fantastic', 'amazing', 'wonderful', 'excellent',
                     'bored', 'tired', 'sleepy', 'hungry', 'thirsty', 'happy', 'sad',
                     'angry', 'excited', 'nervous', 'scared', 'worried', 'confused',
-                    'movie', 'music', 'song', 'game', 'book', 'story', 'news', 'time'
+                    'movie', 'music', 'song', 'game', 'book', 'story', 'news', 'time',
+                    'family', 'friends', 'work', 'school', 'college', 'office', 'home',
+                    'weekend', 'holiday', 'vacation', 'travel', 'food', 'cooking', 'recipe',
+                    'morning', 'night', 'day', 'today', 'tomorrow', 'yesterday', 'routine',
+                    'stress', 'anxiety', 'depression', 'lonely', 'relationship', 'love',
+                    'money', 'job', 'career', 'study', 'exam', 'test', 'project', 'deadline',
+                    'birthday', 'festival', 'celebration', 'party', 'gift', 'surprise',
+                    'pet', 'dog', 'cat', 'animal', 'garden', 'plant', 'nature', 'environment'
                 ],
                 handler: this.handleConversation.bind(this)
             },
@@ -1295,26 +1302,26 @@ Update your profile with:
         const hour = new Date().getHours();
         
         if (msgLower.includes('help')) {
-            return `🤖 **VANIE AI Assistant - Help Menu**
+            return `🤖 VANIE AI Assistant - Help Menu
 
 I can help you with:
 
-🏥 **Health Information**
+Health Information
 - Check your BMI, blood pressure, heart rate
 - Get general health tips and advice
 - Understand symptoms and conditions
 
-📱 **App Navigation**
+App Navigation
 - Open dashboard or profile
 - Change themes (dark/light mode)
 - Set health goals
 
-🤖 **General Chat**
+General Chat
 - Answer health-related questions
 - Provide wellness tips
 - Emergency guidance when needed
 
-**Try asking:**
+Try asking:
 - "What is my BMI?"
 - "How to improve sleep?"
 - "Headache remedies"
@@ -1329,421 +1336,164 @@ Type any health question to get started!`;
         }
         
         if (msgLower.includes('thank') || msgLower.includes('thanks')) {
-            return `😊 **You're welcome!**
-
-I'm happy to help with your health questions. Anything else I can assist with?`;
+            return `You're welcome! I'm happy to help with your health questions. Anything else I can assist with?`;
         }
         
         if (msgLower.includes('bye') || msgLower.includes('goodbye')) {
-            return `👋 **Goodbye!**
-
-Take care of yourself! Remember: I'm here whenever you need health guidance.
-
-*Stay healthy and well!*`;
+            return `Goodbye! Take care of yourself! Remember: I'm here whenever you need health guidance. Stay healthy and well!`;
         }
         
         if (msgLower.includes('how are you')) {
-            return `🤖 **I'm functioning perfectly!**
-
-Ready to help with your health questions. My purpose is to provide you with accurate health information and guidance.
-
-How can I assist you today?`;
+            return `I'm functioning perfectly! Ready to help with your health questions. My purpose is to provide you with accurate health information and guidance. How can I assist you today?`;
         }
         
         if (msgLower.includes('your name') || msgLower.includes('who are you')) {
-            return `🤖 **I'm VANIE** - Virtual Assistant for Nursing & Health Information & Education
-
-Your dedicated health companion here to:
-- Answer health questions
-- Provide wellness guidance
-- Help navigate the app
-- Support your health journey
-
-*I'm here to help you stay healthy!*`;
+            return `I'm VANIE - Virtual Assistant for Nursing & Health Information & Education. Your dedicated health companion here to answer health questions, provide wellness guidance, help navigate the app, and support your health journey. I'm here to help you stay healthy!`;
         }
         
         if (msgLower.includes('joke')) {
-            return `😂 **Health Humor!**
-
-Why don't skeletons fight each other?
-
-They don't have the guts! 💀
-
-*Sometimes laughter is the best medicine!*`;
+            return `Health Humor! Why don't skeletons fight each other? They don't have the guts! Sometimes laughter is the best medicine!`;
         }
         
         if (msgLower.includes('weather')) {
-            return `🌤️ **Weather & Health**
-
-I can't check live weather, but here's how weather affects health:
-
-**Hot Weather:**
-- Stay hydrated
-- Avoid peak sun hours
-- Watch for heat exhaustion
-
-**Cold Weather:**
-- Keep warm and dry
-- Watch for flu symptoms
-- Maintain indoor exercise
-
-**Any weather:** Stay active and healthy!`;
+            return `I can't check live weather, but here's how weather affects health: Hot Weather: Stay hydrated, avoid peak sun hours, watch for heat exhaustion. Cold Weather: Keep warm and dry, watch for flu symptoms, maintain indoor exercise. Any weather: Stay active and healthy!`;
         }
         
         // Indian greetings
         if (msgLower.includes('namaste') || msgLower.includes('sat sri akal') || msgLower.includes('assalam o alaikum')) {
-            return `🙏 **Greetings!**
-
-Thank you for your warm greeting! I'm VANIE, your health assistant.
-
-How can I help you with your health today?`;
+            return `Greetings! Thank you for your warm greeting! I'm VANIE, your health assistant. How can I help you with your health today?`;
         }
         
         // Casual greetings
         if (msgLower.includes('what\'s up') || msgLower.includes('howdy') || msgLower.includes('greetings')) {
-            return `👋 **Hello there!**
-
-Not much - just here to help you stay healthy! 
-
-What health questions do you have for me today?`;
+            return `Hello there! Not much - just here to help you stay healthy! What health questions do you have for me today?`;
         }
         
         // Compliments
         if (msgLower.includes('awesome') || msgLower.includes('great') || msgLower.includes('fantastic') || 
             msgLower.includes('amazing') || msgLower.includes('wonderful') || msgLower.includes('excellent')) {
-            return `😊 **Thank you so much!**
-
-Your kind words mean a lot to me! I'm always striving to provide the best health guidance.
-
-Is there anything specific I can help you with today?`;
+            return `Thank you so much! Your kind words mean a lot to me! I'm always striving to provide the best health guidance. Is there anything specific I can help you with today?`;
         }
         
         // Emotional states
         if (msgLower.includes('bored')) {
-            return `🎯 **Let's make things interesting!**
-
-Boredom can actually be good for creativity! How about:
-
-🏃‍♂️ **Quick Health Challenge:**
-- 10 jumping jacks
-- Drink a glass of water
-- Do 5 deep breaths
-
-🧠 **Learn Something New:**
-- Ask me about any health topic
-- "Tell me about vitamins"
-- "How does the brain work?"
-
-💡 **Fun Fact:** Did you know that laughing 100 times is equivalent to 15 minutes of exercise?
-
-What would you like to explore?`;
+            return `Let's make things interesting! Boredom can actually be good for creativity! How about: Quick Health Challenge: 10 jumping jacks, drink a glass of water, do 5 deep breaths. Learn Something New: Ask me about any health topic, "Tell me about vitamins", "How does the brain work?" Fun Fact: Did you know that laughing 100 times is equivalent to 15 minutes of exercise? What would you like to explore?`;
         }
         
         if (msgLower.includes('tired') || msgLower.includes('sleepy')) {
-            return `😴 **Feeling tired?**
-
-That's your body telling you to rest! Here are some quick energy boosters:
-
-⚡ **Immediate Pick-Me-Ups:**
-- Splash cold water on your face
-- Do 5 minutes of stretching
-- Eat a handful of nuts or fruit
-- Take 10 deep breaths
-
-💧 **Check Your Hydration:**
-- Dehydration is a common cause of fatigue
-- Try drinking a full glass of water
-
-🌙 **Long-Term Energy:**
-- Aim for 7-9 hours of sleep
-- Regular exercise boosts energy
-- Balanced meals prevent energy crashes
-
-Need more personalized energy tips?`;
+            return `Feeling tired? That's your body telling you to rest! Here are some quick energy boosters: Immediate Pick-Me-Ups: Splash cold water on your face, do 5 minutes of stretching, eat a handful of nuts or fruit, take 10 deep breaths. Check Your Hydration: Dehydration is a common cause of fatigue, try drinking a full glass of water. Long-Term Energy: Aim for 7-9 hours of sleep, regular exercise boosts energy, balanced meals prevent energy crashes. Need more personalized energy tips?`;
         }
         
         if (msgLower.includes('hungry')) {
-            return `🍎 **Let's talk healthy snacks!**
-
-Here are some great options to satisfy your hunger:
-
-🥜 **Quick & Easy:**
-- Handful of almonds or walnuts
-- Apple with peanut butter
-- Greek yogurt with berries
-- Carrot sticks with hummus
-
-🥗 **Light Meals:**
-- Mixed green salad with grilled chicken
-- Quinoa bowl with vegetables
-- Whole grain toast with avocado
-
-💡 **Tip:** Eating protein with carbs helps you feel full longer!
-
-What kind of snacks do you usually enjoy?`;
+            return `Let's talk healthy snacks! Here are some great options to satisfy your hunger: Quick & Easy: Handful of almonds or walnuts, apple with peanut butter, Greek yogurt with berries, carrot sticks with hummus. Light Meals: Mixed green salad with grilled chicken, quinoa bowl with vegetables, whole grain toast with avocado. Tip: Eating protein with carbs helps you feel full longer! What kind of snacks do you usually enjoy?`;
         }
         
         if (msgLower.includes('thirsty')) {
-            return `💧 **Stay hydrated!**
-
-Great that you're listening to your body! Here's how to hydrate effectively:
-
-🚰 **Water Goals:**
-- 8 glasses (64 oz) daily minimum
-- More if you exercise or it's hot
-- Your urine should be light yellow
-
-🍋 **Hydration Boosters:**
-- Add lemon to water for flavor
-- Herbal teas count too!
-- Water-rich foods: watermelon, cucumber, oranges
-
-⚠️ **Signs of Dehydration:**
-- Dark urine
-- Dry mouth
-- Headache
-- Fatigue
-
-Keep sipping throughout the day!`;
+            return `Stay hydrated! Great that you're listening to your body! Here's how to hydrate effectively: Water Goals: 8 glasses (64 oz) daily minimum, more if you exercise or it's hot, your urine should be light yellow. Hydration Boosters: Add lemon to water for flavor, herbal teas count too, water-rich foods: watermelon, cucumber, oranges. Signs of Dehydration: Dark urine, dry mouth, headache, fatigue. Keep sipping throughout the day!`;
         }
         
         if (msgLower.includes('happy') || msgLower.includes('excited')) {
-            return `🎉 **That's wonderful to hear!**
-
-Happiness is actually great for your health! Here's why:
-
-❤️ **Health Benefits of Happiness:**
-- Lowers blood pressure
-- Boosts immune system
-- Reduces stress hormones
-- Increases lifespan
-
-🌟 **Keep the Good Vibes Going:**
-- Share your joy with others
-- Practice gratitude
-- Engage in activities you love
-- Exercise releases endorphins
-
-What's making you so happy today? I'd love to hear!`;
+            return `That's wonderful to hear! Happiness is actually great for your health! Here's why: Health Benefits of Happiness: Lowers blood pressure, boosts immune system, reduces stress hormones, increases lifespan. Keep the Good Vibes Going: Share your joy with others, practice gratitude, engage in activities you love, exercise releases endorphins. What's making you so happy today? I'd love to hear!`;
         }
         
         if (msgLower.includes('sad')) {
-            return `🤗 **I'm here for you**
-
-It's okay to feel sad sometimes. Here are some gentle ways to care for yourself:
-
-🌈 **Mood Boosters:**
-- Listen to uplifting music
-- Take a short walk outside
-- Call or text a friend
-- Watch something funny
-
-🧘 **Self-Care:**
-- Deep breathing: 4 counts in, 6 counts out
-- Write down your feelings
-- Take a warm bath or shower
-- Get some gentle exercise
-
-💙 **Remember:**
-- It's temporary - this feeling will pass
-- You're stronger than you think
-- Reaching out for help is brave
-
-Would you like to talk more about what's bothering you?`;
+            return `I'm here for you. It's okay to feel sad sometimes. Here are some gentle ways to care for yourself: Mood Boosters: Listen to uplifting music, take a short walk outside, call or text a friend, watch something funny. Self-Care: Deep breathing: 4 counts in, 6 counts out, write down your feelings, take a warm bath or shower, get some gentle exercise. Remember: It's temporary - this feeling will pass, you're stronger than you think, reaching out for help is brave. Would you like to talk more about what's bothering you?`;
         }
         
         if (msgLower.includes('angry') || msgLower.includes('frustrated')) {
-            return `😤 **Let's work through that anger**
-
-Anger is a normal emotion - let's channel it constructively:
-
-🔥 **Healthy Anger Release:**
-- Physical activity: running, punching bag, intense exercise
-- Deep breathing to calm your nervous system
-- Write down what's making you angry
-- Talk to someone you trust
-
-🧘 **Quick Calming Techniques:**
-- Count to 10 slowly
-- Splash cold water on your face
-- Step away from the situation
-- Progressive muscle relaxation
-
-💡 **Remember:** Anger itself isn't bad - it's how we handle it that matters.
-
-What triggered this feeling? Talking about it might help.`;
+            return `Let's work through that anger. Anger is a normal emotion - let's channel it constructively: Healthy Anger Release: Physical activity: running, punching bag, intense exercise, deep breathing to calm your nervous system, write down what's making you angry, talk to someone you trust. Quick Calming Techniques: Count to 10 slowly, splash cold water on your face, step away from the situation, progressive muscle relaxation. Remember: Anger itself isn't bad - it's how we handle it that matters. What triggered this feeling? Talking about it might help.`;
         }
         
         if (msgLower.includes('scared') || msgLower.includes('nervous') || msgLower.includes('worried')) {
-            return `🛡️ **You're safe here**
-
-Anxiety and fear are your body's protection system. Let's calm it together:
-
-🌬️ **Grounding Exercise - 5-4-3-2-1:**
-- **5** things you can see
-- **4** things you can touch
-- **3** things you can hear
-- **2** things you can smell
-- **1** thing you can taste
-
-💪 **Confidence Boosters:**
-- Remember past challenges you've overcome
-- Break big problems into small steps
-- Talk to someone supportive
-- Practice deep, slow breathing
-
-🌟 **You've got this!** What specifically is worrying you?`;
+            return `You're safe here. Anxiety and fear are your body's protection system. Let's calm it together: Grounding Exercise - 5-4-3-2-1: 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, 1 thing you can taste. Confidence Boosters: Remember past challenges you've overcome, break big problems into small steps, talk to someone supportive, practice deep, slow breathing. You've got this! What specifically is worrying you?`;
         }
         
         if (msgLower.includes('confused')) {
-            return `🤔 **Let's clear things up!**
-
-Confusion happens when we have too much information. Let's simplify:
-
-🎯 **Step-by-Step Approach:**
-1. What exactly are you trying to understand?
-2. What do you already know?
-3. What specific questions do you have?
-
-📝 **I'm here to help explain:**
-- Health topics in simple terms
-- Medical concepts in easy language
-- Step-by-step guidance
-- Answer any follow-up questions
-
-💡 **No question is too basic!** What would you like me to clarify?`;
+            return `Let's clear things up! Confusion happens when we have too much information. Let's simplify: Step-by-Step Approach: 1. What exactly are you trying to understand? 2. What do you already know? 3. What specific questions do you have? I'm here to help explain: Health topics in simple terms, medical concepts in easy language, step-by-step guidance, answer any follow-up questions. No question is too basic! What would you like me to clarify?`;
         }
         
         // Entertainment topics
         if (msgLower.includes('movie') || msgLower.includes('music') || msgLower.includes('song')) {
-            return `🎬 **Entertainment & Health**
-
-Did you know entertainment can be good for your health?
-
-🎵 **Music Benefits:**
-- Reduces stress and anxiety
-- Lowers blood pressure
-- Improves mood and motivation
-- Helps with exercise performance
-
-🎥 **Movies & Mental Health:**
-- Comedy releases endorphins
-- Dramas build empathy
-- Action movies can be exciting stress relief
-- Documentaries can be educational
-
-🎮 **Healthy Entertainment Balance:**
-- Take breaks every 30-60 minutes
-- Stand up and stretch
-- Stay hydrated
-- Don't watch screens right before bed
-
-What's your favorite way to unwind?`;
+            return `Entertainment & Health: Did you know entertainment can be good for your health? Music Benefits: Reduces stress and anxiety, lowers blood pressure, improves mood and motivation, helps with exercise performance. Movies & Mental Health: Comedy releases endorphins, dramas build empathy, action movies can be exciting stress relief, documentaries can be educational. Healthy Entertainment Balance: Take breaks every 30-60 minutes, stand up and stretch, stay hydrated, don't watch screens right before bed. What's your favorite way to unwind?`;
         }
         
         if (msgLower.includes('game')) {
-            return `🎮 **Gaming & Health**
-
-Gaming can actually have health benefits when done right:
-
-✅ **Positive Effects:**
-- Improves problem-solving skills
-- Enhances hand-eye coordination
-- Social connection through multiplayer games
-- Stress relief and entertainment
-
-⚠️ **Healthy Gaming Habits:**
-- Take breaks every hour (20-20-20 rule for eyes)
-- Maintain good posture
-- Stay hydrated and stretch
-- Don't play right before sleep
-- Balance with physical activity
-
-🏃‍♂️ **Active Gaming:**
-- VR games for exercise
-- Motion-based games
-- Fitness gaming apps
-
-What games do you enjoy?`;
+            return `Gaming & Health: Gaming can actually have health benefits when done right. Positive Effects: Improves problem-solving skills, enhances hand-eye coordination, social connection through multiplayer games, stress relief and entertainment. Healthy Gaming Habits: Take breaks every hour (20-20-20 rule for eyes), maintain good posture, stay hydrated and stretch, don't play right before sleep, balance with physical activity. Active Gaming: VR games for exercise, motion-based games, fitness gaming apps. What games do you enjoy?`;
         }
         
         if (msgLower.includes('book') || msgLower.includes('story')) {
-            return `📚 **Reading & Mental Health**
-
-Reading is fantastic for your brain and wellbeing! 🧠
-
-📖 **Health Benefits of Reading:**
-- Reduces stress by 68% (research shows!)
-- Improves memory and concentration
-- Increases empathy and emotional intelligence
-- Better sleep compared to screen time
-- Expands knowledge and vocabulary
-
-🌙 **Bedtime Reading:**
-- Helps you wind down
-- Reduces blue light exposure
-- Improves sleep quality
-- Creates a relaxing routine
-
-📚 **Health-Related Book Recommendations:**
-- "How Not to Die" by Michael Greger
-- "The Body Keeps the Score" by Bessel van der Kolk
-- "Atomic Habits" by James Clear
-
-What kind of books do you enjoy reading?`;
+            return `Reading & Mental Health: Reading is fantastic for your brain and wellbeing! Health Benefits of Reading: Reduces stress by 68% (research shows!), improves memory and concentration, increases empathy and emotional intelligence, better sleep compared to screen time, expands knowledge and vocabulary. Bedtime Reading: Helps you wind down, reduces blue light exposure, improves sleep quality, creates a relaxing routine. Health-Related Book Recommendations: "How Not to Die" by Michael Greger, "The Body Keeps the Score" by Bessel van der Kolk, "Atomic Habits" by James Clear. What kind of books do you enjoy reading?`;
         }
         
         if (msgLower.includes('news')) {
-            return `📰 **News & Mental Health**
-
-Staying informed is important, but news can affect our health:
-
-⚠️ **News-Related Stress:**
-- Can increase anxiety and worry
-- May disrupt sleep
-- Can lead to "doomscrolling"
-- Affects mood and outlook
-
-🛡️ **Healthy News Habits:**
-- Limit news to specific times
-- Choose reliable sources
-- Take breaks from constant updates
-- Balance with positive content
-- Don't check news before bed
-
-💪 **Stay Informed, Stay Calm:**
-- Focus on what you can control
-- Practice self-care during stressful times
-- Talk about concerns with others
-- Limit social media news consumption
-
-How are you feeling about current events?`;
+            return `News & Mental Health: Staying informed is important, but news can affect our health. News-Related Stress: Can increase anxiety and worry, may disrupt sleep, can lead to "doomscrolling", affects mood and outlook. Healthy News Habits: Limit news to specific times, choose reliable sources, take breaks from constant updates, balance with positive content, don't check news before bed. Stay Informed, Stay Calm: Focus on what you can control, practice self-care during stressful times, talk about concerns with others, limit social media news consumption. How are you feeling about current events?`;
         }
         
         if (msgLower.includes('time')) {
             const currentTime = new Date().toLocaleTimeString();
             const currentDate = new Date().toLocaleDateString();
             
-            return `⏰ **Time & Health**
-
-Current time: ${currentTime}
-Today's date: ${currentDate}
-
-⏳ **Time Management for Health:**
-- Schedule exercise like appointments
-- Meal prep saves time and improves nutrition
-- Sleep schedule regulates your body clock
-- "Me time" reduces stress
-
-🎯 **Health Timing Tips:**
-- Exercise in morning for energy boost
-- Avoid caffeine after 2 PM
-- Screen-free hour before bed
-- Consistent meal times help metabolism
-
-⏰ **Remember:** Your health is worth making time for!
-
-What health goals would you like to schedule time for?`;
+            return `Time & Health: Current time: ${currentTime}, Today's date: ${currentDate}. Time Management for Health: Schedule exercise like appointments, meal prep saves time and improves nutrition, sleep schedule regulates your body clock, "me time" reduces stress. Health Timing Tips: Exercise in morning for energy boost, avoid caffeine after 2 PM, screen-free hour before bed, consistent meal times help metabolism. Remember: Your health is worth making time for! What health goals would you like to schedule time for?`;
+        }
+        
+        // Family and relationships
+        if (msgLower.includes('family') || msgLower.includes('friends')) {
+            return `Family and friends are crucial for your health! Strong social connections can: Boost your immune system, reduce stress levels, increase longevity, improve mental health, provide emotional support. Health tips for relationships: Schedule regular family time, eat meals together, exercise with friends, share health goals, support each other's wellness journeys. Remember: Quality time with loved ones is as important as diet and exercise for overall health!`;
+        }
+        
+        // Work and study
+        if (msgLower.includes('work') || msgLower.includes('school') || msgLower.includes('college') || msgLower.includes('office')) {
+            return `Balancing work/study with health is essential! Tips for staying healthy: Take regular breaks (5 mins every hour), practice good posture at your desk, stay hydrated throughout the day, pack healthy lunches, use stairs instead of elevator, manage stress with deep breathing, maintain work-life balance, get enough sleep. Remember: Your career success depends on your physical and mental wellbeing!`;
+        }
+        
+        // Home and daily routine
+        if (msgLower.includes('home') || msgLower.includes('routine') || msgLower.includes('morning') || msgLower.includes('night')) {
+            return `A healthy daily routine makes a big difference! Morning routine: Start with glass of water, 10 minutes stretching, healthy breakfast, plan your day. Evening routine: Light exercise or walk, healthy dinner, screen-free time before bed, prepare for tomorrow. Weekend routine: Meal prep, outdoor activities, relaxation time, social connections. Small consistent habits lead to big health improvements!`;
+        }
+        
+        // Weekend and holidays
+        if (msgLower.includes('weekend') || msgLower.includes('holiday') || msgLower.includes('vacation')) {
+            return `Weekends and holidays are great for health! Use them to: Catch up on sleep, try new healthy recipes, explore outdoor activities, connect with loved ones, practice stress-reducing hobbies, prepare healthy meals for the week, schedule wellness appointments. Remember: Rest and recovery are just as important as exercise for your health!`;
+        }
+        
+        // Travel
+        if (msgLower.includes('travel')) {
+            return `Travel can be healthy with planning! Tips: Stay hydrated during flights, pack healthy snacks, maintain sleep schedule, walk around during long trips, research local healthy food options, continue exercise routine, protect yourself from sun, carry basic medications, get travel insurance. Safe travels and healthy adventures!`;
+        }
+        
+        // Food and cooking
+        if (msgLower.includes('food') || msgLower.includes('cooking') || msgLower.includes('recipe')) {
+            return `Healthy cooking is easier than you think! Start with: Simple recipes with 5 ingredients, meal prep on weekends, batch cooking basics, try one new recipe weekly, involve family in cooking, use fresh herbs for flavor, experiment with spices instead of salt, cook with healthy oils. Cooking at home saves money and improves nutrition!`;
+        }
+        
+        // Money and career
+        if (msgLower.includes('money') || msgLower.includes('job') || msgLower.includes('career')) {
+            return `Financial health affects physical health! Stress management: Create a budget, build emergency fund, invest in health insurance, prioritize preventive care, negotiate work-life balance, consider career satisfaction, seek professional help when needed. Remember: Financial stress can cause physical symptoms like headaches, poor sleep, and weakened immunity.`;
+        }
+        
+        // Study and exams
+        if (msgLower.includes('study') || msgLower.includes('exam') || msgLower.includes('test') || msgLower.includes('project') || msgLower.includes('deadline')) {
+            return `Study health is important! Tips: Take 10-minute breaks every hour, stay hydrated and snack healthy, get 7-9 hours sleep before exams, practice deep breathing for anxiety, study in natural light, exercise to boost brain function, avoid all-nighters, use aromatherapy (lavender for calm), stay organized to reduce stress. Your brain works best when your body is healthy!`;
+        }
+        
+        // Celebrations
+        if (msgLower.includes('birthday') || msgLower.includes('festival') || msgLower.includes('celebration') || msgLower.includes('party') || msgLower.includes('gift')) {
+            return `Celebrations can be healthy! Tips: Choose healthier party foods, stay hydrated with water instead of sugary drinks, dance for exercise, enjoy treats in moderation, focus on social connection, get enough sleep after late nights, practice mindful eating, suggest active celebrations like hiking or sports. Life's celebrations should enhance your health, not harm it!`;
+        }
+        
+        // Pets
+        if (msgLower.includes('pet') || msgLower.includes('dog') || msgLower.includes('cat') || msgLower.includes('animal')) {
+            return `Pets are wonderful for health! Benefits: Lower blood pressure, reduce stress and anxiety, increase physical activity (dog walking), boost mood and happiness, provide companionship, improve heart health, strengthen immune system. Pet care tips: Regular vet check-ups, proper nutrition, daily exercise, grooming, mental stimulation. Remember: Taking care of pets teaches us to take care of ourselves!`;
+        }
+        
+        // Nature and environment
+        if (msgLower.includes('garden') || msgLower.includes('plant') || msgLower.includes('nature') || msgLower.includes('environment')) {
+            return `Nature is healing! Benefits: Reduces stress and anxiety, boosts immune system, improves mood, increases energy levels, better sleep quality, enhanced creativity. Ways to connect: Daily walks in parks, gardening at home, indoor plants for air quality, weekend hiking, nature photography, outdoor meditation, bird watching, stargazing. Even 20 minutes in nature daily improves health significantly!`;
+        }
+        
+        // Loneliness and relationships
+        if (msgLower.includes('lonely') || msgLower.includes('relationship')) {
+            return `Relationships are key to health! Combat loneliness by: Joining clubs or groups, volunteering in community, taking classes or workshops, reaching out to old friends, using technology to connect, practicing active listening, being vulnerable and authentic, scheduling regular social time. Remember: Quality relationships are as important as diet and exercise for longevity!`;
         }
         
         return this.getGreeting();
