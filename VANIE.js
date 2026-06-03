@@ -1,6 +1,6 @@
 /*
  * VANIE (Virtual Assistant for Nursing & Health Information & Education)
- * Complete AI Chat System - Merged Backend and Test Functionality
+ * Complete AI Chat System - Merged Backend and Test Functionality.
  * This single file contains the entire VANIE AI response system
  * Version: 2.0 - Unified System 
  */ 
