@@ -1,7 +1,7 @@
 /*
  * Test file for VANIE AI Chat Backend System  
  * This file can be used to test the chat functionality
- */
+ */ 
 
 // Test function to verify the backend system works
 function testChatBackend() {
