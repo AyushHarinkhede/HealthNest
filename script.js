@@ -1,4 +1,4 @@
-// --- GLOBAL  VARIABLES ---  
+// --- GLOBAL  VARIABLES  ---  
     let healthChartInstance = null;
     let newProfilePicSrc = null; // To hold new picture URL temporarily
     let isIncognitoMode = false; // Track incognito mode state 
