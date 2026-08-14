@@ -1,4 +1,4 @@
-/*
+/* 
  * Test file for VANIE AI Chat Backend System  
  * This file can be used to test the. chat functionality  
  */ 
@@ -81,4 +81,4 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 
 // Make test functions available globally
 window.testChatBackend = testChatBackend;
-window.testVanieIntegration = testVanieIntegration;
+window.testVanieIntegration = testVanieIntegration; 
