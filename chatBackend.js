@@ -1,5 +1,5 @@
 /*
- * CHAT BACKEND SYSTEM for VANIE AI 
+ * CHAT BACKEND SYSTEM for VANIE AI
  * This file provides backend response logic for VANIE AI chat functionality
  * It connects with VANIE.js to provide clear, structured responses
  */
